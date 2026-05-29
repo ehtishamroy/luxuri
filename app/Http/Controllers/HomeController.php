@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Destination;
+use App\Models\HomepageSetting;
 use App\Models\MagazinePost;
 use App\Models\Villa;
 use Artesaos\SEOTools\Facades\SEOTools;
@@ -41,6 +42,8 @@ class HomeController extends Controller
             ->take(4)
             ->get();
 
-        return view('index', compact('destinations', 'featuredVillas', 'recentPosts'));
+        $homepageSettings = HomepageSetting::query()->first();
+
+        return view('index', compact('destinations', 'featuredVillas', 'recentPosts', 'homepageSettings'));
     }
 }

@@ -13,17 +13,6 @@ return new class extends Migration
     {
         Schema::create('destinations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug')->unique();
-            $table->text('description')->nullable();
-            $table->string('hero_image')->nullable();
-            $table->string('hero_video')->nullable();
-            $table->string('country')->nullable();
-            $table->string('meta_title')->nullable();
-            $table->text('meta_description')->nullable();
-            $table->string('og_image')->nullable();
-            $table->unsignedSmallInteger('sort_order')->default(0);
-            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }

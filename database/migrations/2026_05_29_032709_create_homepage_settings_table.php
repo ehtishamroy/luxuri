@@ -13,11 +13,6 @@ return new class extends Migration
     {
         Schema::create('homepage_settings', function (Blueprint $table) {
             $table->id();
-            $table->string('hero_title')->nullable();
-            $table->text('hero_subtitle')->nullable();
-            $table->string('popular_destinations_title')->nullable();
-            $table->string('featured_villas_title')->nullable();
-            $table->string('latest_articles_title')->nullable();
             $table->timestamps();
         });
     }

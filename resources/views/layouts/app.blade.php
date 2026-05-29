@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en" class="scroll-smooth">
 
 <!-- Mirrored from luxuri.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 28 May 2026 15:56:45 GMT -->
@@ -8,8 +8,52 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    {!! \Artesaos\SEOTools\Facades\SEOTools::generate() !!}
-    <meta name="author" content="Luxuri">
+    <title>Hand-Picked Luxuri Villa Rentals and Private Homes</title>
+
+<meta name="author"
+      content="Luxuri">
+<meta name="description"
+      content="Discover unparalleled luxury with Luxuri’s vacation villas, elite car and yacht rentals, and bespoke concierge services across top global destinations.">
+<meta name="robots"
+      content="index,follow">
+<meta name="theme-color"
+      content="#303030">
+
+
+<meta property="og:type"
+      content="website">
+<meta property="og:title"
+      content="Hand-Picked Luxuri Villa Rentals and Private Homes">
+<meta property="og:description"
+      content="Discover unparalleled luxury with Luxuri’s vacation villas, elite car and yacht rentals, and bespoke concierge services across top global destinations...">
+<meta property="og:image"
+      content="assets/media/OpenGraph-Luxuri.png">
+<meta property="og:image:width"
+      content="1200">
+<meta property="og:image:height"
+      content="630">
+<meta property="og:image:alt"
+      content="Hand-Picked Luxuri Villa Rentals and Private Homes">
+<meta property="og:url"
+      content="index.html">
+<meta property="og:site_name"
+      content="Luxuri">
+<meta property="og:locale"
+      content="en_US">
+
+
+
+
+<meta name="twitter:card"
+      content="summary_large_image">
+<meta name="twitter:url"
+      content="index.html">
+<meta name="twitter:title"
+      content="Hand-Picked Luxuri Villa Rentals and Private Homes">
+<meta name="twitter:description"
+      content="Discover unparalleled luxury with Luxuri’s vacation villas, elite car and yacht rentals, and bespoke concierge services across top global destinations...">
+<meta name="twitter:image"
+      content="assets/media/OpenGraph-Luxuri.png">
 
 
 
@@ -25,12 +69,15 @@
       href="{{ asset('favicon.ico') }}" />
 <link rel="manifest"
       href="{{ asset('site.webmanifest') }}" />
-<link rel="canonical" href="{{ url()->current() }}">
-<meta name="theme-color" content="#303030">
+<link rel="canonical"
+      href="{{ url('/') }}">
+<meta name="theme-color"
+      content="#fafafa">
 
     <link rel="stylesheet" href="{{ asset('build/assets/site-Nzwp7GqH.css') }}" />
     <link rel="stylesheet" href="{{ asset('build/assets/fontawesome-CugkwPiR.css') }}" />
-    @livewireStyles
+    <!-- Alpine.js - loaded before body so x-data/x-on work correctly -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>[x-cloak]{display:none!important}</style>
         <!-- Google Tag Manager -->
     <script>(function(w, d, s, l, i) {
@@ -119,18 +166,29 @@
 </svg>
 </a>
 
-        @php
-            $menuItems = cache()->remember('menu_items.active', 3600,
-                fn () => \App\Models\MenuItem::active()->get()
-            );
-        @endphp
         <div class="hidden lg:flex lg:gap-x-12 text-base font-medium ms-auto">
-            @foreach($menuItems as $item)
-                <a href="{{ url($item->url) }}"
-                   target="{{ $item->target }}"
-                   class="text-white transition-colors duration-300 hover:text-amber-200">{{ $item->label }}</a>
-            @endforeach
-        </div>
+    <a
+    href="{{ url('/concierge') }}"
+    class="text-white transition-colors duration-300 hover:text-amber-200"
+    >Concierge</a>
+            <a
+    href="{{ url('/villas') }}"
+    class="text-white transition-colors duration-300 hover:text-amber-200"
+    >Villas</a>
+            
+            <a
+    href="{{ url('/yachts') }}"
+    class="text-white transition-colors duration-300 hover:text-amber-200"
+    >Yachts</a>
+            <a
+    href="{{ url('/magazine') }}"
+    class="text-white transition-colors duration-300 hover:text-amber-200"
+    >Magazine</a>
+            <a
+    href="{{ url('/contact') }}"
+    class="text-white transition-colors duration-300 hover:text-amber-200"
+    >Contact</a>
+</div>
 
         <div class="flex ms-4">
     <button type="button"
@@ -239,7 +297,7 @@
             aria-controls="faq-0"
             :aria-expanded="expanded">
         <span class="font-accent tracking-wide text-xl font-semibold uppercase">
-            Navigation
+            For Guests
         </span>
         <span class="ml-6 flex h-7 items-center relative">
             <svg class="size-6 transition-all duration-300 ease-in-out"
@@ -278,15 +336,35 @@
          class="overflow-hidden">
 
         <div class="mb-4 border-top border-zinc-200">
-            @foreach($menuItems as $item)
-                <a href="{{ url($item->url) }}"
-                   target="{{ $item->target }}"
-                   class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-normal text-zinc-300 hover:bg-zinc-800 transition-all duration-200"
-                   x-show="menuOpen"
-                   x-transition:enter="duration-300 ease-out"
-                   x-transition:enter-start="opacity-0 translate-x-4"
-                   x-transition:enter-end="opacity-100 translate-x-0">{{ $item->label }}</a>
-            @endforeach
+            <a href="{{ url('/concierge') }}"
+   class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-normal text-zinc-300 hover:bg-zinc-800 transition-all duration-200 delay-300 !delay-350"
+   x-show="menuOpen"
+   x-transition:enter="duration-300 ease-out"
+   x-transition:enter-start="opacity-0 translate-x-4"
+   x-transition:enter-end="opacity-100 translate-x-0">Concierge
+</a>
+            <a href="{{ url('/villas') }}"
+   class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-normal text-zinc-300 hover:bg-zinc-800 transition-all duration-200 delay-300 !delay-450"
+   x-show="menuOpen"
+   x-transition:enter="duration-300 ease-out"
+   x-transition:enter-start="opacity-0 translate-x-4"
+   x-transition:enter-end="opacity-100 translate-x-0">Villas
+</a>
+            
+            <a href="{{ url('/magazine') }}"
+   class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-normal text-zinc-300 hover:bg-zinc-800 transition-all duration-200 delay-300 !delay-650"
+   x-show="menuOpen"
+   x-transition:enter="duration-300 ease-out"
+   x-transition:enter-start="opacity-0 translate-x-4"
+   x-transition:enter-end="opacity-100 translate-x-0">Magazine
+</a>
+            <a href="{{ url('/yachts') }}"
+   class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-normal text-zinc-300 hover:bg-zinc-800 transition-all duration-200 delay-300 !delay-750"
+   x-show="menuOpen"
+   x-transition:enter="duration-300 ease-out"
+   x-transition:enter-start="opacity-0 translate-x-4"
+   x-transition:enter-end="opacity-100 translate-x-0">Yachts
+</a>
         </div>
     </div>
 </li>
@@ -569,13 +647,20 @@
 
     <!-- Swiper JS (used for sliders on some pages) -->
     <script src="{{ asset('build/assets/site-Dw_9KyND.js') }}" defer></script>
-    <!-- Alpine Intersect plugin - auto-registers via alpine:init, must be before @livewireScripts -->
-    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
-@livewireScripts
 </body>
 
 <!-- Mirrored from luxuri.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 28 May 2026 15:57:39 GMT -->
 </html>
+
+
+
+
+
+
+
+
+
+
 
 
 

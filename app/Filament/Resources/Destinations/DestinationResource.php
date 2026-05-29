@@ -20,11 +20,7 @@ class DestinationResource extends Resource
 {
     protected static ?string $model = Destination::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedGlobeAlt;
-
-    protected static ?string $recordTitleAttribute = 'name';
-
-    protected static \UnitEnum|string|null $navigationGroup = 'Content';
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     public static function form(Schema $schema): Schema
     {
@@ -58,4 +54,3 @@ class DestinationResource extends Resource
         ];
     }
 }
-
