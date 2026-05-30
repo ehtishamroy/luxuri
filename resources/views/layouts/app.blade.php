@@ -208,6 +208,10 @@
         <div class="cursor-blob"></div>
     </div>
 
+    @php
+        $menuItems = \App\Models\MenuItem::where('active', true)->orderBy('sort_order')->get();
+    @endphp
+
     <header class="bg-zinc-900/1 relative z-20">
 
         <nav class="fixed top-0 w-full mx-auto flex gap-6 items-center justify-between p-6 lg:py-8 lg:px-8"
@@ -243,17 +247,10 @@
             </a>
 
             <div class="hidden lg:flex lg:gap-x-12 text-base font-medium ms-auto">
-                <a href="{{ url('/concierge') }}"
-                    class="text-white transition-colors duration-300 hover:text-amber-200">Concierge</a>
-                <a href="{{ url('/villas') }}"
-                    class="text-white transition-colors duration-300 hover:text-amber-200">Villas</a>
-
-                <a href="{{ url('/yachts') }}"
-                    class="text-white transition-colors duration-300 hover:text-amber-200">Yachts</a>
-                <a href="{{ url('/magazine') }}"
-                    class="text-white transition-colors duration-300 hover:text-amber-200">Magazine</a>
-                <a href="{{ url('/contact') }}"
-                    class="text-white transition-colors duration-300 hover:text-amber-200">Contact</a>
+                @foreach($menuItems as $menuItem)
+                    <a href="{{ url($menuItem->url) }}" target="{{ $menuItem->target ?? '_self' }}"
+                        class="text-white transition-colors duration-300 hover:text-amber-200">{{ $menuItem->label }}</a>
+                @endforeach
             </div>
 
             <div class="flex ms-4">
@@ -366,31 +363,15 @@
                                         x-transition:leave-end="opacity-0 max-h-0" class="overflow-hidden">
 
                                         <div class="mb-4 border-top border-zinc-200">
-                                            <a href="{{ url('/concierge') }}"
-                                                class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-normal text-zinc-300 hover:bg-zinc-800 transition-all duration-200 delay-300 !delay-350"
-                                                x-show="menuOpen" x-transition:enter="duration-300 ease-out"
-                                                x-transition:enter-start="opacity-0 translate-x-4"
-                                                x-transition:enter-end="opacity-100 translate-x-0">Concierge
-                                            </a>
-                                            <a href="{{ url('/villas') }}"
-                                                class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-normal text-zinc-300 hover:bg-zinc-800 transition-all duration-200 delay-300 !delay-450"
-                                                x-show="menuOpen" x-transition:enter="duration-300 ease-out"
-                                                x-transition:enter-start="opacity-0 translate-x-4"
-                                                x-transition:enter-end="opacity-100 translate-x-0">Villas
-                                            </a>
-
-                                            <a href="{{ url('/magazine') }}"
-                                                class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-normal text-zinc-300 hover:bg-zinc-800 transition-all duration-200 delay-300 !delay-650"
-                                                x-show="menuOpen" x-transition:enter="duration-300 ease-out"
-                                                x-transition:enter-start="opacity-0 translate-x-4"
-                                                x-transition:enter-end="opacity-100 translate-x-0">Magazine
-                                            </a>
-                                            <a href="{{ url('/yachts') }}"
-                                                class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-normal text-zinc-300 hover:bg-zinc-800 transition-all duration-200 delay-300 !delay-750"
-                                                x-show="menuOpen" x-transition:enter="duration-300 ease-out"
-                                                x-transition:enter-start="opacity-0 translate-x-4"
-                                                x-transition:enter-end="opacity-100 translate-x-0">Yachts
-                                            </a>
+                                            @foreach($menuItems as $menuItem)
+                                                <a href="{{ url($menuItem->url) }}" target="{{ $menuItem->target ?? '_self' }}"
+                                                    class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-normal text-zinc-300 hover:bg-zinc-800 transition-all duration-200 delay-300"
+                                                    style="transition-delay: {{ 350 + ($loop->index * 100) }}ms"
+                                                    x-show="menuOpen" x-transition:enter="duration-300 ease-out"
+                                                    x-transition:enter-start="opacity-0 translate-x-4"
+                                                    x-transition:enter-end="opacity-100 translate-x-0">{{ $menuItem->label }}
+                                                </a>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </li>
@@ -499,17 +480,10 @@
                 <div class="space-y-6">
                     <h3 class="uppercase">Links</h3>
                     <ul role="list" class="space-y-2 lg:flex lg:space-x-4 lg:space-y-0">
-                        <li><a href="/concierge"
-                                class="text-white transition-colors duration-300 hover:text-amber-200">Concierge</a>
-                        </li>
-                        <li><a href="/villas"
-                                class="text-white transition-colors duration-300 hover:text-amber-200">Villas</a></li>
-                        <li><a href="/cars"
-                                class="text-white transition-colors duration-300 hover:text-amber-200">Cars</a></li>
-                        <li><a href="/yachts"
-                                class="text-white transition-colors duration-300 hover:text-amber-200">Yachts</a></li>
-                        <li><a href="/magazine"
-                                class="text-white transition-colors duration-300 hover:text-amber-200">Magazine</a></li>
+                        @foreach($menuItems as $menuItem)
+                            <li><a href="{{ url($menuItem->url) }}" target="{{ $menuItem->target ?? '_self' }}"
+                                    class="text-white transition-colors duration-300 hover:text-amber-200">{{ $menuItem->label }}</a></li>
+                        @endforeach
                     </ul>
                 </div>
 

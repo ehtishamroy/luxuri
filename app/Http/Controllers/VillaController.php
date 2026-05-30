@@ -14,7 +14,28 @@ class VillaController extends Controller
         SEOTools::setDescription('Browse our collection of handpicked luxury villas across the world\'s most desirable destinations.');
         SEOTools::opengraph()->setUrl(url('/villas'));
 
-        return view('villas');
+        $query = Villa::with('destination')->where('active', true);
+
+        if (request()->filled('destination')) {
+            $dest = request('destination');
+            $query->where(function ($q) use ($dest) {
+                $q->whereHas('destination', function ($subq) use ($dest) {
+                    $subq->where('name', 'like', "%{$dest}%")
+                         ->orWhere('slug', 'like', "%{$dest}%");
+                })->orWhere('title', 'like', "%{$dest}%")
+                  ->orWhere('location', 'like', "%{$dest}%");
+            });
+        }
+
+        if (request()->filled('guests')) {
+            $query->where('max_guests', '>=', request('guests'));
+        }
+
+        // Additional date filtering logic can be added here if a bookings table exists
+        
+        $villas = $query->orderBy('created_at', 'desc')->paginate(16)->withQueryString();
+
+        return view('villas', compact('villas'));
     }
 
     public function show(Villa $villa)

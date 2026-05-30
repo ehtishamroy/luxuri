@@ -12,15 +12,15 @@
 
                     <img x-show="!isReady && videos[0].poster" :src="videos[0].poster" alt="Hero video preview"
                         class="absolute inset-0 size-full object-cover" loading="eager"
-                        src="https://media.luxteria.co/video/luxury-new-video-preview.jpg" style="display: none;">
+                        src="{{ $homepageMedia->where('type', 'video')->first()?->poster_path ? asset('storage/' . $homepageMedia->where('type', 'video')->first()->poster_path) : 'https://media.luxteria.co/video/luxury-new-video-preview.jpg' }}" style="display: none;">
 
 
-                    <video x-ref="mainVideo" x-show="isReady" class="size-full object-cover" muted playsinline
+                    <video x-ref="mainVideo" class="size-full object-cover transition-opacity duration-500" :class="isReady ? 'opacity-100' : 'opacity-0'" muted playsinline
                         preload="auto" :poster="videos[currentVideo].poster || ''" @loadeddata="onVideoLoaded"
                         @ended="nextVideo" x-on:error="handleVideoError"
-                        poster="https://media.luxteria.co/video/luxury-new-video-preview.jpg" style="">
+                        poster="{{ $homepageMedia->where('type', 'video')->first()?->poster_path ? asset('storage/' . $homepageMedia->where('type', 'video')->first()->poster_path) : '' }}" style="">
                         <source :src="videos[currentVideo].src" type="video/mp4"
-                            src="https://media.luxteria.co/video/luxury-new-video.mp4">
+                            src="{{ $homepageMedia->where('type', 'video')->first()?->file_path ? asset('storage/' . $homepageMedia->where('type', 'video')->first()->file_path) : 'https://media.luxteria.co/video/luxury-new-video.mp4' }}">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -29,6 +29,13 @@
                                 document.addEventListener('alpine:ini                                            t', () => {
                             Alpine.data('videoAutoplay', () => ({
                                 videos: [
+                                    @foreach($homepageMedia->where('type', 'video') as $media)
+                                    {
+                                        src: '{{ asset('storage/' . $media->file_path) }}',
+                                        poster: '{{ $media->poster_path ? asset('storage/' . $media->poster_path) : '' }}',
+                                    },
+                                    @endforeach
+                                    @if($homepageMedia->where('type', 'video')->isEmpty())
                                     {
                                         src: 'https://media.luxteria.co/video/luxury-new-video.mp4',
                                         poster: 'https://media.luxteria.co/video/luxury-new-video-preview.jpg',
@@ -41,6 +48,7 @@
                                         src: 'https://media.luxteria.co/video/miami-video.mp4',
                                         poster: null,
                                     },
+                                    @endif
                                 ],
                                 currentVideo: 0,
                                 isReady: false,
@@ -211,15 +219,13 @@
                                     class="fa-sharp fa-light fa-sink fa-sm me-1"></i>{{ $villa->bathrooms }}</div>@endif
                                 </div>
                             </div>
-                            @if ($villa->price_per_night)
-                                <div class="flex gap-2 justify-between items-center">
-                                    <div class="relative">
-                                        <div class="text-sm"><span
-                                                class="font-semibold">${{ number_format($villa->price_per_night) }}</span><span
-                                                class="text-zinc-400">/night</span></div>
-                                    </div>
-                                </div>
-                            @endif
+                            <div class="relative text-sm">
+                                @if ($villa->price_per_night > 0)
+                                    <span class="font-semibold">${{ number_format($villa->price_per_night) }}</span><span class="text-zinc-400">/night</span>
+                                @else
+                                    <span class="font-semibold text-zinc-300">Price on request</span>
+                                @endif
+                            </div>
                         </article>
                     </li>
                 @endforeach
@@ -392,7 +398,7 @@
         <div class="bg-black text-white relative -mb-8">
             <div class="relative isolate pt-14 min-h-[70vh] flex items-center">
                 <img class="absolute inset-0 -z-10 size-full object-cover"
-                    src="https://media.luxteria.co/b7cfd06c1d9d677f1e2943af6e51a36b/126.jpg" alt="Concierge">
+                    src="{{ isset($homepageMedia['middle_section_image']) ? asset('storage/' . $homepageMedia['middle_section_image']->file_path) : 'https://media.luxteria.co/b7cfd06c1d9d677f1e2943af6e51a36b/126.jpg' }}" alt="Concierge">
                 <div
                     class="absolute top-0 left-0 pointer-events-none w-full h-26 -z-10 bg-gradient-to-b from-black from-0% via-black/15 via-70% to-black/0 to-95% bg-blend-overlay">
                 </div>

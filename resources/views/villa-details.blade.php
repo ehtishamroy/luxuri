@@ -195,8 +195,10 @@
                                 @endif
                             </div>
                             <h3 class="text-white font-light group-hover:text-amber-200 transition-colors">{{ $r->title }}</h3>
-                            @if($r->price_per_night)
+                            @if($r->price_per_night > 0)
                                 <p class="text-zinc-400 text-sm">From ${{ number_format($r->price_per_night) }}/night</p>
+                            @else
+                                <p class="text-zinc-400 text-sm">Price on request</p>
                             @endif
                         </a>
                         @endforeach
@@ -210,23 +212,23 @@
                 <div class="bg-zinc-900 rounded-xl p-6 space-y-4">
 
                     {{-- Price --}}
-                    @if($villa->price_per_night)
+                    @if($villa->price_per_night > 0)
                     <div class="text-center">
                         <span class="text-3xl font-light">${{ number_format($villa->price_per_night) }}</span>
                         <span class="text-zinc-400 text-sm">/night</span>
                     </div>
+                    @else
+                    <div class="text-center">
+                        <span class="text-2xl font-light text-zinc-300">Price on request</span>
+                    </div>
+                    @endif
                     @if($villa->price_per_hour)
                     <div class="text-center">
                         <span class="text-lg font-light text-zinc-300">${{ number_format($villa->price_per_hour, 2) }}</span>
                         <span class="text-zinc-500 text-sm">/hour</span>
                     </div>
                     @endif
-                    @else
-                    <div class="text-center">
-                        <span class="text-xl font-semibold text-amber-300">Contact Us</span>
-                        <p class="text-sm text-zinc-400 mt-1">Price on Request</p>
-                    </div>
-                    @endif
+
 
                     {{-- Reserve Button --}}
                     <a href="{{ url('/inquiry?villa=' . $villa->slug) }}"

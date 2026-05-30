@@ -3,7 +3,7 @@
 <main class="z-0 text-zinc-50 font-light">
     <script type="application/ld+json">
     {
-        "@context": "https://schema.org",
+        "@@context": "https://schema.org",
         "@type": "BlogPosting",
         "headline": "{{ $magazinePost->title }}",
         "description": "{{ $magazinePost->meta_description ?: $magazinePost->excerpt }}",

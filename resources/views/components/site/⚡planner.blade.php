@@ -6,14 +6,17 @@ use Livewire\Attributes\Url;
 
 new class extends Component {
 
-    #[Url(except: '')]
+    #[Url(as: 'destination', except: '')]
     public string $search           = '';
     public bool   $showDestinations = false;
     public bool   $showDatepicker   = false;
+    #[Url(as: 'date_from', except: '')]
     public string $dateFromYmd      = '';
+    #[Url(as: 'date_to', except: '')]
     public string $dateToYmd        = '';
     public bool   $plannerVisible   = true;
     public string $selectingDate    = 'from';
+    #[Url(except: 2)]
     public int    $guests           = 2;
 
     public function setDestination(string $slug): void
@@ -115,7 +118,7 @@ new class extends Component {
                                 <label class="font-medium text-sm max-sm:text-xs">Where
                                     <input wire:model.live="search" type="text"
                                            @click="$wire.showDestinations = true; $wire.showDatepicker = false"
-                                           x-model="locationName"
+                                           x-model="$wire.search"
                                            x-ref="searchInput"
                                            placeholder="Destination"
                                            class="text-zinc-300 py-1 truncate text-sm max-sm:text-xs focus:outline-none border-1 border-transparent max-w-full w-full block focus-within:border-b-zinc-50">
@@ -180,7 +183,7 @@ new class extends Component {
                                     <label class="font-medium text-sm max-sm:text-xs">Where
                                         <input wire:model.live="search" type="text"
                                                @click="$wire.showDestinations = true; $wire.showDatepicker = false"
-                                               x-model="locationName"
+                                               x-model="$wire.search"
                                                x-ref="searchInput"
                                                placeholder="Destination"
                                                class="text-zinc-300 py-1 truncate text-base focus:outline-none border-1 border-transparent max-w-full w-full block focus-within:border-b-zinc-50">
@@ -249,7 +252,7 @@ new class extends Component {
                                     -
                                     <div class="text-zinc-300 text-xs" x-text="outputDateToValue ? new Date(outputDateToValue).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''"></div>
                                 </div>
-                                <div class="text-zinc-300 py-1 text-sm w-full" x-text="locationName || 'Destinations...'">Destinations...</div>
+                                <div class="text-zinc-300 py-1 text-sm w-full" x-text="$wire.search || 'Destinations...'">Destinations...</div>
                             </div>
                             <div class="shrink-0">
                                 <button type="button"
@@ -460,7 +463,6 @@ new class extends Component {
                                 guests: 2,
                                 hasBeenFixed: true,
                                 showPlannerFields: false,
-                                locationName: '',
                                 outputDateFromValue: '',
                                 outputDateToValue: '',
                                 dateFromValue: '',
@@ -493,7 +495,6 @@ new class extends Component {
                                     this.dateToYmd = this.$wire.dateToYmd || '';
                                     this.selectingDate = this.$wire.selectingDate || 'from';
                                     this.guests = this.$wire.guests || 2;
-                                    if (this.$wire.search) this.locationName = this.$wire.search;
                                     this.syncDatesFromLivewire();
                                     this.currentDate = this.dateFrom || this.dateTo || new Date();
                                     this.month = this.currentDate.getMonth();

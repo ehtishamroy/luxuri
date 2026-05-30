@@ -1,12 +1,32 @@
 @extends('layouts.app')
 @section('content')
+@php
+$heroVideosData = [];
+$heroKeys = ['hero-video-1', 'hero-video-2', 'hero-video-3'];
+foreach ($heroKeys as $key) {
+    if (isset($homepageMedia[$key]) && $homepageMedia[$key]->file_path) {
+        $item = $homepageMedia[$key];
+        $heroVideosData[] = [
+            'src' => asset('storage/' . $item->file_path),
+            'poster' => $item->poster_path ? asset('storage/' . $item->poster_path) : null,
+        ];
+    }
+}
+if (empty($heroVideosData)) {
+    $heroVideosData = [
+        ['src' => asset('media.luxteria.co/video/luxury-new-video.mp4'), 'poster' => asset('media.luxteria.co/video/luxury-new-video-preview.jpg')],
+        ['src' => asset('media.luxteria.co/video/Fort_lauderdale_video.mp4'), 'poster' => null],
+        ['src' => asset('media.luxteria.co/video/miami-video.mp4'), 'poster' => null],
+    ];
+}
+@endphp
 <div class="bg-black text-white relative z-10">
     <div class="relative isolate pt-14 min-h-[90vh] md:min-h-[70vh] flex items-center">
-        
-        
-        
+
+
+
         <div
-    x-data="videoAutoplay()"
+    x-data="videoAutoplay({{ json_encode($heroVideosData) }})"
     x-init="init()"
     x-intersect:enter="startLazyLoad()"
     x-intersect:leave="pauseVideos()"
@@ -43,21 +63,8 @@
 
     <script>
         document.addEventListener('alpine:init', () => {
-            Alpine.data('videoAutoplay', () => ({
-                videos: [
-                    {
-                        src: 'https:/{{ asset('media.luxteria.co/video/luxury-new-video.mp4') }}',
-                        poster: 'https:/{{ asset('media.luxteria.co/video/luxury-new-video-preview.jpg') }}',
-                    },
-                    {
-                        src: 'https:/{{ asset('media.luxteria.co/video/Fort_lauderdale_video.mp4') }}',
-                        poster: null,
-                    },
-                    {
-                        src: 'https:/{{ asset('media.luxteria.co/video/miami-video.mp4') }}',
-                        poster: null,
-                    },
-                ],
+            Alpine.data('videoAutoplay', (initialVideos) => ({
+                videos: initialVideos && initialVideos.length ? initialVideos : [],
                 currentVideo: 0,
                 isReady: false,
                 isInViewport: false,
@@ -1444,7 +1451,11 @@
 </div>
             <div class="bg-black text-white relative -mb-8">
     <div class="relative isolate pt-14 min-h-[70vh] flex items-center">
-                    <img class="absolute inset-0 -z-10 size-full object-cover" src="{{ asset('media.luxteria.co/b7cfd06c1d9d677f1e2943af6e51a36b/126.jpg') }}" alt="126.jpg">
+                    @if(isset($homepageMedia['middle-section-bg']) && $homepageMedia['middle-section-bg']->file_path)
+                        <img class="absolute inset-0 -z-10 size-full object-cover" src="{{ asset('storage/' . $homepageMedia['middle-section-bg']->file_path) }}" alt="Background">
+                    @else
+                        <img class="absolute inset-0 -z-10 size-full object-cover" src="{{ asset('media.luxteria.co/b7cfd06c1d9d677f1e2943af6e51a36b/126.jpg') }}" alt="126.jpg">
+                    @endif
                 <div
             class="absolute top-0 left-0 pointer-events-none w-full h-26 -z-10 bg-gradient-to-b from-black from-0% via-black/15 via-70% to-black/0 to-95% bg-blend-overlay"></div>
         <div
