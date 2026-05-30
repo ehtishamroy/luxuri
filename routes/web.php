@@ -4,6 +4,7 @@ use App\Http\Controllers\ConciergeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\MagazineController;
 use App\Http\Controllers\VillaController;
 use App\Http\Controllers\YachtController;
@@ -12,6 +13,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',              [HomeController::class,        'index'])->name('home');
 
 Route::get('/villas',        [VillaController::class,       'index'])->name('villas.index');
+Route::get('/villas/aspen-mountain-chalet', function () {
+    $villa = \App\Models\Villa::where('slug', 'aspen-mountain-chalet')->first();
+    if ($villa) {
+        return redirect()->route('villas.show', $villa);
+    }
+    return view('villas.aspen-mountain-chalet');
+});
+Route::get('/inquiry', fn () => view('inquiry'))->name('inquiry');
+Route::post('/inquiry', [InquiryController::class, 'store'])->name('inquiry.store');
 Route::get('/villas/{villa}', [VillaController::class,      'show'])->name('villas.show');
 
 Route::get('/yachts',        [YachtController::class,       'index'])->name('yachts.index');

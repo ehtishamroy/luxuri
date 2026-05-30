@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HomepageSetting;
 use App\Models\Villa;
 use Artesaos\SEOTools\Facades\SEOTools;
 
@@ -20,6 +21,8 @@ class VillaController extends Controller
     {
         abort_unless($villa->active, 404);
 
+        $villa->load('amenitiesList');
+
         SEOTools::setTitle($villa->meta_title ?: $villa->title . ' - Luxury Villa | Luxuri');
         SEOTools::setDescription($villa->meta_description ?: $villa->excerpt ?? '');
         SEOTools::opengraph()->setUrl(url("/villas/{$villa->slug}"));
@@ -33,6 +36,8 @@ class VillaController extends Controller
             ->limit(4)
             ->get();
 
-        return view('villa-details', compact('villa', 'related'));
+        $globalSettings = HomepageSetting::first();
+
+        return view('villa-details', compact('villa', 'related', 'globalSettings'));
     }
 }

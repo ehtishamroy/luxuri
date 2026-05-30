@@ -13,7 +13,11 @@ class MagazineController extends Controller
         SEOTools::setDescription('Discover curated insights on luxury travel, refined living, and exclusive experiences.');
         SEOTools::opengraph()->setUrl(url('/magazine'));
 
-        return view('magazine');
+        $posts = MagazinePost::published()
+            ->orderBy('published_at', 'desc')
+            ->get();
+
+        return view('magazine', compact('posts'));
     }
 
     public function show(MagazinePost $magazinePost)

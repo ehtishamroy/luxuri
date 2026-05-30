@@ -20,7 +20,7 @@ class MenuItemResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBars3;
 
-    protected static ?string $recordTitleAttribute = 'MagazinePostResourc';
+    protected static ?string $recordTitleAttribute = 'label';
 
     public static function form(Schema $schema): Schema
     {

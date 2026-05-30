@@ -1,43 +1,74 @@
 @extends('layouts.app')
 @section('content')
-<div class="bg-black text-white relative z-10">
-    <div class="relative pt-14 min-h-[50vh] flex items-end">
-        @if($magazinePost->featured_image)
-            <img class="absolute inset-0 size-full object-cover -z-10"
-                 src="{{ $magazinePost->featured_image }}" alt="{{ $magazinePost->title }}" />
-        @else
-            <div class="absolute inset-0 bg-zinc-900 -z-10"></div>
-        @endif
-        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/10 -z-10"></div>
-        <div class="w-full max-w-5xl mx-auto px-6 lg:px-8 pb-10 space-y-4">
-            @if($magazinePost->category)
-                <p class="text-amber-400 text-xs uppercase tracking-widest">{{ $magazinePost->category }}</p>
+<main class="z-0 text-zinc-50 font-light">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "{{ $magazinePost->title }}",
+        "description": "{{ $magazinePost->meta_description ?: $magazinePost->excerpt }}",
+        "image": "{{ $magazinePost->featured_image }}",
+        "author": {
+            "@type": "Organization",
+            "name": "{{ $magazinePost->author ?: 'Luxuri' }}"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Luxuri",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "{{ asset('images/logo.png') }}"
+            }
+        },
+        "datePublished": "{{ $magazinePost->published_at?->toIso8601String() }}",
+        "dateModified": "{{ $magazinePost->updated_at?->toIso8601String() }}",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "{{ url('/magazine/'.$magazinePost->slug) }}"
+        }
+    }
+    </script>
+
+    <div class="bg-black text-white relative z-10">
+        <div class="relative isolate pt-14 min-h-[40vh] flex items-center">
+            @if($magazinePost->featured_image)
+                <img class="absolute inset-0 -z-10 size-full object-cover"
+                     src="{{ $magazinePost->featured_image }}"
+                     alt="{{ $magazinePost->title }}" />
             @endif
-            <h1 class="text-4xl md:text-5xl font-light">{{ $magazinePost->title }}</h1>
-            <p class="text-zinc-400 text-sm">
-                @if($magazinePost->author) By {{ $magazinePost->author }} &bull; @endif
-                {{ $magazinePost->published_at?->format('F j, Y') }}
-            </p>
-        </div>
-    </div>
-
-    <div class="w-full max-w-3xl mx-auto px-6 lg:px-8 py-12">
-        @if($magazinePost->excerpt)
-            <p class="text-xl text-zinc-300 font-light leading-relaxed mb-8 border-l-2 border-amber-400 pl-4">
-                {{ $magazinePost->excerpt }}
-            </p>
-        @endif
-
-        @if($magazinePost->content)
-            <div class="prose prose-invert prose-lg max-w-none text-zinc-300 font-light leading-relaxed">
-                {!! $magazinePost->content !!}
+            <div class="absolute inset-0 -z-10 size-full object-cover bg-black/20 bg-blend-multiply"></div>
+            <div class="absolute inset-0 -z-10 bg-gradient-to-b from-black/10 from-0% via-black/20 via-80% to-black to-95% bg-blend-overlay"></div>
+            <div class="mx-auto max-w-7xl px-6 lg:px-8 bg-radial from-black/20 from-30% to-70% to-black/0">
+                <div class="mx-auto py-18 max-w-5xl my-12"></div>
             </div>
-        @endif
-
-        <div class="mt-12 pt-8 border-t border-zinc-800">
-            <a href="{{ route('magazine.index') }}"
-               class="text-amber-400 hover:underline text-sm">&larr; Back to Magazine</a>
         </div>
     </div>
-</div>
+
+    <div class="w-full max-w-7xl mx-auto p-6 lg:py-8 lg:px-8 z-0 space-y-6">
+        <div class="max-w-[90rch] mx-auto space-y-6">
+            <div class="flex max-lg:flex-col gap-4 lg:items-end">
+                <h1 class="grow">{{ $magazinePost->title }}</h1>
+                <div class="font-normal flex-shrink-0 italic">
+                    <time datetime="{{ $magazinePost->published_at }}">{{ $magazinePost->published_at?->format('F j, Y') }}</time>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full max-w-7xl mx-auto p-6 lg:py-8 lg:px-8 z-0 space-y-6">
+        <div class="max-w-[90rch] mx-auto">
+            <div class="space-y-4 text-left">
+                <div class="content-format">
+                    {!! $magazinePost->content !!}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full max-w-7xl mx-auto p-6 lg:py-8 lg:px-8 z-0 space-y-6">
+        <div class="max-w-[90rch] mx-auto">
+            <a href="{{ route('magazine.index') }}" class="text-amber-400 hover:underline text-sm">&larr; Back to Magazine</a>
+        </div>
+    </div>
+</main>
 @endsection

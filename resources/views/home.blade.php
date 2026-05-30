@@ -46,15 +46,15 @@
             Alpine.data('videoAutoplay', () => ({
                 videos: [
                     {
-                        src: 'https:/{{ asset('media.luxuri.com/video/luxury-new-video.mp4') }}',
-                        poster: 'https:/{{ asset('media.luxuri.com/video/luxury-new-video-preview.jpg') }}',
+                        src: 'https:/{{ asset('media.luxteria.co/video/luxury-new-video.mp4') }}',
+                        poster: 'https:/{{ asset('media.luxteria.co/video/luxury-new-video-preview.jpg') }}',
                     },
                     {
-                        src: 'https:/{{ asset('media.luxuri.com/video/Fort_lauderdale_video.mp4') }}',
+                        src: 'https:/{{ asset('media.luxteria.co/video/Fort_lauderdale_video.mp4') }}',
                         poster: null,
                     },
                     {
-                        src: 'https:/{{ asset('media.luxuri.com/video/miami-video.mp4') }}',
+                        src: 'https:/{{ asset('media.luxteria.co/video/miami-video.mp4') }}',
                         poster: null,
                     },
                 ],
@@ -178,864 +178,466 @@
         Discover Your Luxury Villa Rental
     </h1>
     <p class="text-lg font-normal text-pretty text-center ">
-        Choose from Luxuri’s handpicked collection of high-end villas.
+        Choose from luxteria’s handpicked collection of high-end villas.
     </p>
 </div>
 
-            <div wire:key="lw-3105641724-0" wire:snapshot="{&quot;data&quot;:{&quot;search&quot;:&quot;&quot;,&quot;showDestinations&quot;:false,&quot;showDatepicker&quot;:false,&quot;dateFromYmd&quot;:&quot;&quot;,&quot;dateToYmd&quot;:&quot;&quot;,&quot;plannerVisible&quot;:true,&quot;selectingDate&quot;:&quot;from&quot;,&quot;guests&quot;:2},&quot;memo&quot;:{&quot;id&quot;:&quot;bD1bD0r1APRvvlQDR3AS&quot;,&quot;name&quot;:&quot;site.planner&quot;,&quot;path&quot;:&quot;\/&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;en&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;c167ebd7546f80bc18b181c6a90e6e22ad4100613563df5798ceb30d9a87d8b6&quot;}" wire:effects="{&quot;dispatches&quot;:[{&quot;name&quot;:&quot;trip-guests-updated&quot;,&quot;params&quot;:[]}]}" wire:id="bD1bD0r1APRvvlQDR3AS" wire:name="site.planner" class="relative z-50 w-full max-w-2xl mx-auto"
-     x-data="{/**/
-         capturedHeight: 0,
-         isMobile: window.innerWidth < 768,
-         mobileCompactHeight: 92 // Approximate height of mobile compact view (padding + content + button)
-     }"
-     x-intersect:enter="$wire.plannerVisible = true"
-     x-intersect:leave="
-         // On mobile, use the compact view height, on desktop use actual height
-         capturedHeight = isMobile ? mobileCompactHeight : ($refs.formContent?.offsetHeight || 0);
-         console.log('Capturing planner height:', capturedHeight, 'isMobile:', isMobile);
-         $wire.plannerVisible = false
-     "
-     @resize.window="isMobile = window.innerWidth < 768">
-    <!-- Placeholder to maintain space in document flow -->
-    <div class="w-full"
-         :class="!$wire.plannerVisible && capturedHeight === 0 ? 'min-h-[92px] md:min-h-[120px]' : ''"
-         :style="!$wire.plannerVisible && capturedHeight > 0 ? 'height: ' + capturedHeight + 'px' : ''"></div>
+            {{-- Planner Widget --}}
+                    <div x-data="planner()" @keydown.escape="showDestinations = false; showDatepicker = false" @click.outside="showDestinations = false; showDatepicker = false" class="relative z-50 w-full max-w-2xl mx-auto">
+                        <div class="w-full" :class="!plannerVisible && capturedHeight === 0 ? 'min-h-[92px] md:min-h-[120px]' : ''" :style="!plannerVisible && capturedHeight > 0 ? 'height: ' + capturedHeight + 'px' : ''"></div>
 
-    <!-- Actual form content -->
-    <form x-ref="formContent"
-          :class="{
-              'fixed bottom-0 lg:bottom-4 left-1/2 -translate-x-1/2 w-full max-w-2xl': !$wire.plannerVisible,
-              'relative': $wire.plannerVisible
-          }"
-          x-data="{ ...planner(), hasBeenFixed: true }"
-          x-init="init()"
-          @keydown.escape="$wire.showDestinations = false; $wire.showDatepicker = false"
-          @click.outside="$wire.showDestinations = false; $wire.showDatepicker = false">
-        <div class="transition-transform duration-500 ease-out"
-             :class="!$wire.plannerVisible ? (hasBeenFixed ? 'translate-y-0' : 'translate-y-full') : ''">
+                        <form x-ref="formContent" :class="{ 'fixed bottom-0 lg:bottom-4 left-1/2 -translate-x-1/2 w-full max-w-2xl': !plannerVisible, 'relative': plannerVisible }">
+                            <div class="transition-transform duration-500 ease-out" :class="!plannerVisible ? (hasBeenFixed ? 'translate-y-0' : 'translate-y-full') : ''">
+                                <div :class="hasBeenFixed ? '' : 'max-md:min-h-64'" class="">
+                                    <div class="w-full max-w-2xl p-5 bg-black/70 border border-zinc-50/90 backdrop-blur-[2px] rounded-xl" x-on:click.outside="showPlannerFields = false">
 
-            <div :class="hasBeenFixed ? '' : '  max-md: min-h-64'">
-                <div x-data="{ showPlannerFields: false }"
-     class="w-full max-w-2xl p-5 bg-black/70 border border-zinc-50/90 backdrop-blur-[2px] rounded-xl"
-     x-on:click.outside="showPlannerFields = false">
+                                        {{-- Desktop layout --}}
+                                        <div class="hidden md:flex gap-4">
+                                            <div class="divide-x divide-zinc-200/80 grid grid-cols-15 max-md:grid-cols-5 gap-y-2">
+                                                <div class="col-span-4 md:pe-4 text-left max-md:col-span-5 max-md:border-e-0 max-md:border-b">
+                                                    <label class="font-medium text-sm max-sm:text-xs">Where
+                                                        <input type="text" @click="showDestinations = true; showDatepicker = false" x-model="locationName" x-ref="searchInput" placeholder="Destination" class="text-zinc-300 py-1 truncate text-sm max-sm:text-xs focus:outline-none border-1 border-transparent max-w-full w-full block focus-within:border-b-zinc-50">
+                                                    </label>
+                                                </div>
+                                                <div class="col-span-4 pe-2 md:px-4 text-left max-md:col-span-2">
+                                                    <label class="font-medium text-sm max-sm:text-xs">Check in
+                                                        <input type="text" @click="openDatePicker('from')" x-model="outputDateFromValue" :class="{'border-b-zinc-50': selectingDate == 'from'}" placeholder="Select date" readonly class="text-zinc-300 py-1 truncate text-sm max-sm:text-xs focus:outline-none border-1 border-transparent block max-w-full w-full focus-within:border-b-zinc-50 border-b-zinc-50">
+                                                    </label>
+                                                </div>
+                                                <div class="col-span-4 px-2 md:px-4 text-left max-md:col-span-2">
+                                                    <label class="font-medium text-sm max-sm:text-xs">Check out
+                                                        <input type="text" @click="openDatePicker('to')" x-model="outputDateToValue" :class="{'border-b-zinc-50': selectingDate == 'to'}" placeholder="Select date" readonly class="text-zinc-300 py-1 truncate text-sm max-sm:text-xs focus:outline-none border-1 border-transparent block max-w-full w-full focus-within:border-b-zinc-50 border-b-zinc-50">
+                                                    </label>
+                                                </div>
+                                                <div class="col-span-3 ps-2 md:px-4 text-left max-md:col-span-1">
+                                                    <label class="font-medium text-sm max-sm:text-xs">Guests
+                                                        <input type="number" @click="showDatepicker = false; showDestinations = false" x-model="guests" placeholder="2" class="text-zinc-300 py-1 truncate text-sm max-sm:text-xs focus:outline-none border-1 border-transparent block max-w-full w-full focus-within:border-b-zinc-50">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="shrink-0 flex gap-2">
+                                                <button type="button" class="rounded-md bg-zinc-50 px-2.5 py-1.5 text-sm font-semibold text-black shadow-xs transition-all hover:bg-amber-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300 md:size-12 max-md:w-full max-sm:text-xs max-sm:py-2" @click="handleSearch">
+                                                    <i class="fa-sharp fa-solid fa-magnifying-glass max-md:me-1"></i>
+                                                    <span class="md:hidden">Search</span>
+                                                </button>
+                                            </div>
+                                        </div>
 
-    
-    <div class="hidden md:flex gap-4">
-        <div class="divide-x divide-zinc-200/80 grid grid-cols-15 max-md:grid-cols-5 gap-y-2">
-            <div class="col-span-4 md:pe-4 text-left max-md:col-span-5 max-md:border-e-0 max-md:border-b">
-                <label class="font-medium text-sm max-sm:text-xs">Where
-                    <input wire:model.live="search" type="text"
-                           @click="$wire.showDestinations = true; $wire.showDatepicker = false"
-                           x-model="locationName"
-                           x-ref="searchInput"
-                           placeholder="Destination"
-                           class="text-zinc-300 py-1 truncate text-sm max-sm:text-xs focus:outline-none border-1 border-transparent max-w-full w-full block focus-within:border-b-zinc-50" />
-                </label>
-                
-            </div>
-            <div class="col-span-4 pe-2 md:px-4 text-left max-md:col-span-2">
-                <label class="font-medium text-sm max-sm:text-xs">Check in
-                    <input type="text"
-                           @click="openDatePicker('from')"
-                           x-model="outputDateFromValue"
-                           :class="{'border-b-zinc-50': selectingDate == 'from' }"
-                           placeholder="Select date"
-                           class="text-zinc-300 py-1 truncate text-sm max-sm:text-xs focus:outline-none border-1 border-transparent block max-w-full w-full focus-within:border-b-zinc-50" />
-                </label>
-            </div>
-            <div class="col-span-4 px-2 md:px-4 text-left max-md:col-span-2">
-                <label class="font-medium text-sm max-sm:text-xs">Check out
-                    <input type="text"
-                           @click="openDatePicker('to')"
-                           x-model="outputDateToValue"
-                           :class="{'border-b-zinc-50': selectingDate == 'to' }"
-                           placeholder="Select date"
-                           class="text-zinc-300 py-1 truncate text-sm max-sm:text-xs focus:outline-none border-1 border-transparent block max-w-full w-full focus-within:border-b-zinc-50" />
-                </label>
-            </div>
-            <div class="col-span-3 ps-2 md:px-4 text-left max-md:col-span-1">
-                <label class="font-medium text-sm max-sm:text-xs">Guests
-                    <input type="number"
-                           @click="$wire.showDatepicker = false; $wire.showDestinations = false"
-                           x-model="guests"
-                           placeholder="2"
-                           class="text-zinc-300 py-1 truncate text-sm max-sm:text-xs focus:outline-none border-1 border-transparent block max-w-full w-full focus-within:border-b-zinc-50" />
-                </label>
-            </div>
-        </div>
-        <div class="shrink-0 flex gap-2">
-            <!--[if BLOCK]><![endif]-->    <button type="button"
-        class="rounded-md border cursor-pointer border-zinc-50/30 text-zinc-50 px-2.5 py-1.5 text-sm font-normal shadow-xs transition-all aria-expanded:bg-amber-50 aria-expanded:text-black hover:bg-zinc-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300 md:hidden max-sm:text-xs max-sm:py-2" @click="showPlannerFields = false">
-        Close
-    </button>
-<!--[if ENDBLOCK]><![endif]-->            <button type="button"
-    class="rounded-md bg-zinc-50 px-2.5 py-1.5 text-sm font-semibold text-black shadow-xs transition-all hover:bg-amber-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300 md:size-12 max-md:w-full max-sm:text-xs max-sm:py-2" wire:click="handleSearch">
-    <i class="fa-sharp fa-solid fa-magnifying-glass max-md:me-1"></i>
-                <span class="md:hidden">
-                    Search</span>
-</button>
-        </div>
-    </div>
+                                        {{-- Mobile compact --}}
+                                        <div class="md:hidden w-full overflow-hidden" x-show="!showPlannerFields" x-transition:enter="transition-all ease-out duration-300" x-transition:enter-start="opacity-0 max-h-0" x-transition:enter-end="opacity-100 max-h-20" x-transition:leave="transition-all ease-in duration-200" x-transition:leave-start="opacity-100 max-h-20" x-transition:leave-end="opacity-0 max-h-0">
+                                            <div class="flex gap-2 w-full" @click="showPlannerFields = true">
+                                                <div class="font-medium text-sm w-full">
+                                                    <div class="flex gap-2 items-baseline">
+                                                        <div class="grow">Destination</div>
+                                                        <div class="text-zinc-300 text-xs" x-text="outputDateFromValue ? new Date(dateFromYmd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''"></div>
+                                                        -
+                                                        <div class="text-zinc-300 text-xs" x-text="outputDateToValue ? new Date(dateToYmd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''"></div>
+                                                    </div>
+                                                    <div class="text-zinc-300 py-1 text-sm w-full" x-text="locationName || 'Destinations...'">Destinations...</div>
+                                                </div>
+                                                <div class="shrink-0">
+                                                    <button type="button" class="rounded-md bg-zinc-50 px-2.5 py-1.5 text-sm font-semibold text-black shadow-xs transition-all hover:bg-amber-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300 size-12" @click.stop="handleSearch">
+                                                        <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
 
-    
-    <div class="md:hidden transition-all duration-300 ease-in-out overflow-hidden"
-         :class="{
-             'max-h-96': showPlannerFields,
-             'max-h-0': !showPlannerFields,
-             'opacity-100': showPlannerFields,
-             'opacity-0': !showPlannerFields
-         }">
-        <div class="flex flex-col gap-4">
-            <div class="divide-x divide-zinc-200/80 grid grid-cols-5 gap-y-2">
-                <div class="col-span-5 border-b border-e-0">
-                    <label class="font-medium text-sm max-sm:text-xs">Where
-                        <input wire:model.live="search" type="text"
-                               @click="$wire.showDestinations = true; $wire.showDatepicker = false"
-                               x-model="locationName"
-                               x-ref="searchInput"
-                               placeholder="Destination"
-                               class="text-zinc-300 py-1 truncate text-base focus:outline-none border-1 border-transparent max-w-full w-full block focus-within:border-b-zinc-50" />
-                    </label>
-                </div>
-                <div class="col-span-2 pe-2">
-                    <label class="font-medium text-sm max-sm:text-xs">Check in
-                        <input type="text"
-                               @click="openDatePicker('from')"
-                               x-model="outputDateFromValue"
-                               :class="{'border-b-zinc-50': selectingDate == 'from' }"
-                               placeholder="Select date"
-                               readonly
-                               class="text-zinc-300 py-1 truncate text-base focus:outline-none border-1 border-transparent block max-w-full w-full focus-within:border-b-zinc-50" />
-                    </label>
-                </div>
-                <div class="col-span-2 px-2">
-                    <label class="font-medium text-sm max-sm:text-xs">Check out
-                        <input type="text"
-                               @click="openDatePicker('to')"
-                               x-model="outputDateToValue"
-                               :class="{'border-b-zinc-50': selectingDate == 'to' }"
-                               placeholder="Select date"
-                               readonly
-                               class="text-zinc-300 py-1 truncate text-base focus:outline-none border-1 border-transparent block max-w-full w-full focus-within:border-b-zinc-50" />
-                    </label>
-                </div>
-                <div class="col-span-1 ps-2">
-                    <label class="font-medium text-sm max-sm:text-xs">Guests
-                        <input type="number"
-                               @click="$wire.showDatepicker = false; $wire.showDestinations = false"
-                               x-model="guests"
-                               placeholder="2"
-                               class="text-zinc-300 py-1 truncate text-base focus:outline-none border-1 border-transparent block max-w-full w-full focus-within:border-b-zinc-50" />
-                    </label>
-                </div>
-            </div>
-            <div class="flex gap-2">
-                <!--[if BLOCK]><![endif]-->    <button type="button"
-        class="rounded-md border cursor-pointer border-zinc-50/30 text-zinc-50 px-2.5 py-1.5 text-sm font-normal shadow-xs transition-all aria-expanded:bg-amber-50 aria-expanded:text-black hover:bg-zinc-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300 max-sm:py-2" @click="showPlannerFields = false">
-        Close
-    </button>
-<!--[if ENDBLOCK]><![endif]-->                <button type="button"
-    class="rounded-md bg-zinc-50 px-2.5 py-1.5 text-sm font-semibold text-black shadow-xs transition-all hover:bg-amber-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300 w-full max-sm:py-2" wire:click="handleSearch">
-    <i class="fa-sharp fa-solid fa-magnifying-glass me-1"></i>
-                    <span>Search</span>
-</button>
-            </div>
-        </div>
-    </div>
+                                        {{-- Mobile expanded --}}
+                                        <div class="md:hidden transition-all duration-300 ease-in-out overflow-hidden max-h-0 opacity-0" :class="{ 'max-h-96 opacity-100': showPlannerFields, 'max-h-0 opacity-0': !showPlannerFields }">
+                                            <div class="flex flex-col gap-4">
+                                                <div class="divide-x divide-zinc-200/80 grid grid-cols-5 gap-y-2">
+                                                    <div class="col-span-5 border-b border-e-0">
+                                                        <label class="font-medium text-sm max-sm:text-xs">Where
+                                                            <input type="text" @click="showDestinations = true; showDatepicker = false" x-model="locationName" x-ref="searchInput" placeholder="Destination" class="text-zinc-300 py-1 truncate text-base focus:outline-none border-1 border-transparent max-w-full w-full block focus-within:border-b-zinc-50">
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-span-2 pe-2">
+                                                        <label class="font-medium text-sm max-sm:text-xs">Check in
+                                                            <input type="text" @click="openDatePicker('from')" x-model="outputDateFromValue" :class="{'border-b-zinc-50': selectingDate == 'from'}" placeholder="Select date" readonly class="text-zinc-300 py-1 truncate text-base focus:outline-none border-1 border-transparent block max-w-full w-full focus-within:border-b-zinc-50 border-b-zinc-50">
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-span-2 px-2">
+                                                        <label class="font-medium text-sm max-sm:text-xs">Check out
+                                                            <input type="text" @click="openDatePicker('to')" x-model="outputDateToValue" :class="{'border-b-zinc-50': selectingDate == 'to'}" placeholder="Select date" readonly class="text-zinc-300 py-1 truncate text-base focus:outline-none border-1 border-transparent block max-w-full w-full focus-within:border-b-zinc-50 border-b-zinc-50">
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-span-1 ps-2">
+                                                        <label class="font-medium text-sm max-sm:text-xs">Guests
+                                                            <input type="number" @click="showDatepicker = false; showDestinations = false" x-model="guests" placeholder="2" class="text-zinc-300 py-1 truncate text-base focus:outline-none border-1 border-transparent block max-w-full w-full focus-within:border-b-zinc-50">
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="flex gap-2">
+                                                    <button type="button" class="rounded-md border cursor-pointer border-zinc-50/30 text-zinc-50 px-2.5 py-1.5 text-sm font-normal shadow-xs transition-all hover:bg-zinc-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300 max-sm:py-2" @click="showPlannerFields = false">Close</button>
+                                                    <button type="button" class="rounded-md bg-zinc-50 px-2.5 py-1.5 text-sm font-semibold text-black shadow-xs transition-all hover:bg-amber-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300 w-full max-sm:py-2" @click="handleSearch">
+                                                        <i class="fa-sharp fa-solid fa-magnifying-glass me-1"></i>
+                                                        <span>Search</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
 
-    
-    <div class="md:hidden w-full overflow-hidden"
-         x-show="!showPlannerFields"
-         x-transition:enter="transition-all ease-out duration-300"
-         x-transition:enter-start="opacity-0 max-h-0"
-         x-transition:enter-end="opacity-100 max-h-20"
-         x-transition:leave="transition-all ease-in duration-200"
-         x-transition:leave-start="opacity-100 max-h-20"
-         x-transition:leave-end="opacity-0 max-h-0">
-        <div class="flex gap-2 w-full" @click="showPlannerFields = true">
-            <div class="font-medium text-sm w-full">
-                <div class="flex gap-2 items-baseline">
-                    <div class="grow">Destination</div>
-                    <div class="text-zinc-300 text-xs"
-                         x-text="outputDateFromValue ? new Date(outputDateFromValue).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''">
-                        Check in
-                    </div>
-                    -
-                    <div class="text-zinc-300 text-xs"
-                         x-text="outputDateToValue ? new Date(outputDateToValue).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''">
-                        Check out
-                    </div>
-                </div>
-                <div class="text-zinc-300 py-1 text-sm w-full" x-text="locationName || 'Destinations...'"></div>
-            </div>
-            <div class="shrink-0">
-                <button type="button"
-    class="rounded-md bg-zinc-50 px-2.5 py-1.5 text-sm font-semibold text-black shadow-xs transition-all hover:bg-amber-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300 size-12" wire:click="handleSearch">
-    <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
-</button>
-            </div>
-        </div>
-    </div>
-
-</div>
-            </div>
-
-
-            <div
-    class="absolute left-1/2 z-10 mt-2 flex w-screen max-w-max -translate-x-1/2 px-4 max-md:bottom-full" x-show="$wire.showDestinations" x-transition:enter="transition ease-out duration-350"
-    :class="$wire.plannerVisible ? '' : ' bottom-full'"
-    x-transition:enter-start="opacity-0 translate-y-1"
-    x-transition:enter-end="opacity-100 translate-y-0"
-    x-transition:leave="transition ease-in duration-150"
-    x-transition:leave-start="opacity-100 translate-y-0"
-    x-transition:leave-end="opacity-0 translate-y-1" x-cloak>
-    <div
-        class="w-screen max-w-2xl flex-auto bg-black/90 border border-zinc-50/90 backdrop-blur-[2px] rounded-xl shadow-lg ring-1 ring-gray-900/5">
-        <div class="px-6 pt-6 pb-6 max-md:text-xs">
-                    
-                    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
-                    
-                    <!--[if BLOCK]><![endif]-->                        <div>
-                            <div class="font-medium mb-3 text-zinc-50">
-                                Destinations
-                            </div>
-                            <ul class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                                <!--[if BLOCK]><![endif]-->                                    <li>
-                                        <article class="relative text-sm group rounded-xl">
-    <!--[if BLOCK]><![endif]-->                                                <!--[if BLOCK]><![endif]-->    <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-7/5 max-md:hidden" wire:ignore>
-        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="eager" sizes="(max-width: 768px) 50vw, 300px" src="{{ asset('media.luxuri.com/042945ba4d80ea1e9d6c20e8db6ec3d4/Costa-Rica.png') }}" alt="Costa Rica.png">
-    </div>
-<!--[if ENDBLOCK]><![endif]-->                                            <!--[if ENDBLOCK]><![endif]-->                                            <div class="flex gap-2 mb-2">
-    <h3 class="text-base font-normal uppercase transition-colors duration-300 group-hover:text-amber-200 grow">
-        <button type="button" class="text-center w-full max-md:text-sm" wire:click="setDestination('costa-rica')">
-            Costa Rica
-            <div class="absolute inset-0"></div>
-        </button>
-    </h3>
-    
-</div>
-</article>
-                                    </li>
-                                                                    <li>
-                                        <article class="relative text-sm group rounded-xl">
-    <!--[if BLOCK]><![endif]-->                                                <!--[if BLOCK]><![endif]-->    <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-7/5 max-md:hidden" wire:ignore>
-        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="eager" sizes="(max-width: 768px) 50vw, 300px"  srcset="https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_5464_3640.jpeg') }} 5464w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_4571_3045.jpeg') }} 4571w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_3824_2547.jpeg') }} 3824w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_3200_2132.jpeg') }} 3200w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_2677_1783.jpeg') }} 2677w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_2240_1492.jpeg') }} 2240w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_1874_1248.jpeg') }} 1874w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_1568_1045.jpeg') }} 1568w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_1311_873.jpeg') }} 1311w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_1097_731.jpeg') }} 1097w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_918_612.jpeg') }} 918w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_768_512.jpeg') }} 768w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_642_428.jpeg') }} 642w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_537_358.jpeg') }} 537w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_449_299.jpeg') }} 449w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_376_250.jpeg') }} 376w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_314_209.jpeg') }} 314w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgNTQ2NCAzNjQwIj4KCTxpbWFnZSB3aWR0aD0iNTQ2NCIgaGVpZ2h0PSIzNjQwIiB4bGluazpocmVmPSJkYXRhOmltYWdlL2pwZWc7YmFzZTY0LC85ai80QUFRU2taSlJnQUJBUUVBWUFCZ0FBRC8vZ0ErUTFKRlFWUlBVam9nWjJRdGFuQmxaeUIyTVM0d0lDaDFjMmx1WnlCSlNrY2dTbEJGUnlCMk9EQXBMQ0JrWldaaGRXeDBJSEYxWVd4cGRIa0svOXNBUXdBSUJnWUhCZ1VJQndjSENRa0lDZ3dVRFF3TEN3d1pFaE1QRkIwYUh4NGRHaHdjSUNRdUp5QWlMQ01jSENnM0tTd3dNVFEwTkI4bk9UMDRNand1TXpReS85c0FRd0VKQ1FrTUN3d1lEUTBZTWlFY0lUSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5LzhBQUVRZ0FGUUFnQXdFaUFBSVJBUU1SQWYvRUFCOEFBQUVGQVFFQkFRRUJBQUFBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUUFBSUJBd01DQkFNRkJRUUVBQUFCZlFFQ0F3QUVFUVVTSVRGQkJoTlJZUWNpY1JReWdaR2hDQ05Dc2NFVlV0SHdKRE5pY29JSkNoWVhHQmthSlNZbktDa3FORFUyTnpnNU9rTkVSVVpIU0VsS1UxUlZWbGRZV1ZwalpHVm1aMmhwYW5OMGRYWjNlSGw2ZzRTRmhvZUlpWXFTazVTVmxwZVltWnFpbzZTbHBxZW9xYXF5czdTMXRyZTR1YnJDdzhURnhzZkl5Y3JTMDlUVjF0ZlkyZHJoNHVQazVlYm42T25xOGZMejlQWDI5L2o1K3YvRUFCOEJBQU1CQVFFQkFRRUJBUUVBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUkFBSUJBZ1FFQXdRSEJRUUVBQUVDZHdBQkFnTVJCQVVoTVFZU1FWRUhZWEVUSWpLQkNCUkNrYUd4d1Frak0xTHdGV0p5MFFvV0pEVGhKZkVYR0JrYUppY29LU28xTmpjNE9UcERSRVZHUjBoSlNsTlVWVlpYV0ZsYVkyUmxabWRvYVdwemRIVjJkM2g1ZW9LRGhJV0doNGlKaXBLVGxKV1dsNWlabXFLanBLV21wNmlwcXJLenRMVzJ0N2k1dXNMRHhNWEd4OGpKeXRMVDFOWFcxOWpaMnVMajVPWG01K2pwNnZMejlQWDI5L2o1K3YvYUFBd0RBUUFDRVFNUkFEOEE0TzJnQllLU0swREFZV1VJM1h0WE9mYUdFZzhza24ycld0WHVaU0NGSmFoMDVwa09yVHNkQklpMnR1ck9jbHFvdklzcDZnQ3FVcjNFakZicHlvSFNzUzd2MmhrS28rUld0T0hjeG5VN0lvYVpkUEZNRGdOOWEyeHJGeERPQ2dVVVVWcXRqTnJVb2FscXR4Y1NmTWZ5ckhrZG01Sm9vcVJvLzlrPSI+Cgk8L2ltYWdlPgo8L3N2Zz4= 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc.jpg') }}" width="5464" height="3640" alt="beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc.jpeg">
-
-    </div>
-<!--[if ENDBLOCK]><![endif]-->                                            <!--[if ENDBLOCK]><![endif]-->                                            <div class="flex gap-2 mb-2">
-    <h3 class="text-base font-normal uppercase transition-colors duration-300 group-hover:text-amber-200 grow">
-        <button type="button" class="text-center w-full max-md:text-sm" wire:click="setDestination('bali')">
-            Bali
-            <div class="absolute inset-0"></div>
-        </button>
-    </h3>
-    
-</div>
-</article>
-                                    </li>
-                                                                    <li>
-                                        <article class="relative text-sm group rounded-xl">
-    <!--[if BLOCK]><![endif]-->                                                <!--[if BLOCK]><![endif]-->    <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-7/5 max-md:hidden" wire:ignore>
-        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="eager" sizes="(max-width: 768px) 50vw, 300px" src="{{ asset('media.luxuri.com/22696e565bd848d8cf54bb0230c92d6d/ft.jpg') }}" alt="ft.jpg">
-    </div>
-<!--[if ENDBLOCK]><![endif]-->                                            <!--[if ENDBLOCK]><![endif]-->                                            <div class="flex gap-2 mb-2">
-    <h3 class="text-base font-normal uppercase transition-colors duration-300 group-hover:text-amber-200 grow">
-        <button type="button" class="text-center w-full max-md:text-sm" wire:click="setDestination('fort-lauderdale')">
-            Fort Lauderdale
-            <div class="absolute inset-0"></div>
-        </button>
-    </h3>
-    
-</div>
-</article>
-                                    </li>
-                                                                    <li>
-                                        <article class="relative text-sm group rounded-xl">
-    <!--[if BLOCK]><![endif]-->                                                <!--[if BLOCK]><![endif]-->    <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-7/5 max-md:hidden" wire:ignore>
-        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="eager" sizes="(max-width: 768px) 50vw, 300px" src="{{ asset('media.luxuri.com/8c4cb49a35c6bd10339fe5cccf553c09/Capetown.png') }}" alt="Capetown.png">
-    </div>
-<!--[if ENDBLOCK]><![endif]-->                                            <!--[if ENDBLOCK]><![endif]-->                                            <div class="flex gap-2 mb-2">
-    <h3 class="text-base font-normal uppercase transition-colors duration-300 group-hover:text-amber-200 grow">
-        <button type="button" class="text-center w-full max-md:text-sm" wire:click="setDestination('cape-town')">
-            Cape Town
-            <div class="absolute inset-0"></div>
-        </button>
-    </h3>
-    
-</div>
-</article>
-                                    </li>
-                                                                    <li>
-                                        <article class="relative text-sm group rounded-xl">
-    <!--[if BLOCK]><![endif]-->                                                <!--[if BLOCK]><![endif]-->    <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-7/5 max-md:hidden" wire:ignore>
-        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="eager" sizes="(max-width: 768px) 50vw, 300px"  srcset="https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_3442_1926.png') }} 3442w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_2879_1611.png') }} 2879w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_2409_1348.png') }} 2409w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_2015_1128.png') }} 2015w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_1686_943.png') }} 1686w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_1411_790.png') }} 1411w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_1180_660.png') }} 1180w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_987_552.png') }} 987w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_826_462.png') }} 826w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_691_387.png') }} 691w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_578_323.png') }} 578w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_484_271.png') }} 484w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_404_226.png') }} 404w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_338_189.png') }} 338w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_283_158.png') }} 283w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_237_133.png') }} 237w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_198_111.png') }} 198w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_166_93.png') }} 166w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_138_77.png') }} 138w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgMzQ0MiAxOTI2Ij4KCTxpbWFnZSB3aWR0aD0iMzQ0MiIgaGVpZ2h0PSIxOTI2IiB4bGluazpocmVmPSJkYXRhOmltYWdlL2pwZWc7YmFzZTY0LC85ai80QUFRU2taSlJnQUJBUUVBWUFCZ0FBRC8vZ0ErUTFKRlFWUlBVam9nWjJRdGFuQmxaeUIyTVM0d0lDaDFjMmx1WnlCSlNrY2dTbEJGUnlCMk9EQXBMQ0JrWldaaGRXeDBJSEYxWVd4cGRIa0svOXNBUXdBSUJnWUhCZ1VJQndjSENRa0lDZ3dVRFF3TEN3d1pFaE1QRkIwYUh4NGRHaHdjSUNRdUp5QWlMQ01jSENnM0tTd3dNVFEwTkI4bk9UMDRNand1TXpReS85c0FRd0VKQ1FrTUN3d1lEUTBZTWlFY0lUSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5LzhBQUVRZ0FFZ0FnQXdFaUFBSVJBUU1SQWYvRUFCOEFBQUVGQVFFQkFRRUJBQUFBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUUFBSUJBd01DQkFNRkJRUUVBQUFCZlFFQ0F3QUVFUVVTSVRGQkJoTlJZUWNpY1JReWdaR2hDQ05Dc2NFVlV0SHdKRE5pY29JSkNoWVhHQmthSlNZbktDa3FORFUyTnpnNU9rTkVSVVpIU0VsS1UxUlZWbGRZV1ZwalpHVm1aMmhwYW5OMGRYWjNlSGw2ZzRTRmhvZUlpWXFTazVTVmxwZVltWnFpbzZTbHBxZW9xYXF5czdTMXRyZTR1YnJDdzhURnhzZkl5Y3JTMDlUVjF0ZlkyZHJoNHVQazVlYm42T25xOGZMejlQWDI5L2o1K3YvRUFCOEJBQU1CQVFFQkFRRUJBUUVBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUkFBSUJBZ1FFQXdRSEJRUUVBQUVDZHdBQkFnTVJCQVVoTVFZU1FWRUhZWEVUSWpLQkNCUkNrYUd4d1Frak0xTHdGV0p5MFFvV0pEVGhKZkVYR0JrYUppY29LU28xTmpjNE9UcERSRVZHUjBoSlNsTlVWVlpYV0ZsYVkyUmxabWRvYVdwemRIVjJkM2g1ZW9LRGhJV0doNGlKaXBLVGxKV1dsNWlabXFLanBLV21wNmlwcXJLenRMVzJ0N2k1dXNMRHhNWEd4OGpKeXRMVDFOWFcxOWpaMnVMajVPWG01K2pwNnZMejlQWDI5L2o1K3YvYUFBd0RBUUFDRVFNUkFEOEEzLzdRc1pINmlyaHZJMWd5b3l0Y1ZIdEdNVjJtazJ5dllEY001RmIxSzFrY0dHanpzeHIyN2dkdVJpbTI2UVRkSEg1MXV6YVRaM0FJa0FCckZ1L0NybHQxcE9RUFROSllxYVJ0TEN3YnVjOUY5NGZXdlFkRi93Q1BKZnBSUldGUVdDMllYZlJxTk9KUGVpaWhiSFc5ei8vWiI+Cgk8L2ltYWdlPgo8L3N2Zz4= 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/Miami.png') }}" width="3442" height="1926" alt="Miami.png">
-
-    </div>
-<!--[if ENDBLOCK]><![endif]-->                                            <!--[if ENDBLOCK]><![endif]-->                                            <div class="flex gap-2 mb-2">
-    <h3 class="text-base font-normal uppercase transition-colors duration-300 group-hover:text-amber-200 grow">
-        <button type="button" class="text-center w-full max-md:text-sm" wire:click="setDestination('miami')">
-            Miami
-            <div class="absolute inset-0"></div>
-        </button>
-    </h3>
-    
-</div>
-</article>
-                                    </li>
-                                                                    <li>
-                                        <article class="relative text-sm group rounded-xl">
-    <!--[if BLOCK]><![endif]-->                                                <!--[if BLOCK]><![endif]-->    <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-7/5 max-md:hidden" wire:ignore>
-        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="eager" sizes="(max-width: 768px) 50vw, 300px" src="{{ asset('media.luxuri.com/47d7a9bd4fe2081026fcfde3895ba1c1/LA.png') }}" alt="LA.png">
-    </div>
-<!--[if ENDBLOCK]><![endif]-->                                            <!--[if ENDBLOCK]><![endif]-->                                            <div class="flex gap-2 mb-2">
-    <h3 class="text-base font-normal uppercase transition-colors duration-300 group-hover:text-amber-200 grow">
-        <button type="button" class="text-center w-full max-md:text-sm" wire:click="setDestination('los-angeles')">
-            Los Angeles
-            <div class="absolute inset-0"></div>
-        </button>
-    </h3>
-    
-</div>
-</article>
-                                    </li>
-                                <!--[if ENDBLOCK]><![endif]-->                            </ul>
-                        </div>
-                    <!--[if ENDBLOCK]><![endif]-->                </div>
-    </div>
-</div>
-
-            <div
-    class="absolute left-1/2 z-10 mt-2 flex w-screen max-w-max -translate-x-1/2 px-4 max-md:bottom-full" x-show="$wire.showDatepicker" x-transition:enter="transition ease-out duration-350"
-    :class="$wire.plannerVisible ? '' : ' bottom-full'"
-    x-transition:enter-start="opacity-0 translate-y-1"
-    x-transition:enter-end="opacity-100 translate-y-0"
-    x-transition:leave="transition ease-in duration-150"
-    x-transition:leave-start="opacity-100 translate-y-0"
-    x-transition:leave-end="opacity-0 translate-y-1" x-cloak>
-    <div
-        class="w-screen max-w-2xl flex-auto bg-black/90 border border-zinc-50/90 backdrop-blur-[2px] rounded-xl shadow-lg ring-1 ring-gray-900/5">
-        <input type="hidden" name="date_from" wire:model="dateFromYmd" x-model="dateFromYmd">
-                <input type="hidden" name="date_to" wire:model="dateToYmd" x-model="dateToYmd">
-                <div class="p-6">
-                    <div class="flex justify-between items-center mb-4">
-                        <div class="flex items-center gap-3">
-                            <label for="datepicker" class="font-medium text-zinc-50">Select Date Range</label>
-                            <span x-show="selectingDate"
-                                  class="px-3 py-1 bg-amber-500/20 text-amber-300 rounded-full text-sm">
-                                <span
-                                    x-text="selectingDate === 'from' ? 'Selecting Check-in' : 'Selecting Check-out'"></span>
-                            </span>
-                        </div>
-                        <button type="button"
-                                @click="clearDates()"
-                                class="text-zinc-300 hover:text-white transition-colors text-sm">
-                            Clear dates
-                        </button>
-                    </div>
-
-                    <!-- Two Month Calendar Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- First Month -->
-                        <div class="flex flex-col items-center">
-                            <div class="w-full flex justify-between items-center mb-2 border-b border-zinc-200/30 py-1">
-                                <button type="button"
-                                        class="size-8 transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-zinc-700 p-1 rounded-md"
-                                        @click="previousMonth()">
-                                    <svg class="size-6 text-zinc-50 inline-flex" fill="none" viewBox="0 0 24 24"
-                                         stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                              d="M15 19l-7-7 7-7" />
-                                    </svg>
-                                </button>
-                                <div class="grow text-center">
-                                    <span x-text="MONTH_NAMES[month]" class="text-sm font-normal text-zinc-50"></span>
-                                    <span x-text="year" class="ml-1 text-sm text-zinc-50 font-normal"></span>
-                                </div>
-                                <!-- Next button for mobile -->
-                                <button type="button"
-                                        class="size-8 transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-zinc-700 p-1 rounded-md md:hidden"
-                                        @click="nextMonth()">
-                                    <svg class="h-6 w-6 text-zinc-50 inline-flex" fill="none" viewBox="0 0 24 24"
-                                         stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                              d="M9 5l7 7-7 7" />
-                                    </svg>
-                                </button>
-                            </div>
-
-                            <!-- Days Header -->
-                            <div class="w-full flex flex-wrap mb-3 -mx-1">
-                                <template x-for="(day, index) in DAYS" :key="index">
-                                    <div class="w-1/7 px-1">
-                                        <div x-text="day" class="text-zinc-200 font-normal text-center text-xs"></div>
                                     </div>
-                                </template>
+                                </div>
                             </div>
 
-                            <!-- Calendar Grid -->
-                            <div class="flex flex-wrap -mx-1">
-                                <template x-for="blankday in blankdays">
-                                    <div class="w-1/7 text-center border p-1 border-transparent text-sm"></div>
-                                </template>
-                                <template x-for="(date, dateIndex) in no_of_days" :key="dateIndex">
-                                    <div class="w-1/7">
-                                        <div @click="getDateValue(date, false, 'first')"
-                                             @mouseover="getDateValue(date, true, 'first')"
-                                             @mouseleave="hoveredDate = null; tempDateFrom = null; tempDateTo = null"
-                                             x-text="date"
-                                             class="p-1.5 cursor-pointer text-center text-sm transition ease-in-out duration-100"
-                                             :class="{
-                                                 'font-bold': isToday(date, 'first') == true,
-                                                 'bg-white text-black rounded-l-md': isDateFrom(date, 'first') == true,
-                                                 'bg-white text-black rounded-r-md': isDateTo(date, 'first') == true,
-                                                 'bg-amber-100 text-black': isInRange(date, 'first') == true,
-                                                 'ring-2 ring-amber-400': isHoveredDate(date, 'first') == true
-                                             }">
+                            {{-- Destinations Dropdown --}}
+                            <div class="absolute left-1/2 z-10 mt-2 flex w-screen max-w-max -translate-x-1/2 px-4 max-md:bottom-full" x-show="showDestinations" x-transition:enter="transition ease-out duration-350" :class="plannerVisible ? '' : 'bottom-full'" x-transition:enter-start="opacity-0 translate-y-1" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-1" style="display: none;">
+                                <div class="w-screen max-w-2xl flex-auto bg-black/90 border border-zinc-50/90 backdrop-blur-[2px] rounded-xl shadow-lg ring-1 ring-gray-900/5">
+                                    <div class="px-6 pt-6 pb-6 max-md:text-xs">
+                                        <div>
+                                            <div class="font-medium mb-3 text-zinc-50">Destinations</div>
+                                            <ul class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                                <li>
+                                                    <article class="relative text-sm group rounded-xl">
+                                                        <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-7/5 max-md:hidden">
+                                                            <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="eager" src="https://media.luxteria.co/83926f30daa706ee9a210a080639d387/Aspen.png" alt="Aspen">
+                                                        </div>
+                                                        <div class="flex gap-2 mb-2">
+                                                            <h3 class="text-base font-normal uppercase transition-colors duration-300 group-hover:text-amber-200 grow">
+                                                                <button type="button" class="text-center w-full max-md:text-sm" @click="setDestination('Aspen')">
+                                                                    Aspen
+                                                                    <div class="absolute inset-0"></div>
+                                                                </button>
+                                                            </h3>
+                                                        </div>
+                                                    </article>
+                                                </li>
+                                                <li>
+                                                    <article class="relative text-sm group rounded-xl">
+                                                        <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-7/5 max-md:hidden">
+                                                            <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="eager" src="https://media.luxteria.co/miami-hero.jpg" alt="Miami">
+                                                        </div>
+                                                        <div class="flex gap-2 mb-2">
+                                                            <h3 class="text-base font-normal uppercase transition-colors duration-300 group-hover:text-amber-200 grow">
+                                                                <button type="button" class="text-center w-full max-md:text-sm" @click="setDestination('Miami')">
+                                                                    Miami
+                                                                    <div class="absolute inset-0"></div>
+                                                                </button>
+                                                            </h3>
+                                                        </div>
+                                                    </article>
+                                                </li>
+                                                <li>
+                                                    <article class="relative text-sm group rounded-xl">
+                                                        <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-7/5 max-md:hidden">
+                                                            <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="eager" src="https://media.luxteria.co/bali-hero.jpg" alt="Bali">
+                                                        </div>
+                                                        <div class="flex gap-2 mb-2">
+                                                            <h3 class="text-base font-normal uppercase transition-colors duration-300 group-hover:text-amber-200 grow">
+                                                                <button type="button" class="text-center w-full max-md:text-sm" @click="setDestination('Bali')">
+                                                                    Bali
+                                                                    <div class="absolute inset-0"></div>
+                                                                </button>
+                                                            </h3>
+                                                        </div>
+                                                    </article>
+                                                </li>
+                                                <li>
+                                                    <article class="relative text-sm group rounded-xl">
+                                                        <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-7/5 max-md:hidden">
+                                                            <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="eager" src="https://media.luxteria.co/fort-lauderdale-hero.jpg" alt="Fort Lauderdale">
+                                                        </div>
+                                                        <div class="flex gap-2 mb-2">
+                                                            <h3 class="text-base font-normal uppercase transition-colors duration-300 group-hover:text-amber-200 grow">
+                                                                <button type="button" class="text-center w-full max-md:text-sm" @click="setDestination('Fort Lauderdale')">
+                                                                    Fort Lauderdale
+                                                                    <div class="absolute inset-0"></div>
+                                                                </button>
+                                                            </h3>
+                                                        </div>
+                                                    </article>
+                                                </li>
+                                                <li>
+                                                    <article class="relative text-sm group rounded-xl">
+                                                        <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-7/5 max-md:hidden">
+                                                            <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="eager" src="https://media.luxteria.co/los-angeles-hero.jpg" alt="Los Angeles">
+                                                        </div>
+                                                        <div class="flex gap-2 mb-2">
+                                                            <h3 class="text-base font-normal uppercase transition-colors duration-300 group-hover:text-amber-200 grow">
+                                                                <button type="button" class="text-center w-full max-md:text-sm" @click="setDestination('Los Angeles')">
+                                                                    Los Angeles
+                                                                    <div class="absolute inset-0"></div>
+                                                                </button>
+                                                            </h3>
+                                                        </div>
+                                                    </article>
+                                                </li>
+                                                <li>
+                                                    <article class="relative text-sm group rounded-xl">
+                                                        <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-7/5 max-md:hidden">
+                                                            <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="eager" src="https://media.luxteria.co/cape-town-hero.jpg" alt="Cape Town">
+                                                        </div>
+                                                        <div class="flex gap-2 mb-2">
+                                                            <h3 class="text-base font-normal uppercase transition-colors duration-300 group-hover:text-amber-200 grow">
+                                                                <button type="button" class="text-center w-full max-md:text-sm" @click="setDestination('Cape Town')">
+                                                                    Cape Town
+                                                                    <div class="absolute inset-0"></div>
+                                                                </button>
+                                                            </h3>
+                                                        </div>
+                                                    </article>
+                                                </li>
+                                                <li>
+                                                    <article class="relative text-sm group rounded-xl">
+                                                        <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-7/5 max-md:hidden">
+                                                            <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="eager" src="https://media.luxteria.co/costa-rica-hero.jpg" alt="Costa Rica">
+                                                        </div>
+                                                        <div class="flex gap-2 mb-2">
+                                                            <h3 class="text-base font-normal uppercase transition-colors duration-300 group-hover:text-amber-200 grow">
+                                                                <button type="button" class="text-center w-full max-md:text-sm" @click="setDestination('Costa Rica')">
+                                                                    Costa Rica
+                                                                    <div class="absolute inset-0"></div>
+                                                                </button>
+                                                            </h3>
+                                                        </div>
+                                                    </article>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
-                                </template>
-                            </div>
-                        </div>
-
-                        <!-- Second Month -->
-                        <div class="hidden md:flex flex-col items-center">
-                            <div class="w-full flex justify-between items-center mb-2 border-b border-zinc-200/30 py-1">
-                                <div class="grow md:ms-8 text-center">
-                                    <span x-text="MONTH_NAMES[secondMonth]"
-                                          class="text-sm font-normal text-zinc-50"></span>
-                                    <span x-text="secondYear" class="ml-1 text-sm text-zinc-50 font-normal"></span>
                                 </div>
-                                <button type="button"
-                                        class="size-8 transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-zinc-700 p-1 rounded-md"
-                                        @click="nextMonth()">
-                                    <svg class="h-6 w-6 text-zinc-50 inline-flex" fill="none" viewBox="0 0 24 24"
-                                         stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                              d="M9 5l7 7-7 7" />
-                                    </svg>
-                                </button>
                             </div>
 
-                            <!-- Days Header -->
-                            <div class="w-full flex flex-wrap mb-3 -mx-1">
-                                <template x-for="(day, index) in DAYS" :key="index">
-                                    <div class="w-1/7 px-1">
-                                        <div x-text="day" class="text-zinc-200 font-normal text-center text-xs"></div>
-                                    </div>
-                                </template>
-                            </div>
-
-                            <!-- Calendar Grid -->
-                            <div class="flex flex-wrap -mx-1">
-                                <template x-for="blankday in secondBlankdays">
-                                    <div class="w-1/7 text-center border p-1 border-transparent text-sm"></div>
-                                </template>
-                                <template x-for="(date, dateIndex) in secondNo_of_days" :key="dateIndex">
-                                    <div class="w-1/7">
-                                        <div @click="getDateValue(date, false, 'second')"
-                                             @mouseover="getDateValue(date, true, 'second')"
-                                             @mouseleave="hoveredDate = null; tempDateFrom = null; tempDateTo = null"
-                                             x-text="date"
-                                             class="p-1.5 cursor-pointer text-center text-sm transition ease-in-out duration-100"
-                                             :class="{
-                                                 'font-bold': isToday(date, 'second') == true,
-                                                 'bg-white text-black rounded-l-md': isDateFrom(date, 'second') == true,
-                                                 'bg-white text-black rounded-r-md': isDateTo(date, 'second') == true,
-                                                 'bg-amber-100 text-black': isInRange(date, 'second') == true,
-                                                 'ring-2 ring-amber-400': isHoveredDate(date, 'second') == true
-                                             }">
+                            {{-- Datepicker Dropdown --}}
+                            <div class="absolute left-1/2 z-10 mt-2 flex w-screen max-w-max -translate-x-1/2 px-4 max-md:bottom-full" x-show="showDatepicker" x-transition:enter="transition ease-out duration-350" :class="plannerVisible ? '' : 'bottom-full'" x-transition:enter-start="opacity-0 translate-y-1" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-1" style="display: none;">
+                                <div class="w-screen max-w-2xl flex-auto bg-black/90 border border-zinc-50/90 backdrop-blur-[2px] rounded-xl shadow-lg ring-1 ring-gray-900/5">
+                                    <div class="p-6">
+                                        <div class="flex justify-between items-center mb-4">
+                                            <div class="flex items-center gap-3">
+                                                <label class="font-medium text-zinc-50">Select Date Range</label>
+                                                <span x-show="selectingDate" class="px-3 py-1 bg-amber-500/20 text-amber-300 rounded-full text-sm">
+                                                    <span x-text="selectingDate === 'from' ? 'Selecting Check-in' : 'Selecting Check-out'"></span>
+                                                </span>
+                                            </div>
+                                            <button type="button" @click="clearDates()" class="text-zinc-300 hover:text-white transition-colors text-sm">Clear dates</button>
+                                        </div>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            {{-- First Month --}}
+                                            <div class="flex flex-col items-center">
+                                                <div class="w-full flex justify-between items-center mb-2 border-b border-zinc-200/30 py-1">
+                                                    <button type="button" class="size-8 transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-zinc-700 p-1 rounded-md" @click="previousMonth()">
+                                                        <svg class="size-6 text-zinc-50 inline-flex" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                                                    </button>
+                                                    <div class="grow text-center">
+                                                        <span x-text="MONTH_NAMES[month]" class="text-sm font-normal text-zinc-50"></span>
+                                                        <span x-text="year" class="ml-1 text-sm text-zinc-50 font-normal"></span>
+                                                    </div>
+                                                    <button type="button" class="size-8 transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-zinc-700 p-1 rounded-md md:hidden" @click="nextMonth()">
+                                                        <svg class="h-6 w-6 text-zinc-50 inline-flex" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                                    </button>
+                                                </div>
+                                                <div class="w-full flex flex-wrap mb-3 -mx-1">
+                                                    <template x-for="(day, index) in DAYS" :key="index">
+                                                        <div class="w-1/7 px-1"><div x-text="day" class="text-zinc-200 font-normal text-center text-xs"></div></div>
+                                                    </template>
+                                                </div>
+                                                <div class="flex flex-wrap -mx-1">
+                                                    <template x-for="blankday in blankdays">
+                                                        <div class="w-1/7 text-center border p-1 border-transparent text-sm"></div>
+                                                    </template>
+                                                    <template x-for="(date, dateIndex) in no_of_days" :key="dateIndex">
+                                                        <div class="w-1/7">
+                                                            <div @click="getDateValue(date, false, 'first')" x-text="date" class="p-1.5 cursor-pointer text-center text-sm transition ease-in-out duration-100" :class="{
+                                                                'font-bold': isToday(date, 'first'),
+                                                                'bg-white text-black rounded-l-md': isDateFrom(date, 'first'),
+                                                                'bg-white text-black rounded-r-md': isDateTo(date, 'first'),
+                                                                'bg-amber-100 text-black': isInRange(date, 'first')
+                                                            }"></div>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                            {{-- Second Month --}}
+                                            <div class="hidden md:flex flex-col items-center">
+                                                <div class="w-full flex justify-between items-center mb-2 border-b border-zinc-200/30 py-1">
+                                                    <div class="grow md:ms-8 text-center">
+                                                        <span x-text="MONTH_NAMES[secondMonth]" class="text-sm font-normal text-zinc-50"></span>
+                                                        <span x-text="secondYear" class="ml-1 text-sm text-zinc-50 font-normal"></span>
+                                                    </div>
+                                                    <button type="button" class="size-8 transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-zinc-700 p-1 rounded-md" @click="nextMonth()">
+                                                        <svg class="h-6 w-6 text-zinc-50 inline-flex" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                                <div class="w-full flex flex-wrap mb-3 -mx-1">
+                                                    <template x-for="(day, index) in DAYS" :key="index">
+                                                        <div class="w-1/7 px-1"><div x-text="day" class="text-zinc-200 font-normal text-center text-xs"></div></div>
+                                                    </template>
+                                                </div>
+                                                <div class="flex flex-wrap -mx-1">
+                                                    <template x-for="blankday in secondBlankdays">
+                                                        <div class="w-1/7 text-center border p-1 border-transparent text-sm"></div>
+                                                    </template>
+                                                    <template x-for="(date, dateIndex) in secondNo_of_days" :key="dateIndex">
+                                                        <div class="w-1/7">
+                                                            <div @click="getDateValue(date, false, 'second')" x-text="date" class="p-1.5 cursor-pointer text-center text-sm transition ease-in-out duration-100" :class="{
+                                                                'font-bold': isToday(date, 'second'),
+                                                                'bg-white text-black rounded-l-md': isDateFrom(date, 'second'),
+                                                                'bg-white text-black rounded-r-md': isDateTo(date, 'second'),
+                                                                'bg-amber-100 text-black': isInRange(date, 'second')
+                                                            }"></div>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </template>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
 
-                <script>
-                    document.addEventListener('alpine:init', () => {
-                        Alpine.data('planner', () => ({
-                            // Livewire entangled properties
-                            dateFromYmd: window.Livewire.find('bD1bD0r1APRvvlQDR3AS').entangle('dateFromYmd'),
-                            dateToYmd: window.Livewire.find('bD1bD0r1APRvvlQDR3AS').entangle('dateToYmd'),
-                            selectingDate: window.Livewire.find('bD1bD0r1APRvvlQDR3AS').entangle('selectingDate'),
-                            guests: window.Livewire.find('bD1bD0r1APRvvlQDR3AS').entangle('guests'),
+                            <script>
+                                document.addEventListener('alpine:init', () => {
+                                    Alpine.data('planner', () => ({
+                                        showDestinations: false,
+                                        showDatepicker: false,
+                                        showPlannerFields: false,
+                                        plannerVisible: true,
+                                        selectingDate: 'from',
+                                        dateFromYmd: '',
+                                        dateToYmd: '',
+                                        guests: 2,
+                                        locationName: '',
+                                        outputDateFromValue: '',
+                                        outputDateToValue: '',
+                                        dateFrom: null,
+                                        dateTo: null,
+                                        month: new Date().getMonth(),
+                                        year: new Date().getFullYear(),
+                                        secondMonth: (new Date().getMonth() + 1) % 12,
+                                        secondYear: new Date().getMonth() === 11 ? new Date().getFullYear() + 1 : new Date().getFullYear(),
+                                        no_of_days: [],
+                                        blankdays: [],
+                                        secondNo_of_days: [],
+                                        secondBlankdays: [],
+                                        MONTH_NAMES: ['January','February','March','April','May','June','July','August','September','October','November','December'],
+                                        DAYS: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+                                        capturedHeight: 0,
+                                        hasBeenFixed: true,
 
-                            // Form inputs
-                            locationName: '',
-                            outputDateFromValue: '',
-                            outputDateToValue: '',
-                            dateFromValue: '',
-                            dateToValue: '',
+                                        init() {
+                                            this.getNoOfDays();
+                                        },
 
-                            // Calendar state
-                            currentDate: null,
-                            dateFrom: null,
-                            dateTo: null,
-                            tempDateFrom: null,
-                            tempDateTo: null,
-                            hoveredDate: null,
-                            selecting: false,
-                            month: '',
-                            year: '',
-                            secondMonth: '',
-                            secondYear: '',
-                            no_of_days: [],
-                            blankdays: [],
-                            secondNo_of_days: [],
-                            secondBlankdays: [],
+                                        setDestination(name) {
+                                            this.locationName = name;
+                                            this.showDestinations = false;
+                                        },
 
-                            // Constants
-                            MONTH_NAMES: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                            DAYS: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                                        openDatePicker(mode) {
+                                            this.selectingDate = mode;
+                                            this.showDatepicker = true;
+                                            this.showDestinations = false;
+                                        },
 
-                            convertFromYmd(dateYmd) {
-                                const year = Number(dateYmd.substr(0, 4));
-                                const month = Number(dateYmd.substr(5, 2)) - 1;
-                                const date = Number(dateYmd.substr(8, 2));
-                                return new Date(year, month, date);
-                            },
+                                        handleSearch() {
+                                            alert('Search functionality coming soon!');
+                                        },
 
-                            convertToYmd(dateObject) {
-                                const year = dateObject.getFullYear();
-                                const month = dateObject.getMonth() + 1;
-                                const date = dateObject.getDate();
-                                return year + '-' + ('0' + month).slice(-2) + '-' + ('0' + date).slice(-2);
-                            },
+                                        previousMonth() {
+                                            if (this.month === 0) { this.year--; this.month = 11; }
+                                            else { this.month--; }
+                                            this.updateSecondMonth();
+                                            this.getNoOfDays();
+                                        },
 
-                            init() {
-                                if (this.$wire.search) {
-                                    this.locationName = this.$wire.search;
-                                }
+                                        nextMonth() {
+                                            if (this.month === 11) { this.year++; this.month = 0; }
+                                            else { this.month++; }
+                                            this.updateSecondMonth();
+                                            this.getNoOfDays();
+                                        },
 
-                                this.syncDatesFromLivewire();
+                                        updateSecondMonth() {
+                                            if (this.month === 11) { this.secondMonth = 0; this.secondYear = this.year + 1; }
+                                            else { this.secondMonth = this.month + 1; this.secondYear = this.year; }
+                                        },
 
-                                this.currentDate = this.dateFrom || this.dateTo || new Date();
-                                const currentMonth = this.currentDate.getMonth();
-                                const currentYear = this.currentDate.getFullYear();
+                                        getNoOfDays() {
+                                            let dim = new Date(this.year, this.month + 1, 0).getDate();
+                                            let dow = new Date(this.year, this.month).getDay();
+                                            this.blankdays = [...Array(dow)].map((_, i) => i + 1);
+                                            this.no_of_days = [...Array(dim)].map((_, i) => i + 1);
+                                            let sdim = new Date(this.secondYear, this.secondMonth + 1, 0).getDate();
+                                            let sdow = new Date(this.secondYear, this.secondMonth).getDay();
+                                            this.secondBlankdays = [...Array(sdow)].map((_, i) => i + 1);
+                                            this.secondNo_of_days = [...Array(sdim)].map((_, i) => i + 1);
+                                        },
 
-                                this.month = currentMonth;
-                                this.year = currentYear;
-                                this.updateSecondMonth();
-                                this.getNoOfDays();
-                                this.setDateValues();
-                                this.outputDateValues();
+                                        isToday(date, mt) {
+                                            const today = new Date();
+                                            const m = mt === 'first' ? this.month : this.secondMonth;
+                                            const y = mt === 'first' ? this.year : this.secondYear;
+                                            return today.toDateString() === new Date(y, m, date).toDateString();
+                                        },
 
-                                // Watch for Livewire date changes
-                                this.$watch('dateFromYmd', (value) => {
-                                    if (!value) {
-                                        this.dateFrom = null;
-                                        this.outputDateFromValue = '';
-                                    } else if (this.dateFrom?.toISOString().split('T')[0] !== value) {
-                                        this.dateFrom = this.convertFromYmd(value);
-                                        this.outputDateFromValue = this.dateFrom.toLocaleDateString('en-US', {
-                                            month: 'short',
-                                            day: 'numeric',
-                                            year: 'numeric',
-                                        });
-                                    }
-                                });
+                                        isDateFrom(date, mt) {
+                                            const m = mt === 'first' ? this.month : this.secondMonth;
+                                            const y = mt === 'first' ? this.year : this.secondYear;
+                                            return this.dateFrom ? new Date(y, m, date).getTime() === this.dateFrom.getTime() : false;
+                                        },
 
-                                this.$watch('dateToYmd', (value) => {
-                                    if (!value) {
-                                        this.dateTo = null;
-                                        this.outputDateToValue = '';
-                                    } else if (this.dateTo?.toISOString().split('T')[0] !== value) {
-                                        this.dateTo = this.convertFromYmd(value);
-                                        this.outputDateToValue = this.dateTo.toLocaleDateString('en-US', {
-                                            month: 'short',
-                                            day: 'numeric',
-                                            year: 'numeric',
-                                        });
-                                    }
-                                });
+                                        isDateTo(date, mt) {
+                                            const m = mt === 'first' ? this.month : this.secondMonth;
+                                            const y = mt === 'first' ? this.year : this.secondYear;
+                                            return this.dateTo ? new Date(y, m, date).getTime() === this.dateTo.getTime() : false;
+                                        },
 
-                                // Listen for focus search input event
-                                Livewire.on('focus-search-input', () => {
-                                    this.$nextTick(() => {
-                                        if (this.$refs.searchInput) {
-                                            this.$refs.searchInput.focus();
+                                        isInRange(date, mt) {
+                                            const m = mt === 'first' ? this.month : this.secondMonth;
+                                            const y = mt === 'first' ? this.year : this.secondYear;
+                                            if (!this.dateFrom || !this.dateTo) return false;
+                                            const d = new Date(y, m, date);
+                                            const min = this.dateFrom < this.dateTo ? this.dateFrom : this.dateTo;
+                                            const max = this.dateFrom > this.dateTo ? this.dateFrom : this.dateTo;
+                                            return d > min && d < max;
+                                        },
+
+                                        convertToYmd(d) {
+                                            return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+                                        },
+
+                                        getDateValue(date, temp, mt) {
+                                            const m = mt === 'first' ? this.month : this.secondMonth;
+                                            const y = mt === 'first' ? this.year : this.secondYear;
+                                            let sel = new Date(y, m, date);
+
+                                            if (this.selectingDate === 'from') {
+                                                this.dateFrom = sel;
+                                                if (!this.dateTo) this.dateTo = sel;
+                                                else if (sel > this.dateTo) { this.selectingDate = 'to'; this.dateFrom = this.dateTo; this.dateTo = sel; }
+                                                this.selectingDate = 'to';
+                                            } else {
+                                                this.dateTo = sel;
+                                                if (!this.dateFrom) this.dateFrom = sel;
+                                                else if (sel < this.dateFrom) { this.selectingDate = 'from'; this.dateTo = this.dateFrom; this.dateFrom = sel; }
+                                                this.showDatepicker = false;
+                                            }
+
+                                            if (this.dateFrom) {
+                                                this.outputDateFromValue = this.dateFrom.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                                                this.dateFromYmd = this.convertToYmd(this.dateFrom);
+                                            }
+                                            if (this.dateTo) {
+                                                this.outputDateToValue = this.dateTo.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                                                this.dateToYmd = this.convertToYmd(this.dateTo);
+                                            }
+                                        },
+
+                                        clearDates() {
+                                            this.dateFrom = null;
+                                            this.dateTo = null;
+                                            this.dateFromYmd = '';
+                                            this.dateToYmd = '';
+                                            this.outputDateFromValue = '';
+                                            this.outputDateToValue = '';
+                                            this.selectingDate = 'from';
                                         }
-                                    });
+                                    }));
                                 });
-                            },
-
-                            syncDatesFromLivewire() {
-                                if (this.$wire.dateFromYmd) {
-                                    this.dateFrom = this.convertFromYmd(this.$wire.dateFromYmd);
-                                } else {
-                                    this.dateFrom = null;
-                                }
-
-                                if (this.$wire.dateToYmd) {
-                                    this.dateTo = this.convertFromYmd(this.$wire.dateToYmd);
-                                } else {
-                                    this.dateTo = null;
-                                }
-                            },
-
-                            openDatePicker(mode) {
-                                this.selecting = false;
-                                this.tempDateFrom = null;
-                                this.tempDateTo = null;
-
-                                this.$wire.openDatePicker(mode);
-
-                                let targetDate = null;
-                                if (mode === 'from' && this.dateFrom) {
-                                    targetDate = this.dateFrom;
-                                } else if (mode === 'to' && this.dateTo) {
-                                    targetDate = this.dateTo;
-                                } else {
-                                    targetDate = new Date();
-                                }
-
-                                const targetMonth = targetDate.getMonth();
-                                const targetYear = targetDate.getFullYear();
-
-                                if (this.month !== targetMonth || this.year !== targetYear) {
-                                    this.month = targetMonth;
-                                    this.year = targetYear;
-                                    this.updateSecondMonth();
-                                    this.getNoOfDays();
-                                }
-                            },
-
-                            updateSecondMonth() {
-                                if (this.month === 11) {
-                                    this.secondMonth = 0;
-                                    this.secondYear = this.year + 1;
-                                } else {
-                                    this.secondMonth = this.month + 1;
-                                    this.secondYear = this.year;
-                                }
-                            },
-
-                            previousMonth() {
-                                if (this.month === 0) {
-                                    this.year--;
-                                    this.month = 11;
-                                } else {
-                                    this.month--;
-                                }
-                                this.updateSecondMonth();
-                                this.getNoOfDays();
-                            },
-
-                            nextMonth() {
-                                if (this.secondMonth === 11) {
-                                    this.secondYear++;
-                                    this.secondMonth = 0;
-                                    this.month = 0;
-                                    this.year = this.secondYear;
-                                } else {
-                                    this.secondMonth++;
-                                    if (this.month === 11) {
-                                        this.month = 0;
-                                        this.year++;
-                                    } else {
-                                        this.month++;
-                                    }
-                                }
-                                this.updateSecondMonth();
-                                this.getNoOfDays();
-                            },
-
-                            isToday(date, monthType) {
-                                const today = new Date();
-                                const currentMonth = monthType === 'first' ? this.month : this.secondMonth;
-                                const currentYear = monthType === 'first' ? this.year : this.secondYear;
-                                const d = new Date(currentYear, currentMonth, date);
-                                return today.toDateString() === d.toDateString();
-                            },
-
-                            isDateFrom(date, monthType) {
-                                const currentMonth = monthType === 'first' ? this.month : this.secondMonth;
-                                const currentYear = monthType === 'first' ? this.year : this.secondYear;
-                                const d = new Date(currentYear, currentMonth, date);
-
-                                // Check temp date when in selection mode
-                                const fromDate = (this.selecting && this.tempDateFrom) ? this.tempDateFrom : this.dateFrom;
-                                if (!fromDate) return false;
-                                return d.getTime() === fromDate.getTime();
-                            },
-
-                            isDateTo(date, monthType) {
-                                const currentMonth = monthType === 'first' ? this.month : this.secondMonth;
-                                const currentYear = monthType === 'first' ? this.year : this.secondYear;
-                                const d = new Date(currentYear, currentMonth, date);
-
-                                // Check temp date when in selection mode
-                                const toDate = (this.selecting && this.tempDateTo) ? this.tempDateTo : this.dateTo;
-                                if (!toDate) return false;
-                                return d.getTime() === toDate.getTime();
-                            },
-
-                            isInRange(date, monthType) {
-                                const currentMonth = monthType === 'first' ? this.month : this.secondMonth;
-                                const currentYear = monthType === 'first' ? this.year : this.secondYear;
-                                const d = new Date(currentYear, currentMonth, date);
-
-                                const fromDate = this.tempDateFrom || this.dateFrom;
-                                const toDate = this.tempDateTo || this.dateTo;
-
-                                if (!fromDate || !toDate) return false;
-
-                                const minDate = fromDate < toDate ? fromDate : toDate;
-                                const maxDate = fromDate > toDate ? fromDate : toDate;
-
-                                return d > minDate && d < maxDate;
-                            },
-
-                            isHoveredDate(date, monthType) {
-                                if (!this.hoveredDate || !this.selecting) return false;
-                                const currentMonth = monthType === 'first' ? this.month : this.secondMonth;
-                                const currentYear = monthType === 'first' ? this.year : this.secondYear;
-                                const d = new Date(currentYear, currentMonth, date);
-                                return d.getTime() === this.hoveredDate.getTime();
-                            },
-
-                            outputDateValues() {
-                                if (this.dateFrom) {
-                                    this.outputDateFromValue = this.dateFrom.toLocaleDateString('en-US', {
-                                        month: 'short',
-                                        day: 'numeric',
-                                        year: 'numeric',
-                                    });
-                                    this.dateFromYmd = this.convertToYmd(this.dateFrom);
-                                    this.$wire.dateFromYmd = this.dateFromYmd;
-                                }
-                                if (this.dateTo) {
-                                    this.outputDateToValue = this.dateTo.toLocaleDateString('en-US', {
-                                        month: 'short',
-                                        day: 'numeric',
-                                        year: 'numeric',
-                                    });
-                                    this.dateToYmd = this.convertToYmd(this.dateTo);
-                                    this.$wire.dateToYmd = this.dateToYmd;
-                                }
-                            },
-
-                            setDateValues() {
-                                if (this.dateFrom) {
-                                    this.dateFromValue = this.dateFrom.toDateString();
-                                }
-                                if (this.dateTo) {
-                                    this.dateToValue = this.dateTo.toDateString();
-                                }
-                            },
-
-                            getDateValue(date, temp, monthType) {
-                                const currentMonth = monthType === 'first' ? this.month : this.secondMonth;
-                                const currentYear = monthType === 'first' ? this.year : this.secondYear;
-                                let selectedDate = new Date(currentYear, currentMonth, date);
-
-                                if (temp) {
-                                    if (this.selecting && this.selectingDate) {
-                                        this.hoveredDate = selectedDate;
-                                        if (this.selectingDate === 'from') {
-                                            this.tempDateFrom = selectedDate;
-                                            // Clear temp to date to hide the old end date indicator
-                                            this.tempDateTo = null;
-                                        } else if (this.selectingDate === 'to') {
-                                            this.tempDateTo = selectedDate;
-                                            // Keep the existing from date
-                                            this.tempDateFrom = this.dateFrom;
-                                        }
-                                    }
-                                    return;
-                                }
-
-                                if (this.selectingDate === 'from') {
-                                    this.dateFrom = selectedDate;
-                                    if (!this.dateTo) {
-                                        this.dateTo = selectedDate;
-                                    } else if (selectedDate > this.dateTo) {
-                                        this.selectingDate = 'to';
-                                        this.dateFrom = this.dateTo;
-                                        this.dateTo = selectedDate;
-                                    }
-                                    if (!this.selecting) {
-                                        this.selectingDate = 'to';
-                                        this.selecting = true;
-                                    } else {
-                                        this.outputDateValues();
-                                        this.closeDatepicker();
-                                    }
-                                } else if (this.selectingDate === 'to') {
-                                    this.dateTo = selectedDate;
-                                    if (!this.dateFrom) {
-                                        this.dateFrom = selectedDate;
-                                    } else if (selectedDate < this.dateFrom) {
-                                        this.selectingDate = 'from';
-                                        this.dateTo = this.dateFrom;
-                                        this.dateFrom = selectedDate;
-                                    }
-                                    this.outputDateValues();
-                                    this.closeDatepicker();
-                                }
-                                this.setDateValues();
-                            },
-
-                            getNoOfDays() {
-                                // First month
-                                let daysInMonth = new Date(this.year, this.month + 1, 0).getDate();
-                                let dayOfWeek = new Date(this.year, this.month).getDay();
-                                let blankdaysArray = [];
-                                for (let i = 1; i <= dayOfWeek; i++) {
-                                    blankdaysArray.push(i);
-                                }
-                                let daysArray = [];
-                                for (let j = 1; j <= daysInMonth; j++) {
-                                    daysArray.push(j);
-                                }
-                                this.blankdays = blankdaysArray;
-                                this.no_of_days = daysArray;
-
-                                // Second month
-                                let secondDaysInMonth = new Date(this.secondYear, this.secondMonth + 1, 0).getDate();
-                                let secondDayOfWeek = new Date(this.secondYear, this.secondMonth).getDay();
-                                let secondBlankdaysArray = [];
-                                for (let k = 1; k <= secondDayOfWeek; k++) {
-                                    secondBlankdaysArray.push(k);
-                                }
-                                let secondDaysArray = [];
-                                for (let l = 1; l <= secondDaysInMonth; l++) {
-                                    secondDaysArray.push(l);
-                                }
-                                this.secondBlankdays = secondBlankdaysArray;
-                                this.secondNo_of_days = secondDaysArray;
-                            },
-
-                            closeDatepicker() {
-                                this.selectingDate = '';
-                                this.$wire.showDatepicker = false;
-                            },
-
-                            clearDates() {
-                                // Clear local Alpine state
-                                this.dateFrom = null;
-                                this.dateTo = null;
-                                this.dateFromValue = '';
-                                this.dateToValue = '';
-                                this.outputDateFromValue = '';
-                                this.outputDateToValue = '';
-                                this.tempDateFrom = null;
-                                this.tempDateTo = null;
-                                this.selecting = false;
-
-                                // Clear Livewire state
-                                this.$wire.clearDates();
-                            },
-                        }));
-                    });
-                </script>
-    </div>
-</div>
-
-        </div>
-    </form>
-</div>
+                            </script>
         </div>
     </div>
         </div>
@@ -1059,7 +661,7 @@
         <div class="swiper-slide wow fadeInUp" data-wow-delay="0ms">
     <article class="relative text-sm group">
     <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-10/7" wire:ignore>
-        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_3442_1926.png') }} 3442w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_2879_1611.png') }} 2879w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_2409_1348.png') }} 2409w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_2015_1128.png') }} 2015w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_1686_943.png') }} 1686w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_1411_790.png') }} 1411w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_1180_660.png') }} 1180w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_987_552.png') }} 987w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_826_462.png') }} 826w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_691_387.png') }} 691w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_578_323.png') }} 578w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_484_271.png') }} 484w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_404_226.png') }} 404w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_338_189.png') }} 338w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_283_158.png') }} 283w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_237_133.png') }} 237w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_198_111.png') }} 198w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_166_93.png') }} 166w, https:/{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_138_77.png') }} 138w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgMzQ0MiAxOTI2Ij4KCTxpbWFnZSB3aWR0aD0iMzQ0MiIgaGVpZ2h0PSIxOTI2IiB4bGluazpocmVmPSJkYXRhOmltYWdlL2pwZWc7YmFzZTY0LC85ai80QUFRU2taSlJnQUJBUUVBWUFCZ0FBRC8vZ0ErUTFKRlFWUlBVam9nWjJRdGFuQmxaeUIyTVM0d0lDaDFjMmx1WnlCSlNrY2dTbEJGUnlCMk9EQXBMQ0JrWldaaGRXeDBJSEYxWVd4cGRIa0svOXNBUXdBSUJnWUhCZ1VJQndjSENRa0lDZ3dVRFF3TEN3d1pFaE1QRkIwYUh4NGRHaHdjSUNRdUp5QWlMQ01jSENnM0tTd3dNVFEwTkI4bk9UMDRNand1TXpReS85c0FRd0VKQ1FrTUN3d1lEUTBZTWlFY0lUSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5LzhBQUVRZ0FFZ0FnQXdFaUFBSVJBUU1SQWYvRUFCOEFBQUVGQVFFQkFRRUJBQUFBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUUFBSUJBd01DQkFNRkJRUUVBQUFCZlFFQ0F3QUVFUVVTSVRGQkJoTlJZUWNpY1JReWdaR2hDQ05Dc2NFVlV0SHdKRE5pY29JSkNoWVhHQmthSlNZbktDa3FORFUyTnpnNU9rTkVSVVpIU0VsS1UxUlZWbGRZV1ZwalpHVm1aMmhwYW5OMGRYWjNlSGw2ZzRTRmhvZUlpWXFTazVTVmxwZVltWnFpbzZTbHBxZW9xYXF5czdTMXRyZTR1YnJDdzhURnhzZkl5Y3JTMDlUVjF0ZlkyZHJoNHVQazVlYm42T25xOGZMejlQWDI5L2o1K3YvRUFCOEJBQU1CQVFFQkFRRUJBUUVBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUkFBSUJBZ1FFQXdRSEJRUUVBQUVDZHdBQkFnTVJCQVVoTVFZU1FWRUhZWEVUSWpLQkNCUkNrYUd4d1Frak0xTHdGV0p5MFFvV0pEVGhKZkVYR0JrYUppY29LU28xTmpjNE9UcERSRVZHUjBoSlNsTlVWVlpYV0ZsYVkyUmxabWRvYVdwemRIVjJkM2g1ZW9LRGhJV0doNGlKaXBLVGxKV1dsNWlabXFLanBLV21wNmlwcXJLenRMVzJ0N2k1dXNMRHhNWEd4OGpKeXRMVDFOWFcxOWpaMnVMajVPWG01K2pwNnZMejlQWDI5L2o1K3YvYUFBd0RBUUFDRVFNUkFEOEEzLzdRc1pINmlyaHZJMWd5b3l0Y1ZIdEdNVjJtazJ5dllEY001RmIxSzFrY0dHanpzeHIyN2dkdVJpbTI2UVRkSEg1MXV6YVRaM0FJa0FCckZ1L0NybHQxcE9RUFROSllxYVJ0TEN3YnVjOUY5NGZXdlFkRi93Q1BKZnBSUldGUVdDMllYZlJxTk9KUGVpaWhiSFc5ei8vWiI+Cgk8L2ltYWdlPgo8L3N2Zz4= 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxuri.com/b98bd7c3ed631d5533a310723913d412/Miami.png') }}" width="3442" height="1926" alt="Miami.png">
+        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxteria.co/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_3442_1926.png') }} 3442w, https:/{{ asset('media.luxteria.co/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_2879_1611.png') }} 2879w, https:/{{ asset('media.luxteria.co/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_2409_1348.png') }} 2409w, https:/{{ asset('media.luxteria.co/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_2015_1128.png') }} 2015w, https:/{{ asset('media.luxteria.co/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_1686_943.png') }} 1686w, https:/{{ asset('media.luxteria.co/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_1411_790.png') }} 1411w, https:/{{ asset('media.luxteria.co/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_1180_660.png') }} 1180w, https:/{{ asset('media.luxteria.co/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_987_552.png') }} 987w, https:/{{ asset('media.luxteria.co/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_826_462.png') }} 826w, https:/{{ asset('media.luxteria.co/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_691_387.png') }} 691w, https:/{{ asset('media.luxteria.co/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_578_323.png') }} 578w, https:/{{ asset('media.luxteria.co/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_484_271.png') }} 484w, https:/{{ asset('media.luxteria.co/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_404_226.png') }} 404w, https:/{{ asset('media.luxteria.co/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_338_189.png') }} 338w, https:/{{ asset('media.luxteria.co/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_283_158.png') }} 283w, https:/{{ asset('media.luxteria.co/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_237_133.png') }} 237w, https:/{{ asset('media.luxteria.co/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_198_111.png') }} 198w, https:/{{ asset('media.luxteria.co/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_166_93.png') }} 166w, https:/{{ asset('media.luxteria.co/b98bd7c3ed631d5533a310723913d412/responsive-images/Miami___media_library_original_138_77.png') }} 138w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgMzQ0MiAxOTI2Ij4KCTxpbWFnZSB3aWR0aD0iMzQ0MiIgaGVpZ2h0PSIxOTI2IiB4bGluazpocmVmPSJkYXRhOmltYWdlL2pwZWc7YmFzZTY0LC85ai80QUFRU2taSlJnQUJBUUVBWUFCZ0FBRC8vZ0ErUTFKRlFWUlBVam9nWjJRdGFuQmxaeUIyTVM0d0lDaDFjMmx1WnlCSlNrY2dTbEJGUnlCMk9EQXBMQ0JrWldaaGRXeDBJSEYxWVd4cGRIa0svOXNBUXdBSUJnWUhCZ1VJQndjSENRa0lDZ3dVRFF3TEN3d1pFaE1QRkIwYUh4NGRHaHdjSUNRdUp5QWlMQ01jSENnM0tTd3dNVFEwTkI4bk9UMDRNand1TXpReS85c0FRd0VKQ1FrTUN3d1lEUTBZTWlFY0lUSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5LzhBQUVRZ0FFZ0FnQXdFaUFBSVJBUU1SQWYvRUFCOEFBQUVGQVFFQkFRRUJBQUFBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUUFBSUJBd01DQkFNRkJRUUVBQUFCZlFFQ0F3QUVFUVVTSVRGQkJoTlJZUWNpY1JReWdaR2hDQ05Dc2NFVlV0SHdKRE5pY29JSkNoWVhHQmthSlNZbktDa3FORFUyTnpnNU9rTkVSVVpIU0VsS1UxUlZWbGRZV1ZwalpHVm1aMmhwYW5OMGRYWjNlSGw2ZzRTRmhvZUlpWXFTazVTVmxwZVltWnFpbzZTbHBxZW9xYXF5czdTMXRyZTR1YnJDdzhURnhzZkl5Y3JTMDlUVjF0ZlkyZHJoNHVQazVlYm42T25xOGZMejlQWDI5L2o1K3YvRUFCOEJBQU1CQVFFQkFRRUJBUUVBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUkFBSUJBZ1FFQXdRSEJRUUVBQUVDZHdBQkFnTVJCQVVoTVFZU1FWRUhZWEVUSWpLQkNCUkNrYUd4d1Frak0xTHdGV0p5MFFvV0pEVGhKZkVYR0JrYUppY29LU28xTmpjNE9UcERSRVZHUjBoSlNsTlVWVlpYV0ZsYVkyUmxabWRvYVdwemRIVjJkM2g1ZW9LRGhJV0doNGlKaXBLVGxKV1dsNWlabXFLanBLV21wNmlwcXJLenRMVzJ0N2k1dXNMRHhNWEd4OGpKeXRMVDFOWFcxOWpaMnVMajVPWG01K2pwNnZMejlQWDI5L2o1K3YvYUFBd0RBUUFDRVFNUkFEOEEzLzdRc1pINmlyaHZJMWd5b3l0Y1ZIdEdNVjJtazJ5dllEY001RmIxSzFrY0dHanpzeHIyN2dkdVJpbTI2UVRkSEg1MXV6YVRaM0FJa0FCckZ1L0NybHQxcE9RUFROSllxYVJ0TEN3YnVjOUY5NGZXdlFkRi93Q1BKZnBSUldGUVdDMllYZlJxTk9KUGVpaWhiSFc5ei8vWiI+Cgk8L2ltYWdlPgo8L3N2Zz4= 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxteria.co/b98bd7c3ed631d5533a310723913d412/Miami.png') }}" width="3442" height="1926" alt="Miami.png">
 
     </div>
 
@@ -1077,7 +679,7 @@
                             <div class="swiper-slide wow fadeInUp" data-wow-delay="50ms">
     <article class="relative text-sm group">
     <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-10/7" wire:ignore>
-        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy" src="{{ asset('media.luxuri.com/22696e565bd848d8cf54bb0230c92d6d/ft.jpg') }}" alt="ft.jpg">
+        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy" src="{{ asset('media.luxteria.co/22696e565bd848d8cf54bb0230c92d6d/ft.jpg') }}" alt="ft.jpg">
     </div>
 
     <div class="flex gap-2">
@@ -1094,7 +696,7 @@
                             <div class="swiper-slide wow fadeInUp" data-wow-delay="100ms">
     <article class="relative text-sm group">
     <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-10/7" wire:ignore>
-        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy" src="{{ asset('media.luxuri.com/83926f30daa706ee9a210a080639d387/Aspen.png') }}" alt="Aspen.png">
+        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy" src="{{ asset('media.luxteria.co/83926f30daa706ee9a210a080639d387/Aspen.png') }}" alt="Aspen.png">
     </div>
 
     <div class="flex gap-2">
@@ -1111,7 +713,7 @@
                             <div class="swiper-slide wow fadeInUp" data-wow-delay="150ms">
     <article class="relative text-sm group">
     <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-10/7" wire:ignore>
-        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy" src="{{ asset('media.luxuri.com/47d7a9bd4fe2081026fcfde3895ba1c1/LA.png') }}" alt="LA.png">
+        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy" src="{{ asset('media.luxteria.co/47d7a9bd4fe2081026fcfde3895ba1c1/LA.png') }}" alt="LA.png">
     </div>
 
     <div class="flex gap-2">
@@ -1128,7 +730,7 @@
                             <div class="swiper-slide wow fadeInUp" data-wow-delay="200ms">
     <article class="relative text-sm group">
     <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-10/7" wire:ignore>
-        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy" src="{{ asset('media.luxuri.com/8c4cb49a35c6bd10339fe5cccf553c09/Capetown.png') }}" alt="Capetown.png">
+        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy" src="{{ asset('media.luxteria.co/8c4cb49a35c6bd10339fe5cccf553c09/Capetown.png') }}" alt="Capetown.png">
     </div>
 
     <div class="flex gap-2">
@@ -1145,7 +747,7 @@
                             <div class="swiper-slide wow fadeInUp" data-wow-delay="250ms">
     <article class="relative text-sm group">
     <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-10/7" wire:ignore>
-        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_5464_3640.jpeg') }} 5464w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_4571_3045.jpeg') }} 4571w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_3824_2547.jpeg') }} 3824w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_3200_2132.jpeg') }} 3200w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_2677_1783.jpeg') }} 2677w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_2240_1492.jpeg') }} 2240w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_1874_1248.jpeg') }} 1874w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_1568_1045.jpeg') }} 1568w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_1311_873.jpeg') }} 1311w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_1097_731.jpeg') }} 1097w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_918_612.jpeg') }} 918w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_768_512.jpeg') }} 768w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_642_428.jpeg') }} 642w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_537_358.jpeg') }} 537w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_449_299.jpeg') }} 449w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_376_250.jpeg') }} 376w, https:/{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_314_209.jpeg') }} 314w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgNTQ2NCAzNjQwIj4KCTxpbWFnZSB3aWR0aD0iNTQ2NCIgaGVpZ2h0PSIzNjQwIiB4bGluazpocmVmPSJkYXRhOmltYWdlL2pwZWc7YmFzZTY0LC85ai80QUFRU2taSlJnQUJBUUVBWUFCZ0FBRC8vZ0ErUTFKRlFWUlBVam9nWjJRdGFuQmxaeUIyTVM0d0lDaDFjMmx1WnlCSlNrY2dTbEJGUnlCMk9EQXBMQ0JrWldaaGRXeDBJSEYxWVd4cGRIa0svOXNBUXdBSUJnWUhCZ1VJQndjSENRa0lDZ3dVRFF3TEN3d1pFaE1QRkIwYUh4NGRHaHdjSUNRdUp5QWlMQ01jSENnM0tTd3dNVFEwTkI4bk9UMDRNand1TXpReS85c0FRd0VKQ1FrTUN3d1lEUTBZTWlFY0lUSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5LzhBQUVRZ0FGUUFnQXdFaUFBSVJBUU1SQWYvRUFCOEFBQUVGQVFFQkFRRUJBQUFBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUUFBSUJBd01DQkFNRkJRUUVBQUFCZlFFQ0F3QUVFUVVTSVRGQkJoTlJZUWNpY1JReWdaR2hDQ05Dc2NFVlV0SHdKRE5pY29JSkNoWVhHQmthSlNZbktDa3FORFUyTnpnNU9rTkVSVVpIU0VsS1UxUlZWbGRZV1ZwalpHVm1aMmhwYW5OMGRYWjNlSGw2ZzRTRmhvZUlpWXFTazVTVmxwZVltWnFpbzZTbHBxZW9xYXF5czdTMXRyZTR1YnJDdzhURnhzZkl5Y3JTMDlUVjF0ZlkyZHJoNHVQazVlYm42T25xOGZMejlQWDI5L2o1K3YvRUFCOEJBQU1CQVFFQkFRRUJBUUVBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUkFBSUJBZ1FFQXdRSEJRUUVBQUVDZHdBQkFnTVJCQVVoTVFZU1FWRUhZWEVUSWpLQkNCUkNrYUd4d1Frak0xTHdGV0p5MFFvV0pEVGhKZkVYR0JrYUppY29LU28xTmpjNE9UcERSRVZHUjBoSlNsTlVWVlpYV0ZsYVkyUmxabWRvYVdwemRIVjJkM2g1ZW9LRGhJV0doNGlKaXBLVGxKV1dsNWlabXFLanBLV21wNmlwcXJLenRMVzJ0N2k1dXNMRHhNWEd4OGpKeXRMVDFOWFcxOWpaMnVMajVPWG01K2pwNnZMejlQWDI5L2o1K3YvYUFBd0RBUUFDRVFNUkFEOEE0TzJnQllLU0swREFZV1VJM1h0WE9mYUdFZzhza24ycld0WHVaU0NGSmFoMDVwa09yVHNkQklpMnR1ck9jbHFvdklzcDZnQ3FVcjNFakZicHlvSFNzUzd2MmhrS28rUld0T0hjeG5VN0lvYVpkUEZNRGdOOWEyeHJGeERPQ2dVVVVWcXRqTnJVb2FscXR4Y1NmTWZ5ckhrZG01Sm9vcVJvLzlrPSI+Cgk8L2ltYWdlPgo8L3N2Zz4= 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxuri.com/be75fb2bbbf526e43575cd5a655da7b7/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc.jpg') }}" width="5464" height="3640" alt="beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc.jpeg">
+        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxteria.co/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_5464_3640.jpeg') }} 5464w, https:/{{ asset('media.luxteria.co/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_4571_3045.jpeg') }} 4571w, https:/{{ asset('media.luxteria.co/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_3824_2547.jpeg') }} 3824w, https:/{{ asset('media.luxteria.co/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_3200_2132.jpeg') }} 3200w, https:/{{ asset('media.luxteria.co/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_2677_1783.jpeg') }} 2677w, https:/{{ asset('media.luxteria.co/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_2240_1492.jpeg') }} 2240w, https:/{{ asset('media.luxteria.co/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_1874_1248.jpeg') }} 1874w, https:/{{ asset('media.luxteria.co/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_1568_1045.jpeg') }} 1568w, https:/{{ asset('media.luxteria.co/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_1311_873.jpeg') }} 1311w, https:/{{ asset('media.luxteria.co/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_1097_731.jpeg') }} 1097w, https:/{{ asset('media.luxteria.co/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_918_612.jpeg') }} 918w, https:/{{ asset('media.luxteria.co/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_768_512.jpeg') }} 768w, https:/{{ asset('media.luxteria.co/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_642_428.jpeg') }} 642w, https:/{{ asset('media.luxteria.co/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_537_358.jpeg') }} 537w, https:/{{ asset('media.luxteria.co/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_449_299.jpeg') }} 449w, https:/{{ asset('media.luxteria.co/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_376_250.jpeg') }} 376w, https:/{{ asset('media.luxteria.co/be75fb2bbbf526e43575cd5a655da7b7/responsive-images/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc___media_library_original_314_209.jpeg') }} 314w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgNTQ2NCAzNjQwIj4KCTxpbWFnZSB3aWR0aD0iNTQ2NCIgaGVpZ2h0PSIzNjQwIiB4bGluazpocmVmPSJkYXRhOmltYWdlL2pwZWc7YmFzZTY0LC85ai80QUFRU2taSlJnQUJBUUVBWUFCZ0FBRC8vZ0ErUTFKRlFWUlBVam9nWjJRdGFuQmxaeUIyTVM0d0lDaDFjMmx1WnlCSlNrY2dTbEJGUnlCMk9EQXBMQ0JrWldaaGRXeDBJSEYxWVd4cGRIa0svOXNBUXdBSUJnWUhCZ1VJQndjSENRa0lDZ3dVRFF3TEN3d1pFaE1QRkIwYUh4NGRHaHdjSUNRdUp5QWlMQ01jSENnM0tTd3dNVFEwTkI4bk9UMDRNand1TXpReS85c0FRd0VKQ1FrTUN3d1lEUTBZTWlFY0lUSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5LzhBQUVRZ0FGUUFnQXdFaUFBSVJBUU1SQWYvRUFCOEFBQUVGQVFFQkFRRUJBQUFBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUUFBSUJBd01DQkFNRkJRUUVBQUFCZlFFQ0F3QUVFUVVTSVRGQkJoTlJZUWNpY1JReWdaR2hDQ05Dc2NFVlV0SHdKRE5pY29JSkNoWVhHQmthSlNZbktDa3FORFUyTnpnNU9rTkVSVVpIU0VsS1UxUlZWbGRZV1ZwalpHVm1aMmhwYW5OMGRYWjNlSGw2ZzRTRmhvZUlpWXFTazVTVmxwZVltWnFpbzZTbHBxZW9xYXF5czdTMXRyZTR1YnJDdzhURnhzZkl5Y3JTMDlUVjF0ZlkyZHJoNHVQazVlYm42T25xOGZMejlQWDI5L2o1K3YvRUFCOEJBQU1CQVFFQkFRRUJBUUVBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUkFBSUJBZ1FFQXdRSEJRUUVBQUVDZHdBQkFnTVJCQVVoTVFZU1FWRUhZWEVUSWpLQkNCUkNrYUd4d1Frak0xTHdGV0p5MFFvV0pEVGhKZkVYR0JrYUppY29LU28xTmpjNE9UcERSRVZHUjBoSlNsTlVWVlpYV0ZsYVkyUmxabWRvYVdwemRIVjJkM2g1ZW9LRGhJV0doNGlKaXBLVGxKV1dsNWlabXFLanBLV21wNmlwcXJLenRMVzJ0N2k1dXNMRHhNWEd4OGpKeXRMVDFOWFcxOWpaMnVMajVPWG01K2pwNnZMejlQWDI5L2o1K3YvYUFBd0RBUUFDRVFNUkFEOEE0TzJnQllLU0swREFZV1VJM1h0WE9mYUdFZzhza24ycld0WHVaU0NGSmFoMDVwa09yVHNkQklpMnR1ck9jbHFvdklzcDZnQ3FVcjNFakZicHlvSFNzUzd2MmhrS28rUld0T0hjeG5VN0lvYVpkUEZNRGdOOWEyeHJGeERPQ2dVVVVWcXRqTnJVb2FscXR4Y1NmTWZ5ckhrZG01Sm9vcVJvLzlrPSI+Cgk8L2ltYWdlPgo8L3N2Zz4= 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxteria.co/be75fb2bbbf526e43575cd5a655da7b7/beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc.jpg') }}" width="5464" height="3640" alt="beautiful-aerial-view-of-the-blue-point-beach-in-b-2025-02-11-16-45-43-utc.jpeg">
 
     </div>
 
@@ -1163,7 +765,7 @@
                             <div class="swiper-slide wow fadeInUp" data-wow-delay="300ms">
     <article class="relative text-sm group">
     <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-10/7" wire:ignore>
-        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy" src="{{ asset('media.luxuri.com/042945ba4d80ea1e9d6c20e8db6ec3d4/Costa-Rica.png') }}" alt="Costa Rica.png">
+        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy" src="{{ asset('media.luxteria.co/042945ba4d80ea1e9d6c20e8db6ec3d4/Costa-Rica.png') }}" alt="Costa Rica.png">
     </div>
 
     <div class="flex gap-2">
@@ -1243,7 +845,7 @@
                     data-wow-delay="0ms">
                     <article class="relative text-sm group">
         <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-10/7" wire:ignore>
-        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxuri.com/9f85a6c93db24466772b5cb0498610be/responsive-images/property-279-hostaway-335765230-order-26___media_library_original_320_214.jpg') }} 320w, https:/{{ asset('media.luxuri.com/9f85a6c93db24466772b5cb0498610be/responsive-images/property-279-hostaway-335765230-order-26___media_library_original_337_225.jpg') }} 337w, https:/{{ asset('media.luxuri.com/9f85a6c93db24466772b5cb0498610be/responsive-images/property-279-hostaway-335765230-order-26___media_library_original_375_250.jpg') }} 375w, https:/{{ asset('media.luxuri.com/9f85a6c93db24466772b5cb0498610be/responsive-images/property-279-hostaway-335765230-order-26___media_library_original_414_276.jpg') }} 414w, https:/{{ asset('media.luxuri.com/9f85a6c93db24466772b5cb0498610be/responsive-images/property-279-hostaway-335765230-order-26___media_library_original_640_427.jpg') }} 640w, https:/{{ asset('media.luxuri.com/9f85a6c93db24466772b5cb0498610be/responsive-images/property-279-hostaway-335765230-order-26___media_library_original_674_450.jpg') }} 674w, https:/{{ asset('media.luxuri.com/9f85a6c93db24466772b5cb0498610be/responsive-images/property-279-hostaway-335765230-order-26___media_library_original_750_501.jpg') }} 750w, https:/{{ asset('media.luxuri.com/9f85a6c93db24466772b5cb0498610be/responsive-images/property-279-hostaway-335765230-order-26___media_library_original_828_553.jpg') }} 828w, https:/{{ asset('media.luxuri.com/9f85a6c93db24466772b5cb0498610be/responsive-images/property-279-hostaway-335765230-order-26___media_library_original_1011_675.jpg') }} 1011w, https:/{{ asset('media.luxuri.com/9f85a6c93db24466772b5cb0498610be/responsive-images/property-279-hostaway-335765230-order-26___media_library_original_1024_684.jpg') }} 1024w, https:/{{ asset('media.luxuri.com/9f85a6c93db24466772b5cb0498610be/responsive-images/property-279-hostaway-335765230-order-26___media_library_original_1280_855.jpg') }} 1280w, https:/{{ asset('media.luxuri.com/9f85a6c93db24466772b5cb0498610be/responsive-images/property-279-hostaway-335765230-order-26___media_library_original_1348_900.jpg') }} 1348w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgMTM0OCA5MDAiPgoJPGltYWdlIHdpZHRoPSIxMzQ4IiBoZWlnaHQ9IjkwMCIgeGxpbms6aHJlZj0iZGF0YTppbWFnZS9qcGVnO2Jhc2U2NCwvOWovNEFBUVNrWkpSZ0FCQVFFQVlBQmdBQUQvL2dBK1ExSkZRVlJQVWpvZ1oyUXRhbkJsWnlCMk1TNHdJQ2gxYzJsdVp5QkpTa2NnU2xCRlJ5QjJPREFwTENCa1pXWmhkV3gwSUhGMVlXeHBkSGtLLzlzQVF3QUlCZ1lIQmdVSUJ3Y0hDUWtJQ2d3VURRd0xDd3daRWhNUEZCMGFIeDRkR2h3Y0lDUXVKeUFpTENNY0hDZzNLU3d3TVRRME5COG5PVDA0TWp3dU16UXkvOXNBUXdFSkNRa01Dd3dZRFEwWU1pRWNJVEl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeS84QUFFUWdBRlFBZ0F3RWlBQUlSQVFNUkFmL0VBQjhBQUFFRkFRRUJBUUVCQUFBQUFBQUFBQUFCQWdNRUJRWUhDQWtLQy8vRUFMVVFBQUlCQXdNQ0JBTUZCUVFFQUFBQmZRRUNBd0FFRVFVU0lURkJCaE5SWVFjaWNSUXlnWkdoQ0NOQ3NjRVZVdEh3SkROaWNvSUpDaFlYR0JrYUpTWW5LQ2txTkRVMk56ZzVPa05FUlVaSFNFbEtVMVJWVmxkWVdWcGpaR1ZtWjJocGFuTjBkWFozZUhsNmc0U0Zob2VJaVlxU2s1U1ZscGVZbVpxaW82U2xwcWVvcWFxeXM3UzF0cmU0dWJyQ3c4VEZ4c2ZJeWNyUzA5VFYxdGZZMmRyaDR1UGs1ZWJuNk9ucThmTHo5UFgyOS9qNSt2L0VBQjhCQUFNQkFRRUJBUUVCQVFFQUFBQUFBQUFCQWdNRUJRWUhDQWtLQy8vRUFMVVJBQUlCQWdRRUF3UUhCUVFFQUFFQ2R3QUJBZ01SQkFVaE1RWVNRVkVIWVhFVElqS0JDQlJDa2FHeHdRa2pNMUx3RldKeTBRb1dKRFRoSmZFWEdCa2FKaWNvS1NvMU5qYzRPVHBEUkVWR1IwaEpTbE5VVlZaWFdGbGFZMlJsWm1kb2FXcHpkSFYyZDNoNWVvS0RoSVdHaDRpSmlwS1RsSldXbDVpWm1xS2pwS1dtcDZpcHFyS3p0TFcydDdpNXVzTER4TVhHeDhqSnl0TFQxTlhXMTlqWjJ1TGo1T1htNStqcDZ2THo5UFgyOS9qNSt2L2FBQXdEQVFBQ0VRTVJBRDhBNEcwdDViaVllbGJTNklxOHNDMmZTdVRzZFVuUnZsYkZkYm8ydnNqWW5YZVBVMXpTcktFV3JYWmFwT1VscllxalIyU1J0c1o1cUtHek1Wd2NqbXV3aTFxeWNFRlYzSHBXUk84UnVYZmdWNTA2a25xejBxY1k3STRyU2JXT1ZodXE1ZnpOWi9KRUFCUlJXejFxV1pnMWFuZEZXQzhsUmZNemxxbEdvVHk3bVpxS0t1VVVPbS9kUC8vWiI+Cgk8L2ltYWdlPgo8L3N2Zz4= 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxuri.com/9f85a6c93db24466772b5cb0498610be/property-279-hostaway-335765230-order-26.jpg') }}" width="320" height="214" alt="IMG_4055.jpg">
+        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxteria.co/9f85a6c93db24466772b5cb0498610be/responsive-images/property-279-hostaway-335765230-order-26___media_library_original_320_214.jpg') }} 320w, https:/{{ asset('media.luxteria.co/9f85a6c93db24466772b5cb0498610be/responsive-images/property-279-hostaway-335765230-order-26___media_library_original_337_225.jpg') }} 337w, https:/{{ asset('media.luxteria.co/9f85a6c93db24466772b5cb0498610be/responsive-images/property-279-hostaway-335765230-order-26___media_library_original_375_250.jpg') }} 375w, https:/{{ asset('media.luxteria.co/9f85a6c93db24466772b5cb0498610be/responsive-images/property-279-hostaway-335765230-order-26___media_library_original_414_276.jpg') }} 414w, https:/{{ asset('media.luxteria.co/9f85a6c93db24466772b5cb0498610be/responsive-images/property-279-hostaway-335765230-order-26___media_library_original_640_427.jpg') }} 640w, https:/{{ asset('media.luxteria.co/9f85a6c93db24466772b5cb0498610be/responsive-images/property-279-hostaway-335765230-order-26___media_library_original_674_450.jpg') }} 674w, https:/{{ asset('media.luxteria.co/9f85a6c93db24466772b5cb0498610be/responsive-images/property-279-hostaway-335765230-order-26___media_library_original_750_501.jpg') }} 750w, https:/{{ asset('media.luxteria.co/9f85a6c93db24466772b5cb0498610be/responsive-images/property-279-hostaway-335765230-order-26___media_library_original_828_553.jpg') }} 828w, https:/{{ asset('media.luxteria.co/9f85a6c93db24466772b5cb0498610be/responsive-images/property-279-hostaway-335765230-order-26___media_library_original_1011_675.jpg') }} 1011w, https:/{{ asset('media.luxteria.co/9f85a6c93db24466772b5cb0498610be/responsive-images/property-279-hostaway-335765230-order-26___media_library_original_1024_684.jpg') }} 1024w, https:/{{ asset('media.luxteria.co/9f85a6c93db24466772b5cb0498610be/responsive-images/property-279-hostaway-335765230-order-26___media_library_original_1280_855.jpg') }} 1280w, https:/{{ asset('media.luxteria.co/9f85a6c93db24466772b5cb0498610be/responsive-images/property-279-hostaway-335765230-order-26___media_library_original_1348_900.jpg') }} 1348w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgMTM0OCA5MDAiPgoJPGltYWdlIHdpZHRoPSIxMzQ4IiBoZWlnaHQ9IjkwMCIgeGxpbms6aHJlZj0iZGF0YTppbWFnZS9qcGVnO2Jhc2U2NCwvOWovNEFBUVNrWkpSZ0FCQVFFQVlBQmdBQUQvL2dBK1ExSkZRVlJQVWpvZ1oyUXRhbkJsWnlCMk1TNHdJQ2gxYzJsdVp5QkpTa2NnU2xCRlJ5QjJPREFwTENCa1pXWmhkV3gwSUhGMVlXeHBkSGtLLzlzQVF3QUlCZ1lIQmdVSUJ3Y0hDUWtJQ2d3VURRd0xDd3daRWhNUEZCMGFIeDRkR2h3Y0lDUXVKeUFpTENNY0hDZzNLU3d3TVRRME5COG5PVDA0TWp3dU16UXkvOXNBUXdFSkNRa01Dd3dZRFEwWU1pRWNJVEl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeS84QUFFUWdBRlFBZ0F3RWlBQUlSQVFNUkFmL0VBQjhBQUFFRkFRRUJBUUVCQUFBQUFBQUFBQUFCQWdNRUJRWUhDQWtLQy8vRUFMVVFBQUlCQXdNQ0JBTUZCUVFFQUFBQmZRRUNBd0FFRVFVU0lURkJCaE5SWVFjaWNSUXlnWkdoQ0NOQ3NjRVZVdEh3SkROaWNvSUpDaFlYR0JrYUpTWW5LQ2txTkRVMk56ZzVPa05FUlVaSFNFbEtVMVJWVmxkWVdWcGpaR1ZtWjJocGFuTjBkWFozZUhsNmc0U0Zob2VJaVlxU2s1U1ZscGVZbVpxaW82U2xwcWVvcWFxeXM3UzF0cmU0dWJyQ3c4VEZ4c2ZJeWNyUzA5VFYxdGZZMmRyaDR1UGs1ZWJuNk9ucThmTHo5UFgyOS9qNSt2L0VBQjhCQUFNQkFRRUJBUUVCQVFFQUFBQUFBQUFCQWdNRUJRWUhDQWtLQy8vRUFMVVJBQUlCQWdRRUF3UUhCUVFFQUFFQ2R3QUJBZ01SQkFVaE1RWVNRVkVIWVhFVElqS0JDQlJDa2FHeHdRa2pNMUx3RldKeTBRb1dKRFRoSmZFWEdCa2FKaWNvS1NvMU5qYzRPVHBEUkVWR1IwaEpTbE5VVlZaWFdGbGFZMlJsWm1kb2FXcHpkSFYyZDNoNWVvS0RoSVdHaDRpSmlwS1RsSldXbDVpWm1xS2pwS1dtcDZpcHFyS3p0TFcydDdpNXVzTER4TVhHeDhqSnl0TFQxTlhXMTlqWjJ1TGo1T1htNStqcDZ2THo5UFgyOS9qNSt2L2FBQXdEQVFBQ0VRTVJBRDhBNEcwdDViaVllbGJTNklxOHNDMmZTdVRzZFVuUnZsYkZkYm8ydnNqWW5YZVBVMXpTcktFV3JYWmFwT1VscllxalIyU1J0c1o1cUtHek1Wd2NqbXV3aTFxeWNFRlYzSHBXUk84UnVYZmdWNTA2a25xejBxY1k3STRyU2JXT1ZodXE1ZnpOWi9KRUFCUlJXejFxV1pnMWFuZEZXQzhsUmZNemxxbEdvVHk3bVpxS0t1VVVPbS9kUC8vWiI+Cgk8L2ltYWdlPgo8L3N2Zz4= 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxteria.co/9f85a6c93db24466772b5cb0498610be/property-279-hostaway-335765230-order-26.jpg') }}" width="320" height="214" alt="IMG_4055.jpg">
 
     </div>
     
@@ -1283,7 +885,7 @@
                     data-wow-delay="50ms">
                     <article class="relative text-sm group">
         <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-10/7" wire:ignore>
-        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxuri.com/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_320_215.png') }} 320w, https:/{{ asset('media.luxuri.com/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_375_252.png') }} 375w, https:/{{ asset('media.luxuri.com/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_414_278.png') }} 414w, https:/{{ asset('media.luxuri.com/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_632_424.png') }} 632w, https:/{{ asset('media.luxuri.com/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_640_429.png') }} 640w, https:/{{ asset('media.luxuri.com/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_750_503.png') }} 750w, https:/{{ asset('media.luxuri.com/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_828_555.png') }} 828w, https:/{{ asset('media.luxuri.com/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_1024_687.png') }} 1024w, https:/{{ asset('media.luxuri.com/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_1264_848.png') }} 1264w, https:/{{ asset('media.luxuri.com/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_1280_859.png') }} 1280w, https:/{{ asset('media.luxuri.com/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_1440_966.png') }} 1440w, https:/{{ asset('media.luxuri.com/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_1896_1272.png') }} 1896w, https:/{{ asset('media.luxuri.com/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_1920_1288.png') }} 1920w, https:/{{ asset('media.luxuri.com/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_2048_1374.png') }} 2048w, https:/{{ asset('media.luxuri.com/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_2528_1696.png') }} 2528w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgMjUyOCAxNjk2Ij4KCTxpbWFnZSB3aWR0aD0iMjUyOCIgaGVpZ2h0PSIxNjk2IiB4bGluazpocmVmPSJkYXRhOmltYWdlL2pwZWc7YmFzZTY0LC85ai80QUFRU2taSlJnQUJBUUVBWUFCZ0FBRC8vZ0ErUTFKRlFWUlBVam9nWjJRdGFuQmxaeUIyTVM0d0lDaDFjMmx1WnlCSlNrY2dTbEJGUnlCMk9EQXBMQ0JrWldaaGRXeDBJSEYxWVd4cGRIa0svOXNBUXdBSUJnWUhCZ1VJQndjSENRa0lDZ3dVRFF3TEN3d1pFaE1QRkIwYUh4NGRHaHdjSUNRdUp5QWlMQ01jSENnM0tTd3dNVFEwTkI4bk9UMDRNand1TXpReS85c0FRd0VKQ1FrTUN3d1lEUTBZTWlFY0lUSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5LzhBQUVRZ0FGUUFnQXdFaUFBSVJBUU1SQWYvRUFCOEFBQUVGQVFFQkFRRUJBQUFBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUUFBSUJBd01DQkFNRkJRUUVBQUFCZlFFQ0F3QUVFUVVTSVRGQkJoTlJZUWNpY1JReWdaR2hDQ05Dc2NFVlV0SHdKRE5pY29JSkNoWVhHQmthSlNZbktDa3FORFUyTnpnNU9rTkVSVVpIU0VsS1UxUlZWbGRZV1ZwalpHVm1aMmhwYW5OMGRYWjNlSGw2ZzRTRmhvZUlpWXFTazVTVmxwZVltWnFpbzZTbHBxZW9xYXF5czdTMXRyZTR1YnJDdzhURnhzZkl5Y3JTMDlUVjF0ZlkyZHJoNHVQazVlYm42T25xOGZMejlQWDI5L2o1K3YvRUFCOEJBQU1CQVFFQkFRRUJBUUVBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUkFBSUJBZ1FFQXdRSEJRUUVBQUVDZHdBQkFnTVJCQVVoTVFZU1FWRUhZWEVUSWpLQkNCUkNrYUd4d1Frak0xTHdGV0p5MFFvV0pEVGhKZkVYR0JrYUppY29LU28xTmpjNE9UcERSRVZHUjBoSlNsTlVWVlpYV0ZsYVkyUmxabWRvYVdwemRIVjJkM2g1ZW9LRGhJV0doNGlKaXBLVGxKV1dsNWlabXFLanBLV21wNmlwcXJLenRMVzJ0N2k1dXNMRHhNWEd4OGpKeXRMVDFOWFcxOWpaMnVMajVPWG01K2pwNnZMejlQWDI5L2o1K3YvYUFBd0RBUUFDRVFNUkFEOEF5ZEhoTnBlS3NoMnIzcnByZTVpZ3ZTWVpBVFhNUzZUcTBTbVc1UmxVZDZmb2xyY3pUT3loaUY1NXJtaTU3V0dranRZdFp1blowY1pYTldKWFM0aUNCdWU5Y1piYWhlblVEYitVMkNjWnhYWTZkcDBvRzZWVHpXOG05aHhqWTYrZXd0N2lNcElnS24ycUMzMGF5dHMrVkVvejE0b29vS0VYUjdKWnZNRUs3dlhGWFBJVEdNVVVVQWYvMlE9PSI+Cgk8L2ltYWdlPgo8L3N2Zz4= 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxuri.com/82b7ba6ed315edbb4ca8590b1abc5f0e/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d.png') }}" width="320" height="215" alt="hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d">
+        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxteria.co/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_320_215.png') }} 320w, https:/{{ asset('media.luxteria.co/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_375_252.png') }} 375w, https:/{{ asset('media.luxteria.co/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_414_278.png') }} 414w, https:/{{ asset('media.luxteria.co/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_632_424.png') }} 632w, https:/{{ asset('media.luxteria.co/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_640_429.png') }} 640w, https:/{{ asset('media.luxteria.co/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_750_503.png') }} 750w, https:/{{ asset('media.luxteria.co/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_828_555.png') }} 828w, https:/{{ asset('media.luxteria.co/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_1024_687.png') }} 1024w, https:/{{ asset('media.luxteria.co/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_1264_848.png') }} 1264w, https:/{{ asset('media.luxteria.co/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_1280_859.png') }} 1280w, https:/{{ asset('media.luxteria.co/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_1440_966.png') }} 1440w, https:/{{ asset('media.luxteria.co/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_1896_1272.png') }} 1896w, https:/{{ asset('media.luxteria.co/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_1920_1288.png') }} 1920w, https:/{{ asset('media.luxteria.co/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_2048_1374.png') }} 2048w, https:/{{ asset('media.luxteria.co/82b7ba6ed315edbb4ca8590b1abc5f0e/responsive-images/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d___media_library_original_2528_1696.png') }} 2528w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgMjUyOCAxNjk2Ij4KCTxpbWFnZSB3aWR0aD0iMjUyOCIgaGVpZ2h0PSIxNjk2IiB4bGluazpocmVmPSJkYXRhOmltYWdlL2pwZWc7YmFzZTY0LC85ai80QUFRU2taSlJnQUJBUUVBWUFCZ0FBRC8vZ0ErUTFKRlFWUlBVam9nWjJRdGFuQmxaeUIyTVM0d0lDaDFjMmx1WnlCSlNrY2dTbEJGUnlCMk9EQXBMQ0JrWldaaGRXeDBJSEYxWVd4cGRIa0svOXNBUXdBSUJnWUhCZ1VJQndjSENRa0lDZ3dVRFF3TEN3d1pFaE1QRkIwYUh4NGRHaHdjSUNRdUp5QWlMQ01jSENnM0tTd3dNVFEwTkI4bk9UMDRNand1TXpReS85c0FRd0VKQ1FrTUN3d1lEUTBZTWlFY0lUSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5LzhBQUVRZ0FGUUFnQXdFaUFBSVJBUU1SQWYvRUFCOEFBQUVGQVFFQkFRRUJBQUFBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUUFBSUJBd01DQkFNRkJRUUVBQUFCZlFFQ0F3QUVFUVVTSVRGQkJoTlJZUWNpY1JReWdaR2hDQ05Dc2NFVlV0SHdKRE5pY29JSkNoWVhHQmthSlNZbktDa3FORFUyTnpnNU9rTkVSVVpIU0VsS1UxUlZWbGRZV1ZwalpHVm1aMmhwYW5OMGRYWjNlSGw2ZzRTRmhvZUlpWXFTazVTVmxwZVltWnFpbzZTbHBxZW9xYXF5czdTMXRyZTR1YnJDdzhURnhzZkl5Y3JTMDlUVjF0ZlkyZHJoNHVQazVlYm42T25xOGZMejlQWDI5L2o1K3YvRUFCOEJBQU1CQVFFQkFRRUJBUUVBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUkFBSUJBZ1FFQXdRSEJRUUVBQUVDZHdBQkFnTVJCQVVoTVFZU1FWRUhZWEVUSWpLQkNCUkNrYUd4d1Frak0xTHdGV0p5MFFvV0pEVGhKZkVYR0JrYUppY29LU28xTmpjNE9UcERSRVZHUjBoSlNsTlVWVlpYV0ZsYVkyUmxabWRvYVdwemRIVjJkM2g1ZW9LRGhJV0doNGlKaXBLVGxKV1dsNWlabXFLanBLV21wNmlwcXJLenRMVzJ0N2k1dXNMRHhNWEd4OGpKeXRMVDFOWFcxOWpaMnVMajVPWG01K2pwNnZMejlQWDI5L2o1K3YvYUFBd0RBUUFDRVFNUkFEOEF5ZEhoTnBlS3NoMnIzcnByZTVpZ3ZTWVpBVFhNUzZUcTBTbVc1UmxVZDZmb2xyY3pUT3loaUY1NXJtaTU3V0dranRZdFp1blowY1pYTldKWFM0aUNCdWU5Y1piYWhlblVEYitVMkNjWnhYWTZkcDBvRzZWVHpXOG05aHhqWTYrZXd0N2lNcElnS24ycUMzMGF5dHMrVkVvejE0b29vS0VYUjdKWnZNRUs3dlhGWFBJVEdNVVVVQWYvMlE9PSI+Cgk8L2ltYWdlPgo8L3N2Zz4= 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxteria.co/82b7ba6ed315edbb4ca8590b1abc5f0e/hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d.png') }}" width="320" height="215" alt="hf_20260509_120338_0b7ae1be-27f1-48b8-aca0-32e1cec74f1d">
 
     </div>
     
@@ -1323,7 +925,7 @@
                     data-wow-delay="100ms">
                     <article class="relative text-sm group">
         <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-10/7" wire:ignore>
-        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxuri.com/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_320_212.jpg') }} 320w, https:/{{ asset('media.luxuri.com/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_375_248.jpg') }} 375w, https:/{{ asset('media.luxuri.com/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_414_274.jpg') }} 414w, https:/{{ asset('media.luxuri.com/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_512_339.jpg') }} 512w, https:/{{ asset('media.luxuri.com/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_640_424.jpg') }} 640w, https:/{{ asset('media.luxuri.com/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_750_497.jpg') }} 750w, https:/{{ asset('media.luxuri.com/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_828_548.jpg') }} 828w, https:/{{ asset('media.luxuri.com/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_1024_678.jpg') }} 1024w, https:/{{ asset('media.luxuri.com/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_1280_848.jpg') }} 1280w, https:/{{ asset('media.luxuri.com/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_1440_953.jpg') }} 1440w, https:/{{ asset('media.luxuri.com/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_1536_1017.jpg') }} 1536w, https:/{{ asset('media.luxuri.com/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_1920_1271.jpg') }} 1920w, https:/{{ asset('media.luxuri.com/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_2048_1356.jpg') }} 2048w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgMjA0OCAxMzU2Ij4KCTxpbWFnZSB3aWR0aD0iMjA0OCIgaGVpZ2h0PSIxMzU2IiB4bGluazpocmVmPSJkYXRhOmltYWdlL2pwZWc7YmFzZTY0LC85ai80QUFRU2taSlJnQUJBUUVBWUFCZ0FBRC8vZ0ErUTFKRlFWUlBVam9nWjJRdGFuQmxaeUIyTVM0d0lDaDFjMmx1WnlCSlNrY2dTbEJGUnlCMk9EQXBMQ0JrWldaaGRXeDBJSEYxWVd4cGRIa0svOXNBUXdBSUJnWUhCZ1VJQndjSENRa0lDZ3dVRFF3TEN3d1pFaE1QRkIwYUh4NGRHaHdjSUNRdUp5QWlMQ01jSENnM0tTd3dNVFEwTkI4bk9UMDRNand1TXpReS85c0FRd0VKQ1FrTUN3d1lEUTBZTWlFY0lUSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5LzhBQUVRZ0FGUUFnQXdFaUFBSVJBUU1SQWYvRUFCOEFBQUVGQVFFQkFRRUJBQUFBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUUFBSUJBd01DQkFNRkJRUUVBQUFCZlFFQ0F3QUVFUVVTSVRGQkJoTlJZUWNpY1JReWdaR2hDQ05Dc2NFVlV0SHdKRE5pY29JSkNoWVhHQmthSlNZbktDa3FORFUyTnpnNU9rTkVSVVpIU0VsS1UxUlZWbGRZV1ZwalpHVm1aMmhwYW5OMGRYWjNlSGw2ZzRTRmhvZUlpWXFTazVTVmxwZVltWnFpbzZTbHBxZW9xYXF5czdTMXRyZTR1YnJDdzhURnhzZkl5Y3JTMDlUVjF0ZlkyZHJoNHVQazVlYm42T25xOGZMejlQWDI5L2o1K3YvRUFCOEJBQU1CQVFFQkFRRUJBUUVBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUkFBSUJBZ1FFQXdRSEJRUUVBQUVDZHdBQkFnTVJCQVVoTVFZU1FWRUhZWEVUSWpLQkNCUkNrYUd4d1Frak0xTHdGV0p5MFFvV0pEVGhKZkVYR0JrYUppY29LU28xTmpjNE9UcERSRVZHUjBoSlNsTlVWVlpYV0ZsYVkyUmxabWRvYVdwemRIVjJkM2g1ZW9LRGhJV0doNGlKaXBLVGxKV1dsNWlabXFLanBLV21wNmlwcXJLenRMVzJ0N2k1dXNMRHhNWEd4OGpKeXRMVDFOWFcxOWpaMnVMajVPWG01K2pwNnZMejlQWDI5L2o1K3YvYUFBd0RBUUFDRVFNUkFEOEE2MnhsdEpJOTZTcVI5YWx1OVN0b29XMnVDd0hyWG1HaHZlUXcrV3pNSzJoREpMeVdQNTFkVEZhR2xLalozSmJqeEROSk1VQ0U4MUl2blhLWmtHQlZPU0ZvMkRJb0pGVk5RMWg3YU1LY3FheHBZaVYvZWVodlZqRkwzVWMvRHJOeWVSZ1ZaWFc3cFZPQ0tLSytzbmg2U2g4S1BFOXJQbnRjZmI2MWRHVVpJTmJjVnZGcU9HblVFMFVWenp3OUowN3VLTzFUbGZjLy85az0iPgoJPC9pbWFnZT4KPC9zdmc+ 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxuri.com/973913ee2bd47d7853209f89595b9ac9/IMG_3.jpg') }}" width="320" height="212" alt="IMG_3">
+        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxteria.co/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_320_212.jpg') }} 320w, https:/{{ asset('media.luxteria.co/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_375_248.jpg') }} 375w, https:/{{ asset('media.luxteria.co/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_414_274.jpg') }} 414w, https:/{{ asset('media.luxteria.co/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_512_339.jpg') }} 512w, https:/{{ asset('media.luxteria.co/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_640_424.jpg') }} 640w, https:/{{ asset('media.luxteria.co/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_750_497.jpg') }} 750w, https:/{{ asset('media.luxteria.co/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_828_548.jpg') }} 828w, https:/{{ asset('media.luxteria.co/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_1024_678.jpg') }} 1024w, https:/{{ asset('media.luxteria.co/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_1280_848.jpg') }} 1280w, https:/{{ asset('media.luxteria.co/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_1440_953.jpg') }} 1440w, https:/{{ asset('media.luxteria.co/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_1536_1017.jpg') }} 1536w, https:/{{ asset('media.luxteria.co/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_1920_1271.jpg') }} 1920w, https:/{{ asset('media.luxteria.co/973913ee2bd47d7853209f89595b9ac9/responsive-images/IMG_3___media_library_original_2048_1356.jpg') }} 2048w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgMjA0OCAxMzU2Ij4KCTxpbWFnZSB3aWR0aD0iMjA0OCIgaGVpZ2h0PSIxMzU2IiB4bGluazpocmVmPSJkYXRhOmltYWdlL2pwZWc7YmFzZTY0LC85ai80QUFRU2taSlJnQUJBUUVBWUFCZ0FBRC8vZ0ErUTFKRlFWUlBVam9nWjJRdGFuQmxaeUIyTVM0d0lDaDFjMmx1WnlCSlNrY2dTbEJGUnlCMk9EQXBMQ0JrWldaaGRXeDBJSEYxWVd4cGRIa0svOXNBUXdBSUJnWUhCZ1VJQndjSENRa0lDZ3dVRFF3TEN3d1pFaE1QRkIwYUh4NGRHaHdjSUNRdUp5QWlMQ01jSENnM0tTd3dNVFEwTkI4bk9UMDRNand1TXpReS85c0FRd0VKQ1FrTUN3d1lEUTBZTWlFY0lUSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5LzhBQUVRZ0FGUUFnQXdFaUFBSVJBUU1SQWYvRUFCOEFBQUVGQVFFQkFRRUJBQUFBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUUFBSUJBd01DQkFNRkJRUUVBQUFCZlFFQ0F3QUVFUVVTSVRGQkJoTlJZUWNpY1JReWdaR2hDQ05Dc2NFVlV0SHdKRE5pY29JSkNoWVhHQmthSlNZbktDa3FORFUyTnpnNU9rTkVSVVpIU0VsS1UxUlZWbGRZV1ZwalpHVm1aMmhwYW5OMGRYWjNlSGw2ZzRTRmhvZUlpWXFTazVTVmxwZVltWnFpbzZTbHBxZW9xYXF5czdTMXRyZTR1YnJDdzhURnhzZkl5Y3JTMDlUVjF0ZlkyZHJoNHVQazVlYm42T25xOGZMejlQWDI5L2o1K3YvRUFCOEJBQU1CQVFFQkFRRUJBUUVBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUkFBSUJBZ1FFQXdRSEJRUUVBQUVDZHdBQkFnTVJCQVVoTVFZU1FWRUhZWEVUSWpLQkNCUkNrYUd4d1Frak0xTHdGV0p5MFFvV0pEVGhKZkVYR0JrYUppY29LU28xTmpjNE9UcERSRVZHUjBoSlNsTlVWVlpYV0ZsYVkyUmxabWRvYVdwemRIVjJkM2g1ZW9LRGhJV0doNGlKaXBLVGxKV1dsNWlabXFLanBLV21wNmlwcXJLenRMVzJ0N2k1dXNMRHhNWEd4OGpKeXRMVDFOWFcxOWpaMnVMajVPWG01K2pwNnZMejlQWDI5L2o1K3YvYUFBd0RBUUFDRVFNUkFEOEE2MnhsdEpJOTZTcVI5YWx1OVN0b29XMnVDd0hyWG1HaHZlUXcrV3pNSzJoREpMeVdQNTFkVEZhR2xLalozSmJqeEROSk1VQ0U4MUl2blhLWmtHQlZPU0ZvMkRJb0pGVk5RMWg3YU1LY3FheHBZaVYvZWVodlZqRkwzVWMvRHJOeWVSZ1ZaWFc3cFZPQ0tLSytzbmg2U2g4S1BFOXJQbnRjZmI2MWRHVVpJTmJjVnZGcU9HblVFMFVWenp3OUowN3VLTzFUbGZjLy85az0iPgoJPC9pbWFnZT4KPC9zdmc+ 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxteria.co/973913ee2bd47d7853209f89595b9ac9/IMG_3.jpg') }}" width="320" height="212" alt="IMG_3">
 
     </div>
     
@@ -1363,7 +965,7 @@
                     data-wow-delay="150ms">
                     <article class="relative text-sm group">
         <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-10/7" wire:ignore>
-        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxuri.com/d818c7f3b6fd78e4adf8191cccd9761d/responsive-images/property-270-hostaway-335389803-order-1___media_library_original_320_239.jpg') }} 320w, https:/{{ asset('media.luxuri.com/d818c7f3b6fd78e4adf8191cccd9761d/responsive-images/property-270-hostaway-335389803-order-1___media_library_original_375_280.jpg') }} 375w, https:/{{ asset('media.luxuri.com/d818c7f3b6fd78e4adf8191cccd9761d/responsive-images/property-270-hostaway-335389803-order-1___media_library_original_414_309.jpg') }} 414w, https:/{{ asset('media.luxuri.com/d818c7f3b6fd78e4adf8191cccd9761d/responsive-images/property-270-hostaway-335389803-order-1___media_library_original_640_477.jpg') }} 640w, https:/{{ asset('media.luxuri.com/d818c7f3b6fd78e4adf8191cccd9761d/responsive-images/property-270-hostaway-335389803-order-1___media_library_original_750_560.jpg') }} 750w, https:/{{ asset('media.luxuri.com/d818c7f3b6fd78e4adf8191cccd9761d/responsive-images/property-270-hostaway-335389803-order-1___media_library_original_828_618.jpg') }} 828w, https:/{{ asset('media.luxuri.com/d818c7f3b6fd78e4adf8191cccd9761d/responsive-images/property-270-hostaway-335389803-order-1___media_library_original_960_716.jpg') }} 960w, https:/{{ asset('media.luxuri.com/d818c7f3b6fd78e4adf8191cccd9761d/responsive-images/property-270-hostaway-335389803-order-1___media_library_original_1024_764.jpg') }} 1024w, https:/{{ asset('media.luxuri.com/d818c7f3b6fd78e4adf8191cccd9761d/responsive-images/property-270-hostaway-335389803-order-1___media_library_original_1280_955.jpg') }} 1280w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgMTI4MCA5NTUiPgoJPGltYWdlIHdpZHRoPSIxMjgwIiBoZWlnaHQ9Ijk1NSIgeGxpbms6aHJlZj0iZGF0YTppbWFnZS9qcGVnO2Jhc2U2NCwvOWovNEFBUVNrWkpSZ0FCQVFFQVlBQmdBQUQvL2dBK1ExSkZRVlJQVWpvZ1oyUXRhbkJsWnlCMk1TNHdJQ2gxYzJsdVp5QkpTa2NnU2xCRlJ5QjJPREFwTENCa1pXWmhkV3gwSUhGMVlXeHBkSGtLLzlzQVF3QUlCZ1lIQmdVSUJ3Y0hDUWtJQ2d3VURRd0xDd3daRWhNUEZCMGFIeDRkR2h3Y0lDUXVKeUFpTENNY0hDZzNLU3d3TVRRME5COG5PVDA0TWp3dU16UXkvOXNBUXdFSkNRa01Dd3dZRFEwWU1pRWNJVEl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeS84QUFFUWdBR0FBZ0F3RWlBQUlSQVFNUkFmL0VBQjhBQUFFRkFRRUJBUUVCQUFBQUFBQUFBQUFCQWdNRUJRWUhDQWtLQy8vRUFMVVFBQUlCQXdNQ0JBTUZCUVFFQUFBQmZRRUNBd0FFRVFVU0lURkJCaE5SWVFjaWNSUXlnWkdoQ0NOQ3NjRVZVdEh3SkROaWNvSUpDaFlYR0JrYUpTWW5LQ2txTkRVMk56ZzVPa05FUlVaSFNFbEtVMVJWVmxkWVdWcGpaR1ZtWjJocGFuTjBkWFozZUhsNmc0U0Zob2VJaVlxU2s1U1ZscGVZbVpxaW82U2xwcWVvcWFxeXM3UzF0cmU0dWJyQ3c4VEZ4c2ZJeWNyUzA5VFYxdGZZMmRyaDR1UGs1ZWJuNk9ucThmTHo5UFgyOS9qNSt2L0VBQjhCQUFNQkFRRUJBUUVCQVFFQUFBQUFBQUFCQWdNRUJRWUhDQWtLQy8vRUFMVVJBQUlCQWdRRUF3UUhCUVFFQUFFQ2R3QUJBZ01SQkFVaE1RWVNRVkVIWVhFVElqS0JDQlJDa2FHeHdRa2pNMUx3RldKeTBRb1dKRFRoSmZFWEdCa2FKaWNvS1NvMU5qYzRPVHBEUkVWR1IwaEpTbE5VVlZaWFdGbGFZMlJsWm1kb2FXcHpkSFYyZDNoNWVvS0RoSVdHaDRpSmlwS1RsSldXbDVpWm1xS2pwS1dtcDZpcHFyS3p0TFcydDdpNXVzTER4TVhHeDhqSnl0TFQxTlhXMTlqWjJ1TGo1T1htNStqcDZ2THo5UFgyOS9qNSt2L2FBQXdEQVFBQ0VRTVJBRDhBNUQ3Tk8zekt1YTJ0RUZvc2dXNVREVkRwdDRqSUZZWXpWMmFHMTh6Y1pNR3NhMDAzWnMzcEtTVjBkSE1sbjVIRWloY2V0WTV0YmU1WStTNE9QU3VkMU9XUng1Y0VyZm5Sb2d1N0p5WkhKQjlUUkNWUlI5d1UxQ1V2ZUxNRVVjbU5xNHhVamFhOGx5cmJqaWlpdDdJenVUejJNRnQrOGIwckMvdGlNM2p3dWNMMk5GRk9KRlRUWS8vWiI+Cgk8L2ltYWdlPgo8L3N2Zz4= 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxuri.com/d818c7f3b6fd78e4adf8191cccd9761d/property-270-hostaway-335389803-order-1.jpg') }}" width="320" height="239" alt="hf_20260418_175547_6a018ee8-28ad-44ed-b563-3fe53dbde186.png">
+        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxteria.co/d818c7f3b6fd78e4adf8191cccd9761d/responsive-images/property-270-hostaway-335389803-order-1___media_library_original_320_239.jpg') }} 320w, https:/{{ asset('media.luxteria.co/d818c7f3b6fd78e4adf8191cccd9761d/responsive-images/property-270-hostaway-335389803-order-1___media_library_original_375_280.jpg') }} 375w, https:/{{ asset('media.luxteria.co/d818c7f3b6fd78e4adf8191cccd9761d/responsive-images/property-270-hostaway-335389803-order-1___media_library_original_414_309.jpg') }} 414w, https:/{{ asset('media.luxteria.co/d818c7f3b6fd78e4adf8191cccd9761d/responsive-images/property-270-hostaway-335389803-order-1___media_library_original_640_477.jpg') }} 640w, https:/{{ asset('media.luxteria.co/d818c7f3b6fd78e4adf8191cccd9761d/responsive-images/property-270-hostaway-335389803-order-1___media_library_original_750_560.jpg') }} 750w, https:/{{ asset('media.luxteria.co/d818c7f3b6fd78e4adf8191cccd9761d/responsive-images/property-270-hostaway-335389803-order-1___media_library_original_828_618.jpg') }} 828w, https:/{{ asset('media.luxteria.co/d818c7f3b6fd78e4adf8191cccd9761d/responsive-images/property-270-hostaway-335389803-order-1___media_library_original_960_716.jpg') }} 960w, https:/{{ asset('media.luxteria.co/d818c7f3b6fd78e4adf8191cccd9761d/responsive-images/property-270-hostaway-335389803-order-1___media_library_original_1024_764.jpg') }} 1024w, https:/{{ asset('media.luxteria.co/d818c7f3b6fd78e4adf8191cccd9761d/responsive-images/property-270-hostaway-335389803-order-1___media_library_original_1280_955.jpg') }} 1280w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgMTI4MCA5NTUiPgoJPGltYWdlIHdpZHRoPSIxMjgwIiBoZWlnaHQ9Ijk1NSIgeGxpbms6aHJlZj0iZGF0YTppbWFnZS9qcGVnO2Jhc2U2NCwvOWovNEFBUVNrWkpSZ0FCQVFFQVlBQmdBQUQvL2dBK1ExSkZRVlJQVWpvZ1oyUXRhbkJsWnlCMk1TNHdJQ2gxYzJsdVp5QkpTa2NnU2xCRlJ5QjJPREFwTENCa1pXWmhkV3gwSUhGMVlXeHBkSGtLLzlzQVF3QUlCZ1lIQmdVSUJ3Y0hDUWtJQ2d3VURRd0xDd3daRWhNUEZCMGFIeDRkR2h3Y0lDUXVKeUFpTENNY0hDZzNLU3d3TVRRME5COG5PVDA0TWp3dU16UXkvOXNBUXdFSkNRa01Dd3dZRFEwWU1pRWNJVEl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeS84QUFFUWdBR0FBZ0F3RWlBQUlSQVFNUkFmL0VBQjhBQUFFRkFRRUJBUUVCQUFBQUFBQUFBQUFCQWdNRUJRWUhDQWtLQy8vRUFMVVFBQUlCQXdNQ0JBTUZCUVFFQUFBQmZRRUNBd0FFRVFVU0lURkJCaE5SWVFjaWNSUXlnWkdoQ0NOQ3NjRVZVdEh3SkROaWNvSUpDaFlYR0JrYUpTWW5LQ2txTkRVMk56ZzVPa05FUlVaSFNFbEtVMVJWVmxkWVdWcGpaR1ZtWjJocGFuTjBkWFozZUhsNmc0U0Zob2VJaVlxU2s1U1ZscGVZbVpxaW82U2xwcWVvcWFxeXM3UzF0cmU0dWJyQ3c4VEZ4c2ZJeWNyUzA5VFYxdGZZMmRyaDR1UGs1ZWJuNk9ucThmTHo5UFgyOS9qNSt2L0VBQjhCQUFNQkFRRUJBUUVCQVFFQUFBQUFBQUFCQWdNRUJRWUhDQWtLQy8vRUFMVVJBQUlCQWdRRUF3UUhCUVFFQUFFQ2R3QUJBZ01SQkFVaE1RWVNRVkVIWVhFVElqS0JDQlJDa2FHeHdRa2pNMUx3RldKeTBRb1dKRFRoSmZFWEdCa2FKaWNvS1NvMU5qYzRPVHBEUkVWR1IwaEpTbE5VVlZaWFdGbGFZMlJsWm1kb2FXcHpkSFYyZDNoNWVvS0RoSVdHaDRpSmlwS1RsSldXbDVpWm1xS2pwS1dtcDZpcHFyS3p0TFcydDdpNXVzTER4TVhHeDhqSnl0TFQxTlhXMTlqWjJ1TGo1T1htNStqcDZ2THo5UFgyOS9qNSt2L2FBQXdEQVFBQ0VRTVJBRDhBNUQ3Tk8zekt1YTJ0RUZvc2dXNVREVkRwdDRqSUZZWXpWMmFHMTh6Y1pNR3NhMDAzWnMzcEtTVjBkSE1sbjVIRWloY2V0WTV0YmU1WStTNE9QU3VkMU9XUng1Y0VyZm5Sb2d1N0p5WkhKQjlUUkNWUlI5d1UxQ1V2ZUxNRVVjbU5xNHhVamFhOGx5cmJqaWlpdDdJenVUejJNRnQrOGIwckMvdGlNM2p3dWNMMk5GRk9KRlRUWS8vWiI+Cgk8L2ltYWdlPgo8L3N2Zz4= 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxteria.co/d818c7f3b6fd78e4adf8191cccd9761d/property-270-hostaway-335389803-order-1.jpg') }}" width="320" height="239" alt="hf_20260418_175547_6a018ee8-28ad-44ed-b563-3fe53dbde186.png">
 
     </div>
     
@@ -1403,7 +1005,7 @@
                     data-wow-delay="200ms">
                     <article class="relative text-sm group">
         <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-10/7" wire:ignore>
-        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxuri.com/96bd15233bb4ee9008469b6df3b852dc/responsive-images/property-267-hostaway-335113589-order-1___media_library_original_320_214.jpg') }} 320w, https:/{{ asset('media.luxuri.com/96bd15233bb4ee9008469b6df3b852dc/responsive-images/property-267-hostaway-335113589-order-1___media_library_original_337_225.jpg') }} 337w, https:/{{ asset('media.luxuri.com/96bd15233bb4ee9008469b6df3b852dc/responsive-images/property-267-hostaway-335113589-order-1___media_library_original_375_250.jpg') }} 375w, https:/{{ asset('media.luxuri.com/96bd15233bb4ee9008469b6df3b852dc/responsive-images/property-267-hostaway-335113589-order-1___media_library_original_414_276.jpg') }} 414w, https:/{{ asset('media.luxuri.com/96bd15233bb4ee9008469b6df3b852dc/responsive-images/property-267-hostaway-335113589-order-1___media_library_original_640_427.jpg') }} 640w, https:/{{ asset('media.luxuri.com/96bd15233bb4ee9008469b6df3b852dc/responsive-images/property-267-hostaway-335113589-order-1___media_library_original_674_450.jpg') }} 674w, https:/{{ asset('media.luxuri.com/96bd15233bb4ee9008469b6df3b852dc/responsive-images/property-267-hostaway-335113589-order-1___media_library_original_750_501.jpg') }} 750w, https:/{{ asset('media.luxuri.com/96bd15233bb4ee9008469b6df3b852dc/responsive-images/property-267-hostaway-335113589-order-1___media_library_original_828_553.jpg') }} 828w, https:/{{ asset('media.luxuri.com/96bd15233bb4ee9008469b6df3b852dc/responsive-images/property-267-hostaway-335113589-order-1___media_library_original_1011_675.jpg') }} 1011w, https:/{{ asset('media.luxuri.com/96bd15233bb4ee9008469b6df3b852dc/responsive-images/property-267-hostaway-335113589-order-1___media_library_original_1024_684.jpg') }} 1024w, https:/{{ asset('media.luxuri.com/96bd15233bb4ee9008469b6df3b852dc/responsive-images/property-267-hostaway-335113589-order-1___media_library_original_1280_855.jpg') }} 1280w, https:/{{ asset('media.luxuri.com/96bd15233bb4ee9008469b6df3b852dc/responsive-images/property-267-hostaway-335113589-order-1___media_library_original_1348_900.jpg') }} 1348w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgMTM0OCA5MDAiPgoJPGltYWdlIHdpZHRoPSIxMzQ4IiBoZWlnaHQ9IjkwMCIgeGxpbms6aHJlZj0iZGF0YTppbWFnZS9qcGVnO2Jhc2U2NCwvOWovNEFBUVNrWkpSZ0FCQVFFQVlBQmdBQUQvL2dBK1ExSkZRVlJQVWpvZ1oyUXRhbkJsWnlCMk1TNHdJQ2gxYzJsdVp5QkpTa2NnU2xCRlJ5QjJPREFwTENCa1pXWmhkV3gwSUhGMVlXeHBkSGtLLzlzQVF3QUlCZ1lIQmdVSUJ3Y0hDUWtJQ2d3VURRd0xDd3daRWhNUEZCMGFIeDRkR2h3Y0lDUXVKeUFpTENNY0hDZzNLU3d3TVRRME5COG5PVDA0TWp3dU16UXkvOXNBUXdFSkNRa01Dd3dZRFEwWU1pRWNJVEl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeS84QUFFUWdBRlFBZ0F3RWlBQUlSQVFNUkFmL0VBQjhBQUFFRkFRRUJBUUVCQUFBQUFBQUFBQUFCQWdNRUJRWUhDQWtLQy8vRUFMVVFBQUlCQXdNQ0JBTUZCUVFFQUFBQmZRRUNBd0FFRVFVU0lURkJCaE5SWVFjaWNSUXlnWkdoQ0NOQ3NjRVZVdEh3SkROaWNvSUpDaFlYR0JrYUpTWW5LQ2txTkRVMk56ZzVPa05FUlVaSFNFbEtVMVJWVmxkWVdWcGpaR1ZtWjJocGFuTjBkWFozZUhsNmc0U0Zob2VJaVlxU2s1U1ZscGVZbVpxaW82U2xwcWVvcWFxeXM3UzF0cmU0dWJyQ3c4VEZ4c2ZJeWNyUzA5VFYxdGZZMmRyaDR1UGs1ZWJuNk9ucThmTHo5UFgyOS9qNSt2L0VBQjhCQUFNQkFRRUJBUUVCQVFFQUFBQUFBQUFCQWdNRUJRWUhDQWtLQy8vRUFMVVJBQUlCQWdRRUF3UUhCUVFFQUFFQ2R3QUJBZ01SQkFVaE1RWVNRVkVIWVhFVElqS0JDQlJDa2FHeHdRa2pNMUx3RldKeTBRb1dKRFRoSmZFWEdCa2FKaWNvS1NvMU5qYzRPVHBEUkVWR1IwaEpTbE5VVlZaWFdGbGFZMlJsWm1kb2FXcHpkSFYyZDNoNWVvS0RoSVdHaDRpSmlwS1RsSldXbDVpWm1xS2pwS1dtcDZpcHFyS3p0TFcydDdpNXVzTER4TVhHeDhqSnl0TFQxTlhXMTlqWjJ1TGo1T1htNStqcDZ2THo5UFgyOS9qNSt2L2FBQXdEQVFBQ0VRTVJBRDhBeElydHB2OEFWbjVxMUlGdXZJM1NIQXJOdHROYTJmY0RXcktaSGlDRTRyYWVLeE5XRjVibkJoNk5LakpzaGFPVjAzSzNJTlNBeVl3eTA2Q0psak9EelVBYWZ6VGpOT2hpcTFOZTgyYVY2TktvcnBJdzR0VXVDbTR0elVyYW5jSHZSUlEyMHRCV3V3WFU3aFJ3MVNSNmpQSTVVbWlpaW03dlVtcm90RC8vMlE9PSI+Cgk8L2ltYWdlPgo8L3N2Zz4= 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxuri.com/96bd15233bb4ee9008469b6df3b852dc/property-267-hostaway-335113589-order-1.jpg') }}" width="320" height="214" alt="POINCIANA KEY-121.jpg">
+        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxteria.co/96bd15233bb4ee9008469b6df3b852dc/responsive-images/property-267-hostaway-335113589-order-1___media_library_original_320_214.jpg') }} 320w, https:/{{ asset('media.luxteria.co/96bd15233bb4ee9008469b6df3b852dc/responsive-images/property-267-hostaway-335113589-order-1___media_library_original_337_225.jpg') }} 337w, https:/{{ asset('media.luxteria.co/96bd15233bb4ee9008469b6df3b852dc/responsive-images/property-267-hostaway-335113589-order-1___media_library_original_375_250.jpg') }} 375w, https:/{{ asset('media.luxteria.co/96bd15233bb4ee9008469b6df3b852dc/responsive-images/property-267-hostaway-335113589-order-1___media_library_original_414_276.jpg') }} 414w, https:/{{ asset('media.luxteria.co/96bd15233bb4ee9008469b6df3b852dc/responsive-images/property-267-hostaway-335113589-order-1___media_library_original_640_427.jpg') }} 640w, https:/{{ asset('media.luxteria.co/96bd15233bb4ee9008469b6df3b852dc/responsive-images/property-267-hostaway-335113589-order-1___media_library_original_674_450.jpg') }} 674w, https:/{{ asset('media.luxteria.co/96bd15233bb4ee9008469b6df3b852dc/responsive-images/property-267-hostaway-335113589-order-1___media_library_original_750_501.jpg') }} 750w, https:/{{ asset('media.luxteria.co/96bd15233bb4ee9008469b6df3b852dc/responsive-images/property-267-hostaway-335113589-order-1___media_library_original_828_553.jpg') }} 828w, https:/{{ asset('media.luxteria.co/96bd15233bb4ee9008469b6df3b852dc/responsive-images/property-267-hostaway-335113589-order-1___media_library_original_1011_675.jpg') }} 1011w, https:/{{ asset('media.luxteria.co/96bd15233bb4ee9008469b6df3b852dc/responsive-images/property-267-hostaway-335113589-order-1___media_library_original_1024_684.jpg') }} 1024w, https:/{{ asset('media.luxteria.co/96bd15233bb4ee9008469b6df3b852dc/responsive-images/property-267-hostaway-335113589-order-1___media_library_original_1280_855.jpg') }} 1280w, https:/{{ asset('media.luxteria.co/96bd15233bb4ee9008469b6df3b852dc/responsive-images/property-267-hostaway-335113589-order-1___media_library_original_1348_900.jpg') }} 1348w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgMTM0OCA5MDAiPgoJPGltYWdlIHdpZHRoPSIxMzQ4IiBoZWlnaHQ9IjkwMCIgeGxpbms6aHJlZj0iZGF0YTppbWFnZS9qcGVnO2Jhc2U2NCwvOWovNEFBUVNrWkpSZ0FCQVFFQVlBQmdBQUQvL2dBK1ExSkZRVlJQVWpvZ1oyUXRhbkJsWnlCMk1TNHdJQ2gxYzJsdVp5QkpTa2NnU2xCRlJ5QjJPREFwTENCa1pXWmhkV3gwSUhGMVlXeHBkSGtLLzlzQVF3QUlCZ1lIQmdVSUJ3Y0hDUWtJQ2d3VURRd0xDd3daRWhNUEZCMGFIeDRkR2h3Y0lDUXVKeUFpTENNY0hDZzNLU3d3TVRRME5COG5PVDA0TWp3dU16UXkvOXNBUXdFSkNRa01Dd3dZRFEwWU1pRWNJVEl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeS84QUFFUWdBRlFBZ0F3RWlBQUlSQVFNUkFmL0VBQjhBQUFFRkFRRUJBUUVCQUFBQUFBQUFBQUFCQWdNRUJRWUhDQWtLQy8vRUFMVVFBQUlCQXdNQ0JBTUZCUVFFQUFBQmZRRUNBd0FFRVFVU0lURkJCaE5SWVFjaWNSUXlnWkdoQ0NOQ3NjRVZVdEh3SkROaWNvSUpDaFlYR0JrYUpTWW5LQ2txTkRVMk56ZzVPa05FUlVaSFNFbEtVMVJWVmxkWVdWcGpaR1ZtWjJocGFuTjBkWFozZUhsNmc0U0Zob2VJaVlxU2s1U1ZscGVZbVpxaW82U2xwcWVvcWFxeXM3UzF0cmU0dWJyQ3c4VEZ4c2ZJeWNyUzA5VFYxdGZZMmRyaDR1UGs1ZWJuNk9ucThmTHo5UFgyOS9qNSt2L0VBQjhCQUFNQkFRRUJBUUVCQVFFQUFBQUFBQUFCQWdNRUJRWUhDQWtLQy8vRUFMVVJBQUlCQWdRRUF3UUhCUVFFQUFFQ2R3QUJBZ01SQkFVaE1RWVNRVkVIWVhFVElqS0JDQlJDa2FHeHdRa2pNMUx3RldKeTBRb1dKRFRoSmZFWEdCa2FKaWNvS1NvMU5qYzRPVHBEUkVWR1IwaEpTbE5VVlZaWFdGbGFZMlJsWm1kb2FXcHpkSFYyZDNoNWVvS0RoSVdHaDRpSmlwS1RsSldXbDVpWm1xS2pwS1dtcDZpcHFyS3p0TFcydDdpNXVzTER4TVhHeDhqSnl0TFQxTlhXMTlqWjJ1TGo1T1htNStqcDZ2THo5UFgyOS9qNSt2L2FBQXdEQVFBQ0VRTVJBRDhBeElydHB2OEFWbjVxMUlGdXZJM1NIQXJOdHROYTJmY0RXcktaSGlDRTRyYWVLeE5XRjVibkJoNk5LakpzaGFPVjAzSzNJTlNBeVl3eTA2Q0psak9EelVBYWZ6VGpOT2hpcTFOZTgyYVY2TktvcnBJdzR0VXVDbTR0elVyYW5jSHZSUlEyMHRCV3V3WFU3aFJ3MVNSNmpQSTVVbWlpaW03dlVtcm90RC8vMlE9PSI+Cgk8L2ltYWdlPgo8L3N2Zz4= 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxteria.co/96bd15233bb4ee9008469b6df3b852dc/property-267-hostaway-335113589-order-1.jpg') }}" width="320" height="214" alt="POINCIANA KEY-121.jpg">
 
     </div>
     
@@ -1443,7 +1045,7 @@
                     data-wow-delay="250ms">
                     <article class="relative text-sm group">
         <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-10/7" wire:ignore>
-        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxuri.com/2927e02c07686531b53b5a587cbea3ab/responsive-images/property-265-hostaway-333664708-order-140___media_library_original_320_213.jpeg') }} 320w, https:/{{ asset('media.luxuri.com/2927e02c07686531b53b5a587cbea3ab/responsive-images/property-265-hostaway-333664708-order-140___media_library_original_360_240.jpeg') }} 360w, https:/{{ asset('media.luxuri.com/2927e02c07686531b53b5a587cbea3ab/responsive-images/property-265-hostaway-333664708-order-140___media_library_original_375_250.jpeg') }} 375w, https:/{{ asset('media.luxuri.com/2927e02c07686531b53b5a587cbea3ab/responsive-images/property-265-hostaway-333664708-order-140___media_library_original_414_276.jpeg') }} 414w, https:/{{ asset('media.luxuri.com/2927e02c07686531b53b5a587cbea3ab/responsive-images/property-265-hostaway-333664708-order-140___media_library_original_640_427.jpeg') }} 640w, https:/{{ asset('media.luxuri.com/2927e02c07686531b53b5a587cbea3ab/responsive-images/property-265-hostaway-333664708-order-140___media_library_original_720_480.jpeg') }} 720w, https:/{{ asset('media.luxuri.com/2927e02c07686531b53b5a587cbea3ab/responsive-images/property-265-hostaway-333664708-order-140___media_library_original_750_500.jpeg') }} 750w, https:/{{ asset('media.luxuri.com/2927e02c07686531b53b5a587cbea3ab/responsive-images/property-265-hostaway-333664708-order-140___media_library_original_828_552.jpeg') }} 828w, https:/{{ asset('media.luxuri.com/2927e02c07686531b53b5a587cbea3ab/responsive-images/property-265-hostaway-333664708-order-140___media_library_original_1024_683.jpeg') }} 1024w, https:/{{ asset('media.luxuri.com/2927e02c07686531b53b5a587cbea3ab/responsive-images/property-265-hostaway-333664708-order-140___media_library_original_1080_720.jpeg') }} 1080w, https:/{{ asset('media.luxuri.com/2927e02c07686531b53b5a587cbea3ab/responsive-images/property-265-hostaway-333664708-order-140___media_library_original_1280_853.jpeg') }} 1280w, https:/{{ asset('media.luxuri.com/2927e02c07686531b53b5a587cbea3ab/responsive-images/property-265-hostaway-333664708-order-140___media_library_original_1440_960.jpeg') }} 1440w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgMTQ0MCA5NjAiPgoJPGltYWdlIHdpZHRoPSIxNDQwIiBoZWlnaHQ9Ijk2MCIgeGxpbms6aHJlZj0iZGF0YTppbWFnZS9qcGVnO2Jhc2U2NCwvOWovNEFBUVNrWkpSZ0FCQVFFQVlBQmdBQUQvL2dBK1ExSkZRVlJQVWpvZ1oyUXRhbkJsWnlCMk1TNHdJQ2gxYzJsdVp5QkpTa2NnU2xCRlJ5QjJPREFwTENCa1pXWmhkV3gwSUhGMVlXeHBkSGtLLzlzQVF3QUlCZ1lIQmdVSUJ3Y0hDUWtJQ2d3VURRd0xDd3daRWhNUEZCMGFIeDRkR2h3Y0lDUXVKeUFpTENNY0hDZzNLU3d3TVRRME5COG5PVDA0TWp3dU16UXkvOXNBUXdFSkNRa01Dd3dZRFEwWU1pRWNJVEl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeS84QUFFUWdBRlFBZ0F3RWlBQUlSQVFNUkFmL0VBQjhBQUFFRkFRRUJBUUVCQUFBQUFBQUFBQUFCQWdNRUJRWUhDQWtLQy8vRUFMVVFBQUlCQXdNQ0JBTUZCUVFFQUFBQmZRRUNBd0FFRVFVU0lURkJCaE5SWVFjaWNSUXlnWkdoQ0NOQ3NjRVZVdEh3SkROaWNvSUpDaFlYR0JrYUpTWW5LQ2txTkRVMk56ZzVPa05FUlVaSFNFbEtVMVJWVmxkWVdWcGpaR1ZtWjJocGFuTjBkWFozZUhsNmc0U0Zob2VJaVlxU2s1U1ZscGVZbVpxaW82U2xwcWVvcWFxeXM3UzF0cmU0dWJyQ3c4VEZ4c2ZJeWNyUzA5VFYxdGZZMmRyaDR1UGs1ZWJuNk9ucThmTHo5UFgyOS9qNSt2L0VBQjhCQUFNQkFRRUJBUUVCQVFFQUFBQUFBQUFCQWdNRUJRWUhDQWtLQy8vRUFMVVJBQUlCQWdRRUF3UUhCUVFFQUFFQ2R3QUJBZ01SQkFVaE1RWVNRVkVIWVhFVElqS0JDQlJDa2FHeHdRa2pNMUx3RldKeTBRb1dKRFRoSmZFWEdCa2FKaWNvS1NvMU5qYzRPVHBEUkVWR1IwaEpTbE5VVlZaWFdGbGFZMlJsWm1kb2FXcHpkSFYyZDNoNWVvS0RoSVdHaDRpSmlwS1RsSldXbDVpWm1xS2pwS1dtcDZpcHFyS3p0TFcydDdpNXVzTER4TVhHeDhqSnl0TFQxTlhXMTlqWjJ1TGo1T1htNStqcDZ2THo5UFgyOS9qNSt2L2FBQXdEQVFBQ0VRTVJBRDhBcFcrcVdUODd4V3RheTJzd0cyUWMxNW5ITXFOa0hpdDZ4Y1NxcFdYYVI3MXBIRXpmVTVsQ0I2QXFXc1dDOHFqOGFvNmo0aHROTGNBWVllb3JBZUlGQTBsd1RqME5jcnJ0eW9sMmh5d0ZST3ROOVMzeVIwUlZudGtTSUVFMVR1THVhMmpIbHVSUlJYTlgwbXJFR2xwbW9UeXdZZGlmclZQVXNOSms5NktLd2kzZGs5VC8yUT09Ij4KCTwvaW1hZ2U+Cjwvc3ZnPg== 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxuri.com/2927e02c07686531b53b5a587cbea3ab/property-265-hostaway-333664708-order-140.jpg') }}" width="320" height="213" alt="DJI_0689-Edit">
+        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxteria.co/2927e02c07686531b53b5a587cbea3ab/responsive-images/property-265-hostaway-333664708-order-140___media_library_original_320_213.jpeg') }} 320w, https:/{{ asset('media.luxteria.co/2927e02c07686531b53b5a587cbea3ab/responsive-images/property-265-hostaway-333664708-order-140___media_library_original_360_240.jpeg') }} 360w, https:/{{ asset('media.luxteria.co/2927e02c07686531b53b5a587cbea3ab/responsive-images/property-265-hostaway-333664708-order-140___media_library_original_375_250.jpeg') }} 375w, https:/{{ asset('media.luxteria.co/2927e02c07686531b53b5a587cbea3ab/responsive-images/property-265-hostaway-333664708-order-140___media_library_original_414_276.jpeg') }} 414w, https:/{{ asset('media.luxteria.co/2927e02c07686531b53b5a587cbea3ab/responsive-images/property-265-hostaway-333664708-order-140___media_library_original_640_427.jpeg') }} 640w, https:/{{ asset('media.luxteria.co/2927e02c07686531b53b5a587cbea3ab/responsive-images/property-265-hostaway-333664708-order-140___media_library_original_720_480.jpeg') }} 720w, https:/{{ asset('media.luxteria.co/2927e02c07686531b53b5a587cbea3ab/responsive-images/property-265-hostaway-333664708-order-140___media_library_original_750_500.jpeg') }} 750w, https:/{{ asset('media.luxteria.co/2927e02c07686531b53b5a587cbea3ab/responsive-images/property-265-hostaway-333664708-order-140___media_library_original_828_552.jpeg') }} 828w, https:/{{ asset('media.luxteria.co/2927e02c07686531b53b5a587cbea3ab/responsive-images/property-265-hostaway-333664708-order-140___media_library_original_1024_683.jpeg') }} 1024w, https:/{{ asset('media.luxteria.co/2927e02c07686531b53b5a587cbea3ab/responsive-images/property-265-hostaway-333664708-order-140___media_library_original_1080_720.jpeg') }} 1080w, https:/{{ asset('media.luxteria.co/2927e02c07686531b53b5a587cbea3ab/responsive-images/property-265-hostaway-333664708-order-140___media_library_original_1280_853.jpeg') }} 1280w, https:/{{ asset('media.luxteria.co/2927e02c07686531b53b5a587cbea3ab/responsive-images/property-265-hostaway-333664708-order-140___media_library_original_1440_960.jpeg') }} 1440w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgMTQ0MCA5NjAiPgoJPGltYWdlIHdpZHRoPSIxNDQwIiBoZWlnaHQ9Ijk2MCIgeGxpbms6aHJlZj0iZGF0YTppbWFnZS9qcGVnO2Jhc2U2NCwvOWovNEFBUVNrWkpSZ0FCQVFFQVlBQmdBQUQvL2dBK1ExSkZRVlJQVWpvZ1oyUXRhbkJsWnlCMk1TNHdJQ2gxYzJsdVp5QkpTa2NnU2xCRlJ5QjJPREFwTENCa1pXWmhkV3gwSUhGMVlXeHBkSGtLLzlzQVF3QUlCZ1lIQmdVSUJ3Y0hDUWtJQ2d3VURRd0xDd3daRWhNUEZCMGFIeDRkR2h3Y0lDUXVKeUFpTENNY0hDZzNLU3d3TVRRME5COG5PVDA0TWp3dU16UXkvOXNBUXdFSkNRa01Dd3dZRFEwWU1pRWNJVEl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeS84QUFFUWdBRlFBZ0F3RWlBQUlSQVFNUkFmL0VBQjhBQUFFRkFRRUJBUUVCQUFBQUFBQUFBQUFCQWdNRUJRWUhDQWtLQy8vRUFMVVFBQUlCQXdNQ0JBTUZCUVFFQUFBQmZRRUNBd0FFRVFVU0lURkJCaE5SWVFjaWNSUXlnWkdoQ0NOQ3NjRVZVdEh3SkROaWNvSUpDaFlYR0JrYUpTWW5LQ2txTkRVMk56ZzVPa05FUlVaSFNFbEtVMVJWVmxkWVdWcGpaR1ZtWjJocGFuTjBkWFozZUhsNmc0U0Zob2VJaVlxU2s1U1ZscGVZbVpxaW82U2xwcWVvcWFxeXM3UzF0cmU0dWJyQ3c4VEZ4c2ZJeWNyUzA5VFYxdGZZMmRyaDR1UGs1ZWJuNk9ucThmTHo5UFgyOS9qNSt2L0VBQjhCQUFNQkFRRUJBUUVCQVFFQUFBQUFBQUFCQWdNRUJRWUhDQWtLQy8vRUFMVVJBQUlCQWdRRUF3UUhCUVFFQUFFQ2R3QUJBZ01SQkFVaE1RWVNRVkVIWVhFVElqS0JDQlJDa2FHeHdRa2pNMUx3RldKeTBRb1dKRFRoSmZFWEdCa2FKaWNvS1NvMU5qYzRPVHBEUkVWR1IwaEpTbE5VVlZaWFdGbGFZMlJsWm1kb2FXcHpkSFYyZDNoNWVvS0RoSVdHaDRpSmlwS1RsSldXbDVpWm1xS2pwS1dtcDZpcHFyS3p0TFcydDdpNXVzTER4TVhHeDhqSnl0TFQxTlhXMTlqWjJ1TGo1T1htNStqcDZ2THo5UFgyOS9qNSt2L2FBQXdEQVFBQ0VRTVJBRDhBcFcrcVdUODd4V3RheTJzd0cyUWMxNW5ITXFOa0hpdDZ4Y1NxcFdYYVI3MXBIRXpmVTVsQ0I2QXFXc1dDOHFqOGFvNmo0aHROTGNBWVllb3JBZUlGQTBsd1RqME5jcnJ0eW9sMmh5d0ZST3ROOVMzeVIwUlZudGtTSUVFMVR1THVhMmpIbHVSUlJYTlgwbXJFR2xwbW9UeXdZZGlmclZQVXNOSms5NktLd2kzZGs5VC8yUT09Ij4KCTwvaW1hZ2U+Cjwvc3ZnPg== 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxteria.co/2927e02c07686531b53b5a587cbea3ab/property-265-hostaway-333664708-order-140.jpg') }}" width="320" height="213" alt="DJI_0689-Edit">
 
     </div>
     
@@ -1483,7 +1085,7 @@
                     data-wow-delay="300ms">
                     <article class="relative text-sm group">
         <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-10/7" wire:ignore>
-        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxuri.com/ece078f6b4a76ba57da525e2f1d8141e/responsive-images/property-264-hostaway-333507462-order-1___media_library_original_320_213.jpg') }} 320w, https:/{{ asset('media.luxuri.com/ece078f6b4a76ba57da525e2f1d8141e/responsive-images/property-264-hostaway-333507462-order-1___media_library_original_337_225.jpg') }} 337w, https:/{{ asset('media.luxuri.com/ece078f6b4a76ba57da525e2f1d8141e/responsive-images/property-264-hostaway-333507462-order-1___media_library_original_375_250.jpg') }} 375w, https:/{{ asset('media.luxuri.com/ece078f6b4a76ba57da525e2f1d8141e/responsive-images/property-264-hostaway-333507462-order-1___media_library_original_414_276.jpg') }} 414w, https:/{{ asset('media.luxuri.com/ece078f6b4a76ba57da525e2f1d8141e/responsive-images/property-264-hostaway-333507462-order-1___media_library_original_640_427.jpg') }} 640w, https:/{{ asset('media.luxuri.com/ece078f6b4a76ba57da525e2f1d8141e/responsive-images/property-264-hostaway-333507462-order-1___media_library_original_675_450.jpg') }} 675w, https:/{{ asset('media.luxuri.com/ece078f6b4a76ba57da525e2f1d8141e/responsive-images/property-264-hostaway-333507462-order-1___media_library_original_750_500.jpg') }} 750w, https:/{{ asset('media.luxuri.com/ece078f6b4a76ba57da525e2f1d8141e/responsive-images/property-264-hostaway-333507462-order-1___media_library_original_828_552.jpg') }} 828w, https:/{{ asset('media.luxuri.com/ece078f6b4a76ba57da525e2f1d8141e/responsive-images/property-264-hostaway-333507462-order-1___media_library_original_1012_675.jpg') }} 1012w, https:/{{ asset('media.luxuri.com/ece078f6b4a76ba57da525e2f1d8141e/responsive-images/property-264-hostaway-333507462-order-1___media_library_original_1024_683.jpg') }} 1024w, https:/{{ asset('media.luxuri.com/ece078f6b4a76ba57da525e2f1d8141e/responsive-images/property-264-hostaway-333507462-order-1___media_library_original_1280_853.jpg') }} 1280w, https:/{{ asset('media.luxuri.com/ece078f6b4a76ba57da525e2f1d8141e/responsive-images/property-264-hostaway-333507462-order-1___media_library_original_1350_900.jpg') }} 1350w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgMTM1MCA5MDAiPgoJPGltYWdlIHdpZHRoPSIxMzUwIiBoZWlnaHQ9IjkwMCIgeGxpbms6aHJlZj0iZGF0YTppbWFnZS9qcGVnO2Jhc2U2NCwvOWovNEFBUVNrWkpSZ0FCQVFFQVlBQmdBQUQvL2dBK1ExSkZRVlJQVWpvZ1oyUXRhbkJsWnlCMk1TNHdJQ2gxYzJsdVp5QkpTa2NnU2xCRlJ5QjJPREFwTENCa1pXWmhkV3gwSUhGMVlXeHBkSGtLLzlzQVF3QUlCZ1lIQmdVSUJ3Y0hDUWtJQ2d3VURRd0xDd3daRWhNUEZCMGFIeDRkR2h3Y0lDUXVKeUFpTENNY0hDZzNLU3d3TVRRME5COG5PVDA0TWp3dU16UXkvOXNBUXdFSkNRa01Dd3dZRFEwWU1pRWNJVEl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeS84QUFFUWdBRlFBZ0F3RWlBQUlSQVFNUkFmL0VBQjhBQUFFRkFRRUJBUUVCQUFBQUFBQUFBQUFCQWdNRUJRWUhDQWtLQy8vRUFMVVFBQUlCQXdNQ0JBTUZCUVFFQUFBQmZRRUNBd0FFRVFVU0lURkJCaE5SWVFjaWNSUXlnWkdoQ0NOQ3NjRVZVdEh3SkROaWNvSUpDaFlYR0JrYUpTWW5LQ2txTkRVMk56ZzVPa05FUlVaSFNFbEtVMVJWVmxkWVdWcGpaR1ZtWjJocGFuTjBkWFozZUhsNmc0U0Zob2VJaVlxU2s1U1ZscGVZbVpxaW82U2xwcWVvcWFxeXM3UzF0cmU0dWJyQ3c4VEZ4c2ZJeWNyUzA5VFYxdGZZMmRyaDR1UGs1ZWJuNk9ucThmTHo5UFgyOS9qNSt2L0VBQjhCQUFNQkFRRUJBUUVCQVFFQUFBQUFBQUFCQWdNRUJRWUhDQWtLQy8vRUFMVVJBQUlCQWdRRUF3UUhCUVFFQUFFQ2R3QUJBZ01SQkFVaE1RWVNRVkVIWVhFVElqS0JDQlJDa2FHeHdRa2pNMUx3RldKeTBRb1dKRFRoSmZFWEdCa2FKaWNvS1NvMU5qYzRPVHBEUkVWR1IwaEpTbE5VVlZaWFdGbGFZMlJsWm1kb2FXcHpkSFYyZDNoNWVvS0RoSVdHaDRpSmlwS1RsSldXbDVpWm1xS2pwS1dtcDZpcHFyS3p0TFcydDdpNXVzTER4TVhHeDhqSnl0TFQxTlhXMTlqWjJ1TGo1T1htNStqcDZ2THo5UFgyOS9qNSt2L2FBQXdEQVFBQ0VRTVJBRDhBNUhUL0FCRmFwR0NUelhRV092V2t6cXA0elhuMXZad1F1cGR1TTExa0Q2WTlzb1FxcmlqNjQ1TldRNHl0SGM3NjJ2Tk9SUXp5Q3RxMTFiU1VpMythb0E5NjgxU08zUzJMdk1DUHJXVmU2cGIrUTBVY2hCOWpXVlhFeXZabzBqSk5YdWNmSkt4NzAxSm5Yb3hvb3JtU09GRXJYMXh0MitZY2VtYWdhVmoxTkZGVllwSC8yUT09Ij4KCTwvaW1hZ2U+Cjwvc3ZnPg== 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxuri.com/ece078f6b4a76ba57da525e2f1d8141e/property-264-hostaway-333507462-order-1.jpg') }}" width="320" height="213" alt="02..jpeg">
+        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxteria.co/ece078f6b4a76ba57da525e2f1d8141e/responsive-images/property-264-hostaway-333507462-order-1___media_library_original_320_213.jpg') }} 320w, https:/{{ asset('media.luxteria.co/ece078f6b4a76ba57da525e2f1d8141e/responsive-images/property-264-hostaway-333507462-order-1___media_library_original_337_225.jpg') }} 337w, https:/{{ asset('media.luxteria.co/ece078f6b4a76ba57da525e2f1d8141e/responsive-images/property-264-hostaway-333507462-order-1___media_library_original_375_250.jpg') }} 375w, https:/{{ asset('media.luxteria.co/ece078f6b4a76ba57da525e2f1d8141e/responsive-images/property-264-hostaway-333507462-order-1___media_library_original_414_276.jpg') }} 414w, https:/{{ asset('media.luxteria.co/ece078f6b4a76ba57da525e2f1d8141e/responsive-images/property-264-hostaway-333507462-order-1___media_library_original_640_427.jpg') }} 640w, https:/{{ asset('media.luxteria.co/ece078f6b4a76ba57da525e2f1d8141e/responsive-images/property-264-hostaway-333507462-order-1___media_library_original_675_450.jpg') }} 675w, https:/{{ asset('media.luxteria.co/ece078f6b4a76ba57da525e2f1d8141e/responsive-images/property-264-hostaway-333507462-order-1___media_library_original_750_500.jpg') }} 750w, https:/{{ asset('media.luxteria.co/ece078f6b4a76ba57da525e2f1d8141e/responsive-images/property-264-hostaway-333507462-order-1___media_library_original_828_552.jpg') }} 828w, https:/{{ asset('media.luxteria.co/ece078f6b4a76ba57da525e2f1d8141e/responsive-images/property-264-hostaway-333507462-order-1___media_library_original_1012_675.jpg') }} 1012w, https:/{{ asset('media.luxteria.co/ece078f6b4a76ba57da525e2f1d8141e/responsive-images/property-264-hostaway-333507462-order-1___media_library_original_1024_683.jpg') }} 1024w, https:/{{ asset('media.luxteria.co/ece078f6b4a76ba57da525e2f1d8141e/responsive-images/property-264-hostaway-333507462-order-1___media_library_original_1280_853.jpg') }} 1280w, https:/{{ asset('media.luxteria.co/ece078f6b4a76ba57da525e2f1d8141e/responsive-images/property-264-hostaway-333507462-order-1___media_library_original_1350_900.jpg') }} 1350w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgMTM1MCA5MDAiPgoJPGltYWdlIHdpZHRoPSIxMzUwIiBoZWlnaHQ9IjkwMCIgeGxpbms6aHJlZj0iZGF0YTppbWFnZS9qcGVnO2Jhc2U2NCwvOWovNEFBUVNrWkpSZ0FCQVFFQVlBQmdBQUQvL2dBK1ExSkZRVlJQVWpvZ1oyUXRhbkJsWnlCMk1TNHdJQ2gxYzJsdVp5QkpTa2NnU2xCRlJ5QjJPREFwTENCa1pXWmhkV3gwSUhGMVlXeHBkSGtLLzlzQVF3QUlCZ1lIQmdVSUJ3Y0hDUWtJQ2d3VURRd0xDd3daRWhNUEZCMGFIeDRkR2h3Y0lDUXVKeUFpTENNY0hDZzNLU3d3TVRRME5COG5PVDA0TWp3dU16UXkvOXNBUXdFSkNRa01Dd3dZRFEwWU1pRWNJVEl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeS84QUFFUWdBRlFBZ0F3RWlBQUlSQVFNUkFmL0VBQjhBQUFFRkFRRUJBUUVCQUFBQUFBQUFBQUFCQWdNRUJRWUhDQWtLQy8vRUFMVVFBQUlCQXdNQ0JBTUZCUVFFQUFBQmZRRUNBd0FFRVFVU0lURkJCaE5SWVFjaWNSUXlnWkdoQ0NOQ3NjRVZVdEh3SkROaWNvSUpDaFlYR0JrYUpTWW5LQ2txTkRVMk56ZzVPa05FUlVaSFNFbEtVMVJWVmxkWVdWcGpaR1ZtWjJocGFuTjBkWFozZUhsNmc0U0Zob2VJaVlxU2s1U1ZscGVZbVpxaW82U2xwcWVvcWFxeXM3UzF0cmU0dWJyQ3c4VEZ4c2ZJeWNyUzA5VFYxdGZZMmRyaDR1UGs1ZWJuNk9ucThmTHo5UFgyOS9qNSt2L0VBQjhCQUFNQkFRRUJBUUVCQVFFQUFBQUFBQUFCQWdNRUJRWUhDQWtLQy8vRUFMVVJBQUlCQWdRRUF3UUhCUVFFQUFFQ2R3QUJBZ01SQkFVaE1RWVNRVkVIWVhFVElqS0JDQlJDa2FHeHdRa2pNMUx3RldKeTBRb1dKRFRoSmZFWEdCa2FKaWNvS1NvMU5qYzRPVHBEUkVWR1IwaEpTbE5VVlZaWFdGbGFZMlJsWm1kb2FXcHpkSFYyZDNoNWVvS0RoSVdHaDRpSmlwS1RsSldXbDVpWm1xS2pwS1dtcDZpcHFyS3p0TFcydDdpNXVzTER4TVhHeDhqSnl0TFQxTlhXMTlqWjJ1TGo1T1htNStqcDZ2THo5UFgyOS9qNSt2L2FBQXdEQVFBQ0VRTVJBRDhBNUhUL0FCRmFwR0NUelhRV092V2t6cXA0elhuMXZad1F1cGR1TTExa0Q2WTlzb1FxcmlqNjQ1TldRNHl0SGM3NjJ2Tk9SUXp5Q3RxMTFiU1VpMythb0E5NjgxU08zUzJMdk1DUHJXVmU2cGIrUTBVY2hCOWpXVlhFeXZabzBqSk5YdWNmSkt4NzAxSm5Yb3hvb3JtU09GRXJYMXh0MitZY2VtYWdhVmoxTkZGVllwSC8yUT09Ij4KCTwvaW1hZ2U+Cjwvc3ZnPg== 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxteria.co/ece078f6b4a76ba57da525e2f1d8141e/property-264-hostaway-333507462-order-1.jpg') }}" width="320" height="213" alt="02..jpeg">
 
     </div>
     
@@ -1523,7 +1125,7 @@
                     data-wow-delay="350ms">
                     <article class="relative text-sm group">
         <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-10/7" wire:ignore>
-        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxuri.com/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_320_180.jpg') }} 320w, https:/{{ asset('media.luxuri.com/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_375_211.jpg') }} 375w, https:/{{ asset('media.luxuri.com/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_414_233.jpg') }} 414w, https:/{{ asset('media.luxuri.com/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_640_360.jpg') }} 640w, https:/{{ asset('media.luxuri.com/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_750_422.jpg') }} 750w, https:/{{ asset('media.luxuri.com/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_828_466.jpg') }} 828w, https:/{{ asset('media.luxuri.com/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_1024_576.jpg') }} 1024w, https:/{{ asset('media.luxuri.com/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_1280_720.jpg') }} 1280w, https:/{{ asset('media.luxuri.com/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_1440_810.jpg') }} 1440w, https:/{{ asset('media.luxuri.com/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_1920_1080.jpg') }} 1920w, https:/{{ asset('media.luxuri.com/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_2048_1152.jpg') }} 2048w, https:/{{ asset('media.luxuri.com/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_2560_1440.jpg') }} 2560w, https:/{{ asset('media.luxuri.com/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_2880_1620.jpg') }} 2880w, https:/{{ asset('media.luxuri.com/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_4096_2304.jpg') }} 4096w, https:/{{ asset('media.luxuri.com/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_6144_3456.jpg') }} 6144w, https:/{{ asset('media.luxuri.com/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_8192_4608.jpg') }} 8192w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgODE5MiA0NjA4Ij4KCTxpbWFnZSB3aWR0aD0iODE5MiIgaGVpZ2h0PSI0NjA4IiB4bGluazpocmVmPSJkYXRhOmltYWdlL2pwZWc7YmFzZTY0LC85ai80QUFRU2taSlJnQUJBUUVBWUFCZ0FBRC8vZ0ErUTFKRlFWUlBVam9nWjJRdGFuQmxaeUIyTVM0d0lDaDFjMmx1WnlCSlNrY2dTbEJGUnlCMk9EQXBMQ0JrWldaaGRXeDBJSEYxWVd4cGRIa0svOXNBUXdBSUJnWUhCZ1VJQndjSENRa0lDZ3dVRFF3TEN3d1pFaE1QRkIwYUh4NGRHaHdjSUNRdUp5QWlMQ01jSENnM0tTd3dNVFEwTkI4bk9UMDRNand1TXpReS85c0FRd0VKQ1FrTUN3d1lEUTBZTWlFY0lUSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5LzhBQUVRZ0FFZ0FnQXdFaUFBSVJBUU1SQWYvRUFCOEFBQUVGQVFFQkFRRUJBQUFBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUUFBSUJBd01DQkFNRkJRUUVBQUFCZlFFQ0F3QUVFUVVTSVRGQkJoTlJZUWNpY1JReWdaR2hDQ05Dc2NFVlV0SHdKRE5pY29JSkNoWVhHQmthSlNZbktDa3FORFUyTnpnNU9rTkVSVVpIU0VsS1UxUlZWbGRZV1ZwalpHVm1aMmhwYW5OMGRYWjNlSGw2ZzRTRmhvZUlpWXFTazVTVmxwZVltWnFpbzZTbHBxZW9xYXF5czdTMXRyZTR1YnJDdzhURnhzZkl5Y3JTMDlUVjF0ZlkyZHJoNHVQazVlYm42T25xOGZMejlQWDI5L2o1K3YvRUFCOEJBQU1CQVFFQkFRRUJBUUVBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUkFBSUJBZ1FFQXdRSEJRUUVBQUVDZHdBQkFnTVJCQVVoTVFZU1FWRUhZWEVUSWpLQkNCUkNrYUd4d1Frak0xTHdGV0p5MFFvV0pEVGhKZkVYR0JrYUppY29LU28xTmpjNE9UcERSRVZHUjBoSlNsTlVWVlpYV0ZsYVkyUmxabWRvYVdwemRIVjJkM2g1ZW9LRGhJV0doNGlKaXBLVGxKV1dsNWlabXFLanBLV21wNmlwcXJLenRMVzJ0N2k1dXNMRHhNWEd4OGpKeXRMVDFOWFcxOWpaMnVMajVPWG01K2pwNnZMejlQWDI5L2o1K3YvYUFBd0RBUUFDRVFNUkFEOEE1cE5TM1RDTlZKSnJlc0RQdnp0T0s1dXp2cmVLNDNPcThkNjZTTHhKWklnSks1cnRxWmhpR3JJOHlsbGVIakxtc3pXKzJ5UURKaU9CVlllSjRiV1l5dndCMnF1ZkZ0bktwVmd1SzVMV3JpRzltSmljS2hxUHJWU1dram9lRmhCWGljanViKzhmenBDN2YzaitkRkZjek9xT3dnZHR2M2orZEx2YmI5NC9uUlJURTlqLzJRPT0iPgoJPC9pbWFnZT4KPC9zdmc+ 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxuri.com/e4e4a614e00fce5739c7047c8a0834cb/01.jpg') }}" width="320" height="180" alt="01">
+        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxteria.co/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_320_180.jpg') }} 320w, https:/{{ asset('media.luxteria.co/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_375_211.jpg') }} 375w, https:/{{ asset('media.luxteria.co/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_414_233.jpg') }} 414w, https:/{{ asset('media.luxteria.co/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_640_360.jpg') }} 640w, https:/{{ asset('media.luxteria.co/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_750_422.jpg') }} 750w, https:/{{ asset('media.luxteria.co/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_828_466.jpg') }} 828w, https:/{{ asset('media.luxteria.co/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_1024_576.jpg') }} 1024w, https:/{{ asset('media.luxteria.co/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_1280_720.jpg') }} 1280w, https:/{{ asset('media.luxteria.co/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_1440_810.jpg') }} 1440w, https:/{{ asset('media.luxteria.co/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_1920_1080.jpg') }} 1920w, https:/{{ asset('media.luxteria.co/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_2048_1152.jpg') }} 2048w, https:/{{ asset('media.luxteria.co/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_2560_1440.jpg') }} 2560w, https:/{{ asset('media.luxteria.co/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_2880_1620.jpg') }} 2880w, https:/{{ asset('media.luxteria.co/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_4096_2304.jpg') }} 4096w, https:/{{ asset('media.luxteria.co/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_6144_3456.jpg') }} 6144w, https:/{{ asset('media.luxteria.co/e4e4a614e00fce5739c7047c8a0834cb/responsive-images/01___media_library_original_8192_4608.jpg') }} 8192w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgODE5MiA0NjA4Ij4KCTxpbWFnZSB3aWR0aD0iODE5MiIgaGVpZ2h0PSI0NjA4IiB4bGluazpocmVmPSJkYXRhOmltYWdlL2pwZWc7YmFzZTY0LC85ai80QUFRU2taSlJnQUJBUUVBWUFCZ0FBRC8vZ0ErUTFKRlFWUlBVam9nWjJRdGFuQmxaeUIyTVM0d0lDaDFjMmx1WnlCSlNrY2dTbEJGUnlCMk9EQXBMQ0JrWldaaGRXeDBJSEYxWVd4cGRIa0svOXNBUXdBSUJnWUhCZ1VJQndjSENRa0lDZ3dVRFF3TEN3d1pFaE1QRkIwYUh4NGRHaHdjSUNRdUp5QWlMQ01jSENnM0tTd3dNVFEwTkI4bk9UMDRNand1TXpReS85c0FRd0VKQ1FrTUN3d1lEUTBZTWlFY0lUSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5LzhBQUVRZ0FFZ0FnQXdFaUFBSVJBUU1SQWYvRUFCOEFBQUVGQVFFQkFRRUJBQUFBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUUFBSUJBd01DQkFNRkJRUUVBQUFCZlFFQ0F3QUVFUVVTSVRGQkJoTlJZUWNpY1JReWdaR2hDQ05Dc2NFVlV0SHdKRE5pY29JSkNoWVhHQmthSlNZbktDa3FORFUyTnpnNU9rTkVSVVpIU0VsS1UxUlZWbGRZV1ZwalpHVm1aMmhwYW5OMGRYWjNlSGw2ZzRTRmhvZUlpWXFTazVTVmxwZVltWnFpbzZTbHBxZW9xYXF5czdTMXRyZTR1YnJDdzhURnhzZkl5Y3JTMDlUVjF0ZlkyZHJoNHVQazVlYm42T25xOGZMejlQWDI5L2o1K3YvRUFCOEJBQU1CQVFFQkFRRUJBUUVBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUkFBSUJBZ1FFQXdRSEJRUUVBQUVDZHdBQkFnTVJCQVVoTVFZU1FWRUhZWEVUSWpLQkNCUkNrYUd4d1Frak0xTHdGV0p5MFFvV0pEVGhKZkVYR0JrYUppY29LU28xTmpjNE9UcERSRVZHUjBoSlNsTlVWVlpYV0ZsYVkyUmxabWRvYVdwemRIVjJkM2g1ZW9LRGhJV0doNGlKaXBLVGxKV1dsNWlabXFLanBLV21wNmlwcXJLenRMVzJ0N2k1dXNMRHhNWEd4OGpKeXRMVDFOWFcxOWpaMnVMajVPWG01K2pwNnZMejlQWDI5L2o1K3YvYUFBd0RBUUFDRVFNUkFEOEE1cE5TM1RDTlZKSnJlc0RQdnp0T0s1dXp2cmVLNDNPcThkNjZTTHhKWklnSks1cnRxWmhpR3JJOHlsbGVIakxtc3pXKzJ5UURKaU9CVlllSjRiV1l5dndCMnF1ZkZ0bktwVmd1SzVMV3JpRzltSmljS2hxUHJWU1dram9lRmhCWGljanViKzhmenBDN2YzaitkRkZjek9xT3dnZHR2M2orZEx2YmI5NC9uUlJURTlqLzJRPT0iPgoJPC9pbWFnZT4KPC9zdmc+ 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxteria.co/e4e4a614e00fce5739c7047c8a0834cb/01.jpg') }}" width="320" height="180" alt="01">
 
     </div>
     
@@ -1842,7 +1444,7 @@
 </div>
             <div class="bg-black text-white relative -mb-8">
     <div class="relative isolate pt-14 min-h-[70vh] flex items-center">
-                    <img class="absolute inset-0 -z-10 size-full object-cover" src="{{ asset('media.luxuri.com/b7cfd06c1d9d677f1e2943af6e51a36b/126.jpg') }}" alt="126.jpg">
+                    <img class="absolute inset-0 -z-10 size-full object-cover" src="{{ asset('media.luxteria.co/b7cfd06c1d9d677f1e2943af6e51a36b/126.jpg') }}" alt="126.jpg">
                 <div
             class="absolute top-0 left-0 pointer-events-none w-full h-26 -z-10 bg-gradient-to-b from-black from-0% via-black/15 via-70% to-black/0 to-95% bg-blend-overlay"></div>
         <div
@@ -1856,7 +1458,7 @@
     <div class="text-center space-y-3 max-w-2xl mx-auto">
                     <div
                 class="uppercase text-lg tracking-wider text-balance font-normal">vacation made easy</div>
-                            <h2 class="uppercase font-semibold">Fully Operated by Luxuri</h2>
+                            <h2 class="uppercase font-semibold">Fully Operated by luxteria</h2>
                             <p>Every villa in our collection is personally managed by our team, blending five-star hospitality with the privacy, space, and comfort of a true home.</p>
             </div>
 
@@ -1865,7 +1467,7 @@
                                             <div>
                             <i class="fa-sharp fa-light fa-circle-check fa-xl"></i>
                         </div>
-                                                                <h3>Handpicked and Luxuri-Approved</h3>
+                                                                <h3>Handpicked and luxteria-Approved</h3>
                                                                 <div class="content-format"><p>Each residence is thoughtfully chosen and maintained to our exacting standards, ensuring every stay is as seamless as it is memorable.</p></div>
                                     </div>
                             <div class="space-y-3">
@@ -2345,7 +1947,7 @@ You for hosting my client and their guests. They thoroughly enjoyed their stay t
                 :aria-expanded="openFaq === 0"
                 @click="openFaq = openFaq === 0 ? null : 0"
             >
-                <h3 class="text-base font-semibold">What is the minimum age requirement to book a stay with Luxuri?</h3>
+                <h3 class="text-base font-semibold">What is the minimum age requirement to book a stay with luxteria?</h3>
                 <span class="flex size-6 items-center">
                     <i class="fa-sharp fa-light fa-plus fa-fw fa-lg transition-transform duration-200"
                        :class="{ 'rotate-45': openFaq === 0 }"></i>
@@ -2363,7 +1965,7 @@ You for hosting my client and their guests. They thoroughly enjoyed their stay t
             x-transition:leave-start="opacity-100 max-h-96"
             x-transition:leave-end="opacity-0 max-h-0"
         >
-            <p class="">Guests must be at least 21 years old to book a Luxuri villa.</p>
+            <p class="">Guests must be at least 21 years old to book a luxteria villa.</p>
         </dd>
 </div>
 </article>
@@ -2377,7 +1979,7 @@ You for hosting my client and their guests. They thoroughly enjoyed their stay t
                 :aria-expanded="openFaq === 1"
                 @click="openFaq = openFaq === 1 ? null : 1"
             >
-                <h3 class="text-base font-semibold">How can I reserve a Luxuri property?</h3>
+                <h3 class="text-base font-semibold">How can I reserve a luxteria property?</h3>
                 <span class="flex size-6 items-center">
                     <i class="fa-sharp fa-light fa-plus fa-fw fa-lg transition-transform duration-200"
                        :class="{ 'rotate-45': openFaq === 1 }"></i>
@@ -2409,7 +2011,7 @@ You for hosting my client and their guests. They thoroughly enjoyed their stay t
                 :aria-expanded="openFaq === 2"
                 @click="openFaq = openFaq === 2 ? null : 2"
             >
-                <h3 class="text-base font-semibold">Can I host an event at a Luxuri property?</h3>
+                <h3 class="text-base font-semibold">Can I host an event at a luxteria property?</h3>
                 <span class="flex size-6 items-center">
                     <i class="fa-sharp fa-light fa-plus fa-fw fa-lg transition-transform duration-200"
                        :class="{ 'rotate-45': openFaq === 2 }"></i>
@@ -2441,7 +2043,7 @@ You for hosting my client and their guests. They thoroughly enjoyed their stay t
                 :aria-expanded="openFaq === 3"
                 @click="openFaq = openFaq === 3 ? null : 3"
             >
-                <h3 class="text-base font-semibold">What is Luxuri’s cancellation policy?</h3>
+                <h3 class="text-base font-semibold">What is luxteria’s cancellation policy?</h3>
                 <span class="flex size-6 items-center">
                     <i class="fa-sharp fa-light fa-plus fa-fw fa-lg transition-transform duration-200"
                        :class="{ 'rotate-45': openFaq === 3 }"></i>
@@ -2474,7 +2076,7 @@ Cancellations made 13 days or fewer before check-in are non-refundable, though t
                 :aria-expanded="openFaq === 4"
                 @click="openFaq = openFaq === 4 ? null : 4"
             >
-                <h3 class="text-base font-semibold">Are pets allowed at Luxuri properties?</h3>
+                <h3 class="text-base font-semibold">Are pets allowed at luxteria properties?</h3>
                 <span class="flex size-6 items-center">
                     <i class="fa-sharp fa-light fa-plus fa-fw fa-lg transition-transform duration-200"
                        :class="{ 'rotate-45': openFaq === 4 }"></i>
@@ -2492,7 +2094,7 @@ Cancellations made 13 days or fewer before check-in are non-refundable, though t
             x-transition:leave-start="opacity-100 max-h-96"
             x-transition:leave-end="opacity-0 max-h-0"
         >
-            <p class="">Some Luxuri homes are pet-friendly. Check the individual listing details or reach out to our team to confirm if a property can accommodate your pet.</p>
+            <p class="">Some luxteria homes are pet-friendly. Check the individual listing details or reach out to our team to confirm if a property can accommodate your pet.</p>
         </dd>
 </div>
 </article>
@@ -2506,7 +2108,7 @@ Cancellations made 13 days or fewer before check-in are non-refundable, though t
                 :aria-expanded="openFaq === 5"
                 @click="openFaq = openFaq === 5 ? null : 5"
             >
-                <h3 class="text-base font-semibold">Does Luxuri offer personalized services during my stay?</h3>
+                <h3 class="text-base font-semibold">Does luxteria offer personalized services during my stay?</h3>
                 <span class="flex size-6 items-center">
                     <i class="fa-sharp fa-light fa-plus fa-fw fa-lg transition-transform duration-200"
                        :class="{ 'rotate-45': openFaq === 5 }"></i>
@@ -2538,7 +2140,7 @@ Cancellations made 13 days or fewer before check-in are non-refundable, though t
                 :aria-expanded="openFaq === 6"
                 @click="openFaq = openFaq === 6 ? null : 6"
             >
-                <h3 class="text-base font-semibold">Can I use Luxuri concierge services without booking a villa?</h3>
+                <h3 class="text-base font-semibold">Can I use luxteria concierge services without booking a villa?</h3>
                 <span class="flex size-6 items-center">
                     <i class="fa-sharp fa-light fa-plus fa-fw fa-lg transition-transform duration-200"
                        :class="{ 'rotate-45': openFaq === 6 }"></i>
@@ -2570,7 +2172,7 @@ Cancellations made 13 days or fewer before check-in are non-refundable, though t
                 :aria-expanded="openFaq === 7"
                 @click="openFaq = openFaq === 7 ? null : 7"
             >
-                <h3 class="text-base font-semibold">How does Luxuri ensure guest privacy and discretion?</h3>
+                <h3 class="text-base font-semibold">How does luxteria ensure guest privacy and discretion?</h3>
                 <span class="flex size-6 items-center">
                     <i class="fa-sharp fa-light fa-plus fa-fw fa-lg transition-transform duration-200"
                        :class="{ 'rotate-45': openFaq === 7 }"></i>
@@ -2608,7 +2210,7 @@ Cancellations made 13 days or fewer before check-in are non-refundable, though t
                     <article class="relative group  puffIn text-sm">
             <div class="mb-4">
             <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-6/7 aspect-[4/3]" wire:ignore>
-        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxuri.com/b881777ab725a0f9e84ef26bad1a9968/responsive-images/featured___media_library_original_187_125.jpg') }} 187w, https:/{{ asset('media.luxuri.com/b881777ab725a0f9e84ef26bad1a9968/responsive-images/featured___media_library_original_320_213.jpg') }} 320w, https:/{{ asset('media.luxuri.com/b881777ab725a0f9e84ef26bad1a9968/responsive-images/featured___media_library_original_375_250.jpg') }} 375w, https:/{{ asset('media.luxuri.com/b881777ab725a0f9e84ef26bad1a9968/responsive-images/featured___media_library_original_414_276.jpg') }} 414w, https:/{{ asset('media.luxuri.com/b881777ab725a0f9e84ef26bad1a9968/responsive-images/featured___media_library_original_562_375.jpg') }} 562w, https:/{{ asset('media.luxuri.com/b881777ab725a0f9e84ef26bad1a9968/responsive-images/featured___media_library_original_640_427.jpg') }} 640w, https:/{{ asset('media.luxuri.com/b881777ab725a0f9e84ef26bad1a9968/responsive-images/featured___media_library_original_750_500.jpg') }} 750w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgNzUwIDUwMCI+Cgk8aW1hZ2Ugd2lkdGg9Ijc1MCIgaGVpZ2h0PSI1MDAiIHhsaW5rOmhyZWY9ImRhdGE6aW1hZ2UvanBlZztiYXNlNjQsLzlqLzRBQVFTa1pKUmdBQkFRRUFZQUJnQUFELy9nQStRMUpGUVZSUFVqb2daMlF0YW5CbFp5QjJNUzR3SUNoMWMybHVaeUJKU2tjZ1NsQkZSeUIyT0RBcExDQmtaV1poZFd4MElIRjFZV3hwZEhrSy85c0FRd0FJQmdZSEJnVUlCd2NIQ1FrSUNnd1VEUXdMQ3d3WkVoTVBGQjBhSHg0ZEdod2NJQ1F1SnlBaUxDTWNIQ2czS1N3d01UUTBOQjhuT1QwNE1qd3VNelF5LzlzQVF3RUpDUWtNQ3d3WURRMFlNaUVjSVRJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXkvOEFBRVFnQUZRQWdBd0VpQUFJUkFRTVJBZi9FQUI4QUFBRUZBUUVCQVFFQkFBQUFBQUFBQUFBQkFnTUVCUVlIQ0FrS0MvL0VBTFVRQUFJQkF3TUNCQU1GQlFRRUFBQUJmUUVDQXdBRUVRVVNJVEZCQmhOUllRY2ljUlF5Z1pHaENDTkNzY0VWVXRId0pETmljb0lKQ2hZWEdCa2FKU1luS0NrcU5EVTJOemc1T2tORVJVWkhTRWxLVTFSVlZsZFlXVnBqWkdWbVoyaHBhbk4wZFhaM2VIbDZnNFNGaG9lSWlZcVNrNVNWbHBlWW1acWlvNlNscHFlb3FhcXlzN1MxdHJlNHVickN3OFRGeHNmSXljclMwOVRWMXRmWTJkcmg0dVBrNWVibjZPbnE4Zkx6OVBYMjkvajUrdi9FQUI4QkFBTUJBUUVCQVFFQkFRRUFBQUFBQUFBQkFnTUVCUVlIQ0FrS0MvL0VBTFVSQUFJQkFnUUVBd1FIQlFRRUFBRUNkd0FCQWdNUkJBVWhNUVlTUVZFSFlYRVRJaktCQ0JSQ2thR3h3UWtqTTFMd0ZXSnkwUW9XSkRUaEpmRVhHQmthSmljb0tTbzFOamM0T1RwRFJFVkdSMGhKU2xOVVZWWlhXRmxhWTJSbFptZG9hV3B6ZEhWMmQzaDVlb0tEaElXR2g0aUppcEtUbEpXV2w1aVptcUtqcEtXbXA2aXBxckt6dExXMnQ3aTV1c0xEeE1YR3g4akp5dExUMU5YVzE5aloydUxqNU9YbTUranA2dkx6OVBYMjkvajUrdi9hQUF3REFRQUNFUU1SQUQ4QXFhQmNSQU0yZUszYkRWaUxoZzQrWFBCcmg5RWdudHJQekpUeFhXYm9IMDlXang1aEZjTlZ5anFlbGgrV1c1YjF6VkNxSzhMWjlxcFdGM0pmUU1adUt5WmxsYzRPVFVmbDNsdXBDdGhhSVRiWmVJcHh0ZUp3TnRyMTdJRmpML0xYY2FYUEk4S1pQVVVVVlZYV2FUTUtEdFRiUmFNN3JjQmVvcWxxMm96S3B4Z1lvb3Fra2t5WlNkMGovOWs9Ij4KCTwvaW1hZ2U+Cjwvc3ZnPg== 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxuri.com/b881777ab725a0f9e84ef26bad1a9968/featured.jpg') }}" width="187" height="125" alt="Three women sitting on a striped lounge chair, toasting with cocktails in a tropical-themed setting.">
+        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxteria.co/b881777ab725a0f9e84ef26bad1a9968/responsive-images/featured___media_library_original_187_125.jpg') }} 187w, https:/{{ asset('media.luxteria.co/b881777ab725a0f9e84ef26bad1a9968/responsive-images/featured___media_library_original_320_213.jpg') }} 320w, https:/{{ asset('media.luxteria.co/b881777ab725a0f9e84ef26bad1a9968/responsive-images/featured___media_library_original_375_250.jpg') }} 375w, https:/{{ asset('media.luxteria.co/b881777ab725a0f9e84ef26bad1a9968/responsive-images/featured___media_library_original_414_276.jpg') }} 414w, https:/{{ asset('media.luxteria.co/b881777ab725a0f9e84ef26bad1a9968/responsive-images/featured___media_library_original_562_375.jpg') }} 562w, https:/{{ asset('media.luxteria.co/b881777ab725a0f9e84ef26bad1a9968/responsive-images/featured___media_library_original_640_427.jpg') }} 640w, https:/{{ asset('media.luxteria.co/b881777ab725a0f9e84ef26bad1a9968/responsive-images/featured___media_library_original_750_500.jpg') }} 750w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgNzUwIDUwMCI+Cgk8aW1hZ2Ugd2lkdGg9Ijc1MCIgaGVpZ2h0PSI1MDAiIHhsaW5rOmhyZWY9ImRhdGE6aW1hZ2UvanBlZztiYXNlNjQsLzlqLzRBQVFTa1pKUmdBQkFRRUFZQUJnQUFELy9nQStRMUpGUVZSUFVqb2daMlF0YW5CbFp5QjJNUzR3SUNoMWMybHVaeUJKU2tjZ1NsQkZSeUIyT0RBcExDQmtaV1poZFd4MElIRjFZV3hwZEhrSy85c0FRd0FJQmdZSEJnVUlCd2NIQ1FrSUNnd1VEUXdMQ3d3WkVoTVBGQjBhSHg0ZEdod2NJQ1F1SnlBaUxDTWNIQ2czS1N3d01UUTBOQjhuT1QwNE1qd3VNelF5LzlzQVF3RUpDUWtNQ3d3WURRMFlNaUVjSVRJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXkvOEFBRVFnQUZRQWdBd0VpQUFJUkFRTVJBZi9FQUI4QUFBRUZBUUVCQVFFQkFBQUFBQUFBQUFBQkFnTUVCUVlIQ0FrS0MvL0VBTFVRQUFJQkF3TUNCQU1GQlFRRUFBQUJmUUVDQXdBRUVRVVNJVEZCQmhOUllRY2ljUlF5Z1pHaENDTkNzY0VWVXRId0pETmljb0lKQ2hZWEdCa2FKU1luS0NrcU5EVTJOemc1T2tORVJVWkhTRWxLVTFSVlZsZFlXVnBqWkdWbVoyaHBhbk4wZFhaM2VIbDZnNFNGaG9lSWlZcVNrNVNWbHBlWW1acWlvNlNscHFlb3FhcXlzN1MxdHJlNHVickN3OFRGeHNmSXljclMwOVRWMXRmWTJkcmg0dVBrNWVibjZPbnE4Zkx6OVBYMjkvajUrdi9FQUI4QkFBTUJBUUVCQVFFQkFRRUFBQUFBQUFBQkFnTUVCUVlIQ0FrS0MvL0VBTFVSQUFJQkFnUUVBd1FIQlFRRUFBRUNkd0FCQWdNUkJBVWhNUVlTUVZFSFlYRVRJaktCQ0JSQ2thR3h3UWtqTTFMd0ZXSnkwUW9XSkRUaEpmRVhHQmthSmljb0tTbzFOamM0T1RwRFJFVkdSMGhKU2xOVVZWWlhXRmxhWTJSbFptZG9hV3B6ZEhWMmQzaDVlb0tEaElXR2g0aUppcEtUbEpXV2w1aVptcUtqcEtXbXA2aXBxckt6dExXMnQ3aTV1c0xEeE1YR3g4akp5dExUMU5YVzE5aloydUxqNU9YbTUranA2dkx6OVBYMjkvajUrdi9hQUF3REFRQUNFUU1SQUQ4QXFhQmNSQU0yZUszYkRWaUxoZzQrWFBCcmg5RWdudHJQekpUeFhXYm9IMDlXang1aEZjTlZ5anFlbGgrV1c1YjF6VkNxSzhMWjlxcFdGM0pmUU1adUt5WmxsYzRPVFVmbDNsdXBDdGhhSVRiWmVJcHh0ZUp3TnRyMTdJRmpML0xYY2FYUEk4S1pQVVVVVlZYV2FUTUtEdFRiUmFNN3JjQmVvcWxxMm96S3B4Z1lvb3Fra2t5WlNkMGovOWs9Ij4KCTwvaW1hZ2U+Cjwvc3ZnPg== 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxteria.co/b881777ab725a0f9e84ef26bad1a9968/featured.jpg') }}" width="187" height="125" alt="Three women sitting on a striped lounge chair, toasting with cocktails in a tropical-themed setting.">
 
     </div>
         </div>
@@ -2635,7 +2237,7 @@ Cancellations made 13 days or fewer before check-in are non-refundable, though t
                     <article class="relative group  puffIn text-sm">
             <div class="mb-4">
             <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-6/7 aspect-[4/3]" wire:ignore>
-        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxuri.com/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_320_213.jpg') }} 320w, https:/{{ asset('media.luxuri.com/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_375_250.jpg') }} 375w, https:/{{ asset('media.luxuri.com/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_400_267.jpg') }} 400w, https:/{{ asset('media.luxuri.com/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_414_276.jpg') }} 414w, https:/{{ asset('media.luxuri.com/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_640_427.jpg') }} 640w, https:/{{ asset('media.luxuri.com/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_750_500.jpg') }} 750w, https:/{{ asset('media.luxuri.com/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_800_534.jpg') }} 800w, https:/{{ asset('media.luxuri.com/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_828_552.jpg') }} 828w, https:/{{ asset('media.luxuri.com/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_1024_683.jpg') }} 1024w, https:/{{ asset('media.luxuri.com/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_1200_800.jpg') }} 1200w, https:/{{ asset('media.luxuri.com/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_1280_854.jpg') }} 1280w, https:/{{ asset('media.luxuri.com/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_1440_960.jpg') }} 1440w, https:/{{ asset('media.luxuri.com/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_1600_1067.jpg') }} 1600w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgMTYwMCAxMDY3Ij4KCTxpbWFnZSB3aWR0aD0iMTYwMCIgaGVpZ2h0PSIxMDY3IiB4bGluazpocmVmPSJkYXRhOmltYWdlL2pwZWc7YmFzZTY0LC85ai80QUFRU2taSlJnQUJBUUVBWUFCZ0FBRC8vZ0ErUTFKRlFWUlBVam9nWjJRdGFuQmxaeUIyTVM0d0lDaDFjMmx1WnlCSlNrY2dTbEJGUnlCMk9EQXBMQ0JrWldaaGRXeDBJSEYxWVd4cGRIa0svOXNBUXdBSUJnWUhCZ1VJQndjSENRa0lDZ3dVRFF3TEN3d1pFaE1QRkIwYUh4NGRHaHdjSUNRdUp5QWlMQ01jSENnM0tTd3dNVFEwTkI4bk9UMDRNand1TXpReS85c0FRd0VKQ1FrTUN3d1lEUTBZTWlFY0lUSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5LzhBQUVRZ0FGUUFnQXdFaUFBSVJBUU1SQWYvRUFCOEFBQUVGQVFFQkFRRUJBQUFBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUUFBSUJBd01DQkFNRkJRUUVBQUFCZlFFQ0F3QUVFUVVTSVRGQkJoTlJZUWNpY1JReWdaR2hDQ05Dc2NFVlV0SHdKRE5pY29JSkNoWVhHQmthSlNZbktDa3FORFUyTnpnNU9rTkVSVVpIU0VsS1UxUlZWbGRZV1ZwalpHVm1aMmhwYW5OMGRYWjNlSGw2ZzRTRmhvZUlpWXFTazVTVmxwZVltWnFpbzZTbHBxZW9xYXF5czdTMXRyZTR1YnJDdzhURnhzZkl5Y3JTMDlUVjF0ZlkyZHJoNHVQazVlYm42T25xOGZMejlQWDI5L2o1K3YvRUFCOEJBQU1CQVFFQkFRRUJBUUVBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUkFBSUJBZ1FFQXdRSEJRUUVBQUVDZHdBQkFnTVJCQVVoTVFZU1FWRUhZWEVUSWpLQkNCUkNrYUd4d1Frak0xTHdGV0p5MFFvV0pEVGhKZkVYR0JrYUppY29LU28xTmpjNE9UcERSRVZHUjBoSlNsTlVWVlpYV0ZsYVkyUmxabWRvYVdwemRIVjJkM2g1ZW9LRGhJV0doNGlKaXBLVGxKV1dsNWlabXFLanBLV21wNmlwcXJLenRMVzJ0N2k1dXNMRHhNWEd4OGpKeXRMVDFOWFcxOWpaMnVMajVPWG01K2pwNnZMejlQWDI5L2o1K3YvYUFBd0RBUUFDRVFNUkFEOEE5QTFQVmY3SnQxZU1iaWEyTkQxMUx1eTg2Vmd1QnpYR3p1bDZtMW15S3JTTzFwWnZBcmxRM2VzWXhueXBvMmxLTjJqMHlEWGJPNGw4cU9RRTFCZitYTG5EQTE1YnAxODFtUzZ1U3c3MXJhZjRyaExPazc0WW51YUtrWHlwdGlwdjN0REF0cnFSWk1acldpWVhTWWtVR2lpdHFiME1wclVxNmxiUlcxbTd4cmc0cmdaN2lRekU1eHoyb29yS3A4UnRUZnVYUC8vWiI+Cgk8L2ltYWdlPgo8L3N2Zz4= 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxuri.com/531a9942bce12455b447e429d0137442/featured.jpg') }}" width="320" height="213" alt="A man with closed eyes sitting on a bench, relaxing with his friends during a vacation.">
+        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxteria.co/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_320_213.jpg') }} 320w, https:/{{ asset('media.luxteria.co/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_375_250.jpg') }} 375w, https:/{{ asset('media.luxteria.co/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_400_267.jpg') }} 400w, https:/{{ asset('media.luxteria.co/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_414_276.jpg') }} 414w, https:/{{ asset('media.luxteria.co/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_640_427.jpg') }} 640w, https:/{{ asset('media.luxteria.co/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_750_500.jpg') }} 750w, https:/{{ asset('media.luxteria.co/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_800_534.jpg') }} 800w, https:/{{ asset('media.luxteria.co/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_828_552.jpg') }} 828w, https:/{{ asset('media.luxteria.co/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_1024_683.jpg') }} 1024w, https:/{{ asset('media.luxteria.co/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_1200_800.jpg') }} 1200w, https:/{{ asset('media.luxteria.co/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_1280_854.jpg') }} 1280w, https:/{{ asset('media.luxteria.co/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_1440_960.jpg') }} 1440w, https:/{{ asset('media.luxteria.co/531a9942bce12455b447e429d0137442/responsive-images/featured___media_library_original_1600_1067.jpg') }} 1600w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgMTYwMCAxMDY3Ij4KCTxpbWFnZSB3aWR0aD0iMTYwMCIgaGVpZ2h0PSIxMDY3IiB4bGluazpocmVmPSJkYXRhOmltYWdlL2pwZWc7YmFzZTY0LC85ai80QUFRU2taSlJnQUJBUUVBWUFCZ0FBRC8vZ0ErUTFKRlFWUlBVam9nWjJRdGFuQmxaeUIyTVM0d0lDaDFjMmx1WnlCSlNrY2dTbEJGUnlCMk9EQXBMQ0JrWldaaGRXeDBJSEYxWVd4cGRIa0svOXNBUXdBSUJnWUhCZ1VJQndjSENRa0lDZ3dVRFF3TEN3d1pFaE1QRkIwYUh4NGRHaHdjSUNRdUp5QWlMQ01jSENnM0tTd3dNVFEwTkI4bk9UMDRNand1TXpReS85c0FRd0VKQ1FrTUN3d1lEUTBZTWlFY0lUSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5LzhBQUVRZ0FGUUFnQXdFaUFBSVJBUU1SQWYvRUFCOEFBQUVGQVFFQkFRRUJBQUFBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUUFBSUJBd01DQkFNRkJRUUVBQUFCZlFFQ0F3QUVFUVVTSVRGQkJoTlJZUWNpY1JReWdaR2hDQ05Dc2NFVlV0SHdKRE5pY29JSkNoWVhHQmthSlNZbktDa3FORFUyTnpnNU9rTkVSVVpIU0VsS1UxUlZWbGRZV1ZwalpHVm1aMmhwYW5OMGRYWjNlSGw2ZzRTRmhvZUlpWXFTazVTVmxwZVltWnFpbzZTbHBxZW9xYXF5czdTMXRyZTR1YnJDdzhURnhzZkl5Y3JTMDlUVjF0ZlkyZHJoNHVQazVlYm42T25xOGZMejlQWDI5L2o1K3YvRUFCOEJBQU1CQVFFQkFRRUJBUUVBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUkFBSUJBZ1FFQXdRSEJRUUVBQUVDZHdBQkFnTVJCQVVoTVFZU1FWRUhZWEVUSWpLQkNCUkNrYUd4d1Frak0xTHdGV0p5MFFvV0pEVGhKZkVYR0JrYUppY29LU28xTmpjNE9UcERSRVZHUjBoSlNsTlVWVlpYV0ZsYVkyUmxabWRvYVdwemRIVjJkM2g1ZW9LRGhJV0doNGlKaXBLVGxKV1dsNWlabXFLanBLV21wNmlwcXJLenRMVzJ0N2k1dXNMRHhNWEd4OGpKeXRMVDFOWFcxOWpaMnVMajVPWG01K2pwNnZMejlQWDI5L2o1K3YvYUFBd0RBUUFDRVFNUkFEOEE5QTFQVmY3SnQxZU1iaWEyTkQxMUx1eTg2Vmd1QnpYR3p1bDZtMW15S3JTTzFwWnZBcmxRM2VzWXhueXBvMmxLTjJqMHlEWGJPNGw4cU9RRTFCZitYTG5EQTE1YnAxODFtUzZ1U3c3MXJhZjRyaExPazc0WW51YUtrWHlwdGlwdjN0REF0cnFSWk1acldpWVhTWWtVR2lpdHFiME1wclVxNmxiUlcxbTd4cmc0cmdaN2lRekU1eHoyb29yS3A4UnRUZnVYUC8vWiI+Cgk8L2ltYWdlPgo8L3N2Zz4= 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxteria.co/531a9942bce12455b447e429d0137442/featured.jpg') }}" width="320" height="213" alt="A man with closed eyes sitting on a bench, relaxing with his friends during a vacation.">
 
     </div>
         </div>
@@ -2662,7 +2264,7 @@ Cancellations made 13 days or fewer before check-in are non-refundable, though t
                     <article class="relative group  puffIn text-sm">
             <div class="mb-4">
             <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-6/7 aspect-[4/3]" wire:ignore>
-        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxuri.com/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_2100_1400.jpg') }} 2100w, https:/{{ asset('media.luxuri.com/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_1756_1171.jpg') }} 1756w, https:/{{ asset('media.luxuri.com/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_1470_980.jpg') }} 1470w, https:/{{ asset('media.luxuri.com/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_1229_819.jpg') }} 1229w, https:/{{ asset('media.luxuri.com/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_1029_686.jpg') }} 1029w, https:/{{ asset('media.luxuri.com/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_860_573.jpg') }} 860w, https:/{{ asset('media.luxuri.com/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_720_480.jpg') }} 720w, https:/{{ asset('media.luxuri.com/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_602_401.jpg') }} 602w, https:/{{ asset('media.luxuri.com/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_504_336.jpg') }} 504w, https:/{{ asset('media.luxuri.com/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_421_281.jpg') }} 421w, https:/{{ asset('media.luxuri.com/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_352_235.jpg') }} 352w, https:/{{ asset('media.luxuri.com/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_295_197.jpg') }} 295w, https:/{{ asset('media.luxuri.com/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_247_165.jpg') }} 247w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgMjEwMCAxNDAwIj4KCTxpbWFnZSB3aWR0aD0iMjEwMCIgaGVpZ2h0PSIxNDAwIiB4bGluazpocmVmPSJkYXRhOmltYWdlL2pwZWc7YmFzZTY0LC85ai80QUFRU2taSlJnQUJBUUVBWUFCZ0FBRC8vZ0ErUTFKRlFWUlBVam9nWjJRdGFuQmxaeUIyTVM0d0lDaDFjMmx1WnlCSlNrY2dTbEJGUnlCMk9EQXBMQ0JrWldaaGRXeDBJSEYxWVd4cGRIa0svOXNBUXdBSUJnWUhCZ1VJQndjSENRa0lDZ3dVRFF3TEN3d1pFaE1QRkIwYUh4NGRHaHdjSUNRdUp5QWlMQ01jSENnM0tTd3dNVFEwTkI4bk9UMDRNand1TXpReS85c0FRd0VKQ1FrTUN3d1lEUTBZTWlFY0lUSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5LzhBQUVRZ0FGUUFnQXdFaUFBSVJBUU1SQWYvRUFCOEFBQUVGQVFFQkFRRUJBQUFBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUUFBSUJBd01DQkFNRkJRUUVBQUFCZlFFQ0F3QUVFUVVTSVRGQkJoTlJZUWNpY1JReWdaR2hDQ05Dc2NFVlV0SHdKRE5pY29JSkNoWVhHQmthSlNZbktDa3FORFUyTnpnNU9rTkVSVVpIU0VsS1UxUlZWbGRZV1ZwalpHVm1aMmhwYW5OMGRYWjNlSGw2ZzRTRmhvZUlpWXFTazVTVmxwZVltWnFpbzZTbHBxZW9xYXF5czdTMXRyZTR1YnJDdzhURnhzZkl5Y3JTMDlUVjF0ZlkyZHJoNHVQazVlYm42T25xOGZMejlQWDI5L2o1K3YvRUFCOEJBQU1CQVFFQkFRRUJBUUVBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUkFBSUJBZ1FFQXdRSEJRUUVBQUVDZHdBQkFnTVJCQVVoTVFZU1FWRUhZWEVUSWpLQkNCUkNrYUd4d1Frak0xTHdGV0p5MFFvV0pEVGhKZkVYR0JrYUppY29LU28xTmpjNE9UcERSRVZHUjBoSlNsTlVWVlpYV0ZsYVkyUmxabWRvYVdwemRIVjJkM2g1ZW9LRGhJV0doNGlKaXBLVGxKV1dsNWlabXFLanBLV21wNmlwcXJLenRMVzJ0N2k1dXNMRHhNWEd4OGpKeXRMVDFOWFcxOWpaMnVMajVPWG01K2pwNnZMejlQWDI5L2o1K3YvYUFBd0RBUUFDRVFNUkFEOEF0YTlvMS9lVGlVUk1WUGJGWkIwSzZSZHZrc0Q5SzlPUGl1MjNlVzBLN3ZTay90MnhFbSs0aFZWOWNWelNvUm0rYm1OWTE1UWp5Mk9LOFA2TmV3WEc5a0lYM3FmWGRQdjVaaDVLbmJYY3c2OXBjeWt4QlNQYW9wOVZzTnVTbGR0T0ZQMlhzbTlEZ3FWYXZ0dmFwYW5rMDg4djJvUytZZDJhbTFqVkoyMDBLVDI2MFVWNWtVZXV5bDRmMWE0aGlZWjNmV3VudGRWa2xHMTQxSW9vcXJhR2N0ei8yUT09Ij4KCTwvaW1hZ2U+Cjwvc3ZnPg== 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxuri.com/67f697fec3f9f94af593446a9d94246f/featured.jpg') }}" width="2100" height="1400" alt="Wooden deck chairs under rough straw sun umbrella on sea beach and big white yacht ship in water near Miami.">
+        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxteria.co/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_2100_1400.jpg') }} 2100w, https:/{{ asset('media.luxteria.co/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_1756_1171.jpg') }} 1756w, https:/{{ asset('media.luxteria.co/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_1470_980.jpg') }} 1470w, https:/{{ asset('media.luxteria.co/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_1229_819.jpg') }} 1229w, https:/{{ asset('media.luxteria.co/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_1029_686.jpg') }} 1029w, https:/{{ asset('media.luxteria.co/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_860_573.jpg') }} 860w, https:/{{ asset('media.luxteria.co/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_720_480.jpg') }} 720w, https:/{{ asset('media.luxteria.co/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_602_401.jpg') }} 602w, https:/{{ asset('media.luxteria.co/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_504_336.jpg') }} 504w, https:/{{ asset('media.luxteria.co/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_421_281.jpg') }} 421w, https:/{{ asset('media.luxteria.co/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_352_235.jpg') }} 352w, https:/{{ asset('media.luxteria.co/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_295_197.jpg') }} 295w, https:/{{ asset('media.luxteria.co/67f697fec3f9f94af593446a9d94246f/responsive-images/featured___media_library_original_247_165.jpg') }} 247w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgMjEwMCAxNDAwIj4KCTxpbWFnZSB3aWR0aD0iMjEwMCIgaGVpZ2h0PSIxNDAwIiB4bGluazpocmVmPSJkYXRhOmltYWdlL2pwZWc7YmFzZTY0LC85ai80QUFRU2taSlJnQUJBUUVBWUFCZ0FBRC8vZ0ErUTFKRlFWUlBVam9nWjJRdGFuQmxaeUIyTVM0d0lDaDFjMmx1WnlCSlNrY2dTbEJGUnlCMk9EQXBMQ0JrWldaaGRXeDBJSEYxWVd4cGRIa0svOXNBUXdBSUJnWUhCZ1VJQndjSENRa0lDZ3dVRFF3TEN3d1pFaE1QRkIwYUh4NGRHaHdjSUNRdUp5QWlMQ01jSENnM0tTd3dNVFEwTkI4bk9UMDRNand1TXpReS85c0FRd0VKQ1FrTUN3d1lEUTBZTWlFY0lUSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5LzhBQUVRZ0FGUUFnQXdFaUFBSVJBUU1SQWYvRUFCOEFBQUVGQVFFQkFRRUJBQUFBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUUFBSUJBd01DQkFNRkJRUUVBQUFCZlFFQ0F3QUVFUVVTSVRGQkJoTlJZUWNpY1JReWdaR2hDQ05Dc2NFVlV0SHdKRE5pY29JSkNoWVhHQmthSlNZbktDa3FORFUyTnpnNU9rTkVSVVpIU0VsS1UxUlZWbGRZV1ZwalpHVm1aMmhwYW5OMGRYWjNlSGw2ZzRTRmhvZUlpWXFTazVTVmxwZVltWnFpbzZTbHBxZW9xYXF5czdTMXRyZTR1YnJDdzhURnhzZkl5Y3JTMDlUVjF0ZlkyZHJoNHVQazVlYm42T25xOGZMejlQWDI5L2o1K3YvRUFCOEJBQU1CQVFFQkFRRUJBUUVBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUkFBSUJBZ1FFQXdRSEJRUUVBQUVDZHdBQkFnTVJCQVVoTVFZU1FWRUhZWEVUSWpLQkNCUkNrYUd4d1Frak0xTHdGV0p5MFFvV0pEVGhKZkVYR0JrYUppY29LU28xTmpjNE9UcERSRVZHUjBoSlNsTlVWVlpYV0ZsYVkyUmxabWRvYVdwemRIVjJkM2g1ZW9LRGhJV0doNGlKaXBLVGxKV1dsNWlabXFLanBLV21wNmlwcXJLenRMVzJ0N2k1dXNMRHhNWEd4OGpKeXRMVDFOWFcxOWpaMnVMajVPWG01K2pwNnZMejlQWDI5L2o1K3YvYUFBd0RBUUFDRVFNUkFEOEF0YTlvMS9lVGlVUk1WUGJGWkIwSzZSZHZrc0Q5SzlPUGl1MjNlVzBLN3ZTay90MnhFbSs0aFZWOWNWelNvUm0rYm1OWTE1UWp5Mk9LOFA2TmV3WEc5a0lYM3FmWGRQdjVaaDVLbmJYY3c2OXBjeWt4QlNQYW9wOVZzTnVTbGR0T0ZQMlhzbTlEZ3FWYXZ0dmFwYW5rMDg4djJvUytZZDJhbTFqVkoyMDBLVDI2MFVWNWtVZXV5bDRmMWE0aGlZWjNmV3VudGRWa2xHMTQxSW9vcXJhR2N0ei8yUT09Ij4KCTwvaW1hZ2U+Cjwvc3ZnPg== 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxteria.co/67f697fec3f9f94af593446a9d94246f/featured.jpg') }}" width="2100" height="1400" alt="Wooden deck chairs under rough straw sun umbrella on sea beach and big white yacht ship in water near Miami.">
 
     </div>
         </div>
@@ -2689,7 +2291,7 @@ Cancellations made 13 days or fewer before check-in are non-refundable, though t
                     <article class="relative group  puffIn text-sm">
             <div class="mb-4">
             <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-6/7 aspect-[4/3]" wire:ignore>
-        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxuri.com/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_320_213.jpg') }} 320w, https:/{{ asset('media.luxuri.com/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_375_250.jpg') }} 375w, https:/{{ asset('media.luxuri.com/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_414_276.jpg') }} 414w, https:/{{ asset('media.luxuri.com/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_525_350.jpg') }} 525w, https:/{{ asset('media.luxuri.com/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_640_427.jpg') }} 640w, https:/{{ asset('media.luxuri.com/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_750_500.jpg') }} 750w, https:/{{ asset('media.luxuri.com/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_828_552.jpg') }} 828w, https:/{{ asset('media.luxuri.com/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_1024_683.jpg') }} 1024w, https:/{{ asset('media.luxuri.com/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_1050_700.jpg') }} 1050w, https:/{{ asset('media.luxuri.com/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_1280_853.jpg') }} 1280w, https:/{{ asset('media.luxuri.com/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_1440_960.jpg') }} 1440w, https:/{{ asset('media.luxuri.com/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_1575_1050.jpg') }} 1575w, https:/{{ asset('media.luxuri.com/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_1920_1280.jpg') }} 1920w, https:/{{ asset('media.luxuri.com/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_2048_1365.jpg') }} 2048w, https:/{{ asset('media.luxuri.com/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_2100_1400.jpg') }} 2100w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgMjEwMCAxNDAwIj4KCTxpbWFnZSB3aWR0aD0iMjEwMCIgaGVpZ2h0PSIxNDAwIiB4bGluazpocmVmPSJkYXRhOmltYWdlL2pwZWc7YmFzZTY0LC85ai80QUFRU2taSlJnQUJBUUVBWUFCZ0FBRC8vZ0ErUTFKRlFWUlBVam9nWjJRdGFuQmxaeUIyTVM0d0lDaDFjMmx1WnlCSlNrY2dTbEJGUnlCMk9EQXBMQ0JrWldaaGRXeDBJSEYxWVd4cGRIa0svOXNBUXdBSUJnWUhCZ1VJQndjSENRa0lDZ3dVRFF3TEN3d1pFaE1QRkIwYUh4NGRHaHdjSUNRdUp5QWlMQ01jSENnM0tTd3dNVFEwTkI4bk9UMDRNand1TXpReS85c0FRd0VKQ1FrTUN3d1lEUTBZTWlFY0lUSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5LzhBQUVRZ0FGUUFnQXdFaUFBSVJBUU1SQWYvRUFCOEFBQUVGQVFFQkFRRUJBQUFBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUUFBSUJBd01DQkFNRkJRUUVBQUFCZlFFQ0F3QUVFUVVTSVRGQkJoTlJZUWNpY1JReWdaR2hDQ05Dc2NFVlV0SHdKRE5pY29JSkNoWVhHQmthSlNZbktDa3FORFUyTnpnNU9rTkVSVVpIU0VsS1UxUlZWbGRZV1ZwalpHVm1aMmhwYW5OMGRYWjNlSGw2ZzRTRmhvZUlpWXFTazVTVmxwZVltWnFpbzZTbHBxZW9xYXF5czdTMXRyZTR1YnJDdzhURnhzZkl5Y3JTMDlUVjF0ZlkyZHJoNHVQazVlYm42T25xOGZMejlQWDI5L2o1K3YvRUFCOEJBQU1CQVFFQkFRRUJBUUVBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUkFBSUJBZ1FFQXdRSEJRUUVBQUVDZHdBQkFnTVJCQVVoTVFZU1FWRUhZWEVUSWpLQkNCUkNrYUd4d1Frak0xTHdGV0p5MFFvV0pEVGhKZkVYR0JrYUppY29LU28xTmpjNE9UcERSRVZHUjBoSlNsTlVWVlpYV0ZsYVkyUmxabWRvYVdwemRIVjJkM2g1ZW9LRGhJV0doNGlKaXBLVGxKV1dsNWlabXFLanBLV21wNmlwcXJLenRMVzJ0N2k1dXNMRHhNWEd4OGpKeXRMVDFOWFcxOWpaMnVMajVPWG01K2pwNnZMejlQWDI5L2o1K3YvYUFBd0RBUUFDRVFNUkFEOEF3NHhUbVlJUG1OUW01aWlYTzRVeUp4ZlM3RjlhOW1WV01kTG53Y2FVcE85dEM1dWlsaHdvNXFLS1dXMGZkR2NWMGxqNGNWclBleHdjVlJsMEM2OHc3UVN2WTF6ckZVWlhUWjZYOW40cFdsRmFIQk51ODhKdU9LM3RGVVFYU0VjL1dpaXZEeERhcTJQZXdrSXVLdWoxUFNZRnVWVGVUZzlxNldHeWdRQmRneFJSU21rbGM5TS8vOWs9Ij4KCTwvaW1hZ2U+Cjwvc3ZnPg== 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxuri.com/e08401cf19d408bce0ad279a0cf887e9/featured.jpg') }}" width="320" height="213" alt="Woman swimming underwater in a luxury villa in Miami, a hat, sunglasses and plan are on the edge of the pool.">
+        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy"  srcset="https:/{{ asset('media.luxteria.co/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_320_213.jpg') }} 320w, https:/{{ asset('media.luxteria.co/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_375_250.jpg') }} 375w, https:/{{ asset('media.luxteria.co/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_414_276.jpg') }} 414w, https:/{{ asset('media.luxteria.co/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_525_350.jpg') }} 525w, https:/{{ asset('media.luxteria.co/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_640_427.jpg') }} 640w, https:/{{ asset('media.luxteria.co/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_750_500.jpg') }} 750w, https:/{{ asset('media.luxteria.co/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_828_552.jpg') }} 828w, https:/{{ asset('media.luxteria.co/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_1024_683.jpg') }} 1024w, https:/{{ asset('media.luxteria.co/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_1050_700.jpg') }} 1050w, https:/{{ asset('media.luxteria.co/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_1280_853.jpg') }} 1280w, https:/{{ asset('media.luxteria.co/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_1440_960.jpg') }} 1440w, https:/{{ asset('media.luxteria.co/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_1575_1050.jpg') }} 1575w, https:/{{ asset('media.luxteria.co/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_1920_1280.jpg') }} 1920w, https:/{{ asset('media.luxteria.co/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_2048_1365.jpg') }} 2048w, https:/{{ asset('media.luxteria.co/e08401cf19d408bce0ad279a0cf887e9/responsive-images/featured___media_library_original_2100_1400.jpg') }} 2100w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgMjEwMCAxNDAwIj4KCTxpbWFnZSB3aWR0aD0iMjEwMCIgaGVpZ2h0PSIxNDAwIiB4bGluazpocmVmPSJkYXRhOmltYWdlL2pwZWc7YmFzZTY0LC85ai80QUFRU2taSlJnQUJBUUVBWUFCZ0FBRC8vZ0ErUTFKRlFWUlBVam9nWjJRdGFuQmxaeUIyTVM0d0lDaDFjMmx1WnlCSlNrY2dTbEJGUnlCMk9EQXBMQ0JrWldaaGRXeDBJSEYxWVd4cGRIa0svOXNBUXdBSUJnWUhCZ1VJQndjSENRa0lDZ3dVRFF3TEN3d1pFaE1QRkIwYUh4NGRHaHdjSUNRdUp5QWlMQ01jSENnM0tTd3dNVFEwTkI4bk9UMDRNand1TXpReS85c0FRd0VKQ1FrTUN3d1lEUTBZTWlFY0lUSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5TWpJeU1qSXlNakl5LzhBQUVRZ0FGUUFnQXdFaUFBSVJBUU1SQWYvRUFCOEFBQUVGQVFFQkFRRUJBQUFBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUUFBSUJBd01DQkFNRkJRUUVBQUFCZlFFQ0F3QUVFUVVTSVRGQkJoTlJZUWNpY1JReWdaR2hDQ05Dc2NFVlV0SHdKRE5pY29JSkNoWVhHQmthSlNZbktDa3FORFUyTnpnNU9rTkVSVVpIU0VsS1UxUlZWbGRZV1ZwalpHVm1aMmhwYW5OMGRYWjNlSGw2ZzRTRmhvZUlpWXFTazVTVmxwZVltWnFpbzZTbHBxZW9xYXF5czdTMXRyZTR1YnJDdzhURnhzZkl5Y3JTMDlUVjF0ZlkyZHJoNHVQazVlYm42T25xOGZMejlQWDI5L2o1K3YvRUFCOEJBQU1CQVFFQkFRRUJBUUVBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUkFBSUJBZ1FFQXdRSEJRUUVBQUVDZHdBQkFnTVJCQVVoTVFZU1FWRUhZWEVUSWpLQkNCUkNrYUd4d1Frak0xTHdGV0p5MFFvV0pEVGhKZkVYR0JrYUppY29LU28xTmpjNE9UcERSRVZHUjBoSlNsTlVWVlpYV0ZsYVkyUmxabWRvYVdwemRIVjJkM2g1ZW9LRGhJV0doNGlKaXBLVGxKV1dsNWlabXFLanBLV21wNmlwcXJLenRMVzJ0N2k1dXNMRHhNWEd4OGpKeXRMVDFOWFcxOWpaMnVMajVPWG01K2pwNnZMejlQWDI5L2o1K3YvYUFBd0RBUUFDRVFNUkFEOEF3NHhUbVlJUG1OUW01aWlYTzRVeUp4ZlM3RjlhOW1WV01kTG53Y2FVcE85dEM1dWlsaHdvNXFLS1dXMGZkR2NWMGxqNGNWclBleHdjVlJsMEM2OHc3UVN2WTF6ckZVWlhUWjZYOW40cFdsRmFIQk51ODhKdU9LM3RGVVFYU0VjL1dpaXZEeERhcTJQZXdrSXVLdWoxUFNZRnVWVGVUZzlxNldHeWdRQmRneFJSU21rbGM5TS8vOWs9Ij4KCTwvaW1hZ2U+Cjwvc3ZnPg== 32w" onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});" sizes="1px" src="{{ asset('media.luxteria.co/e08401cf19d408bce0ad279a0cf887e9/featured.jpg') }}" width="320" height="213" alt="Woman swimming underwater in a luxury villa in Miami, a hat, sunglasses and plan are on the edge of the pool.">
 
     </div>
         </div>

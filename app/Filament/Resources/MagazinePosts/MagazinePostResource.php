@@ -22,7 +22,7 @@ class MagazinePostResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedNewspaper;
 
-    protected static ?string $recordTitleAttribute = 'App\Filament\Resources\Yachts\YachtResource';
+    protected static ?string $recordTitleAttribute = 'title';
 
     public static function form(Schema $schema): Schema
     {

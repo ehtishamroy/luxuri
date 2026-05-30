@@ -6,5 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class MenuItem extends Model
 {
-    //
+    protected $fillable = [
+        'label',
+        'url',
+        'target',
+        'sort_order',
+        'active',
+    ];
+
+    protected $casts = [
+        'active' => 'boolean',
+        'sort_order' => 'integer',
+    ];
 }
