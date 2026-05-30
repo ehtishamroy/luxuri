@@ -26,7 +26,7 @@
                 </div>
 
                 <script>
-                                document.addEventListener('alpine:ini                                            t', () => {
+                                document.addEventListener('alpine:init', () => {
                             Alpine.data('videoAutoplay', () => ({
                                 videos: [
                                     @foreach($homepageMedia->where('type', 'video') as $media)
