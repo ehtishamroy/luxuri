@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('homepage_settings', function (Blueprint $table) {
-            $table->string('phone')->nullable()->after('contact_image');
+            $table->string('phone')->nullable();
             $table->string('mobile_phone')->nullable()->after('phone');
             $table->string('email')->nullable()->after('mobile_phone');
             $table->string('copyright_text')->nullable()->after('email');
