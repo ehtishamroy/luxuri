@@ -223,9 +223,9 @@
             <a class="-m-1.5 p-1.5" href="{{ url('/') }}">
                 <span class="sr-only">luxteria</span>
                 @if($settings && $settings->logo)
-                    <img src="{{ asset('storage/' . $settings->logo) }}" alt="luxteria" class="w-auto h-5.5">
+                    <img src="{{ asset('storage/' . $settings->logo) }}" alt="luxteria" class="w-auto h-10">
                 @else
-                    <svg class="w-auto h-5.5" width="100%" height="100%" viewBox="0 0 104 17" fill="none"
+                    <svg class="w-auto h-10" width="100%" height="100%" viewBox="0 0 104 17" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path d="M100.609 16.294V0H104V16.294H100.609Z" fill="white" class="fill-black dark:fill-white" />
                         <path
@@ -291,9 +291,9 @@
                         <a class="-m-1.5 p-1.5 sm:hidden" href="{{ url('/') }}">
                             <span class="sr-only">luxteria</span>
                             @if($settings && $settings->logo)
-                                <img src="{{ asset('storage/' . $settings->logo) }}" alt="luxteria" class="w-auto h-5.5">
+                                <img src="{{ asset('storage/' . $settings->logo) }}" alt="luxteria" class="w-auto h-10">
                             @else
-                                <svg class="w-auto h-5.5" width="100%" height="100%" viewBox="0 0 104 17" fill="none"
+                                <svg class="w-auto h-10" width="100%" height="100%" viewBox="0 0 104 17" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path d="M100.609 16.294V0H104V16.294H100.609Z" fill="white"
                                         class="fill-black dark:fill-white" />
@@ -391,9 +391,9 @@
             <div class="grid md:grid-cols-3 lg:grid-cols-12 gap-x-4 gap-y-8">
                 <div class="md:col-span-3 lg:col-span-6 space-y-12">
                     @if($settings && $settings->logo)
-                        <img src="{{ asset('storage/' . $settings->logo) }}" alt="luxteria" class="block w-auto h-8">
+                        <img src="{{ asset('storage/' . $settings->logo) }}" alt="luxteria" class="block w-auto h-14">
                     @else
-                        <svg class="block w-auto h-8" width="100%" height="100%" viewBox="0 0 104 17" fill="none"
+                        <svg class="block w-auto h-14" width="100%" height="100%" viewBox="0 0 104 17" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path d="M100.609 16.294V0H104V16.294H100.609Z" fill="white"
                                 class="fill-black dark:fill-white" />
