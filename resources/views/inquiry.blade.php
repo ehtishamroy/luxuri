@@ -80,6 +80,7 @@ $item = $yacht ?: $villa;
                             placeholder="Enter your email address">
                     </div>
 
+                    @if(!$isYacht)
                     <div>
                         <label for="check_in" class="block text-sm font-medium text-zinc-300 mb-2">Check-in date</label>
                         <input type="date" id="check_in" name="check_in"
@@ -91,6 +92,7 @@ $item = $yacht ?: $villa;
                         <input type="date" id="check_out" name="check_out"
                             class="w-full px-4 py-3 bg-zinc-950/50 border border-zinc-700 rounded-lg text-zinc-100 focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500 focus:outline-none transition-colors">
                     </div>
+                    @endif
 
                     <div>
                         <label for="guests" class="block text-sm font-medium text-zinc-300 mb-2">Number of guests</label>

@@ -203,7 +203,7 @@ if (empty($heroVideosData)) {
                                             <div class="divide-x divide-zinc-200/80 grid grid-cols-15 max-md:grid-cols-5 gap-y-2">
                                                 <div class="col-span-4 md:pe-4 text-left max-md:col-span-5 max-md:border-e-0 max-md:border-b">
                                                     <label class="font-medium text-sm max-sm:text-xs">Where
-                                                        <input type="text" @click="showDestinations = true; showDatepicker = false" x-model="locationName" x-ref="searchInput" placeholder="Destination" class="text-zinc-300 py-1 truncate text-sm max-sm:text-xs focus:outline-none border-1 border-transparent max-w-full w-full block focus-within:border-b-zinc-50">
+                                                        <input type="text" @click="showDestinations = true; showDatepicker = false" x-model="locationName" x-ref="searchInput" placeholder="Location" class="text-zinc-300 py-1 truncate text-sm max-sm:text-xs focus:outline-none border-1 border-transparent max-w-full w-full block focus-within:border-b-zinc-50">
                                                     </label>
                                                 </div>
                                                 <div class="col-span-4 pe-2 md:px-4 text-left max-md:col-span-2">
@@ -235,12 +235,12 @@ if (empty($heroVideosData)) {
                                             <div class="flex gap-2 w-full" @click="showPlannerFields = true">
                                                 <div class="font-medium text-sm w-full">
                                                     <div class="flex gap-2 items-baseline">
-                                                        <div class="grow">Destination</div>
+                                                        <div class="grow">Location</div>
                                                         <div class="text-zinc-300 text-xs" x-text="outputDateFromValue ? new Date(dateFromYmd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''"></div>
                                                         -
                                                         <div class="text-zinc-300 text-xs" x-text="outputDateToValue ? new Date(dateToYmd).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''"></div>
                                                     </div>
-                                                    <div class="text-zinc-300 py-1 text-sm w-full" x-text="locationName || 'Destinations...'">Destinations...</div>
+                                                    <div class="text-zinc-300 py-1 text-sm w-full" x-text="locationName || 'Locations...'">Locations...</div>
                                                 </div>
                                                 <div class="shrink-0">
                                                     <button type="button" class="rounded-md bg-zinc-50 px-2.5 py-1.5 text-sm font-semibold text-black shadow-xs transition-all hover:bg-amber-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300 size-12" @click.stop="handleSearch">
@@ -256,7 +256,7 @@ if (empty($heroVideosData)) {
                                                 <div class="divide-x divide-zinc-200/80 grid grid-cols-5 gap-y-2">
                                                     <div class="col-span-5 border-b border-e-0">
                                                         <label class="font-medium text-sm max-sm:text-xs">Where
-                                                            <input type="text" @click="showDestinations = true; showDatepicker = false" x-model="locationName" x-ref="searchInput" placeholder="Destination" class="text-zinc-300 py-1 truncate text-base focus:outline-none border-1 border-transparent max-w-full w-full block focus-within:border-b-zinc-50">
+                                                            <input type="text" @click="showDestinations = true; showDatepicker = false" x-model="locationName" x-ref="searchInput" placeholder="Location" class="text-zinc-300 py-1 truncate text-base focus:outline-none border-1 border-transparent max-w-full w-full block focus-within:border-b-zinc-50">
                                                         </label>
                                                     </div>
                                                     <div class="col-span-2 pe-2">
@@ -294,7 +294,7 @@ if (empty($heroVideosData)) {
                                 <div class="w-screen max-w-2xl flex-auto bg-black/90 border border-zinc-50/90 backdrop-blur-[2px] rounded-xl shadow-lg ring-1 ring-gray-900/5">
                                     <div class="px-6 pt-6 pb-6 max-md:text-xs">
                                         <div>
-                                            <div class="font-medium mb-3 text-zinc-50">Destinations</div>
+                                            <div class="font-medium mb-3 text-zinc-50">Locations</div>
                                             <ul class="grid grid-cols-2 md:grid-cols-3 gap-3">
                                                 <li>
                                                     <article class="relative text-sm group rounded-xl">

@@ -8,6 +8,7 @@ use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\MagazineController;
 use App\Http\Controllers\VillaController;
 use App\Http\Controllers\YachtController;
+use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/',              [HomeController::class,        'index'])->name('home');
@@ -20,7 +21,11 @@ Route::get('/villas/aspen-mountain-chalet', function () {
     }
     return view('villas.aspen-mountain-chalet');
 });
-Route::get('/inquiry', fn () => view('inquiry'))->name('inquiry');
+Route::get('/inquiry', function () {
+    SEOTools::setTitle('Inquiry | Luxuri');
+    SEOTools::setDescription('Submit your luxury villa or yacht inquiry and let our concierge team curate your perfect getaway.');
+    return view('inquiry');
+})->name('inquiry');
 Route::post('/inquiry', [InquiryController::class, 'store'])->name('inquiry.store');
 Route::get('/villas/{villa}', [VillaController::class,      'show'])->name('villas.show');
 

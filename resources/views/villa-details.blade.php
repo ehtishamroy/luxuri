@@ -67,7 +67,7 @@
     <div class="w-full max-w-7xl mx-auto p-6 lg:py-8 lg:px-8 z-0 space-y-6 relative !pb-0">
         <div class="grid lg:grid-cols-3 gap-6">
 
-            {{-- Left Column --}}
+            {{-- Left Column: Title / Stats / Description / Amenities --}}
             <div class="lg:col-span-2 space-y-6">
 
                 {{-- Title --}}
@@ -166,49 +166,10 @@
                     @endif
                 </div>
                 @endif
-
-                {{-- Map --}}
-                @if($villa->latitude && $villa->longitude)
-                <div class="space-y-4">
-                    <hr class="opacity-30 my-8">
-                    <h2 class="text-3xl uppercase font-normal">Where You'll Be</h2>
-                    <div class="rounded-2xl overflow-hidden">
-                        <div id="map" class="h-96 w-full"></div>
-                    </div>
-                </div>
-                @endif
-
-                {{-- Related Villas --}}
-                @if(isset($related) && $related->isNotEmpty())
-                <div class="space-y-6">
-                    <hr class="opacity-30 my-8">
-                    <h2 class="text-3xl uppercase font-normal">Similar Villas</h2>
-                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        @foreach($related as $r)
-                        <a href="{{ route('villas.show', $r->slug) }}" class="group block space-y-3">
-                            <div class="overflow-hidden rounded-xl aspect-video">
-                                @if($r->first_image)
-                                    <img class="size-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                         loading="lazy" src="{{ $r->first_image }}" alt="{{ $r->title }}" />
-                                @else
-                                    <div class="size-full bg-zinc-800"></div>
-                                @endif
-                            </div>
-                            <h3 class="text-white font-light group-hover:text-amber-200 transition-colors">{{ $r->title }}</h3>
-                            @if($r->price_per_night > 0)
-                                <p class="text-zinc-400 text-sm">From ${{ number_format($r->price_per_night) }}/night</p>
-                            @else
-                                <p class="text-zinc-400 text-sm">Price on request</p>
-                            @endif
-                        </a>
-                        @endforeach
-                    </div>
-                </div>
-                @endif
             </div>
 
             {{-- Right Sidebar --}}
-            <div class="lg:sticky lg:top-24 h-fit space-y-6">
+            <div class="lg:sticky lg:top-24 h-fit lg:row-span-2 space-y-6">
                 <div class="bg-zinc-900 rounded-xl p-6 space-y-4">
 
                     {{-- Price --}}
@@ -321,6 +282,49 @@
                     </div>
                     @endif
                 </div>
+            </div>
+
+            {{-- Left Column: Map / Related Villas --}}
+            <div class="lg:col-span-2 space-y-6">
+
+                {{-- Map --}}
+                @if($villa->latitude && $villa->longitude)
+                <div class="space-y-4">
+                    <hr class="opacity-30 my-8">
+                    <h2 class="text-3xl uppercase font-normal">Where You'll Be</h2>
+                    <div class="rounded-2xl overflow-hidden">
+                        <div id="map" class="h-96 w-full"></div>
+                    </div>
+                </div>
+                @endif
+
+                {{-- Related Villas --}}
+                @if(isset($related) && $related->isNotEmpty())
+                <div class="space-y-6">
+                    <hr class="opacity-30 my-8">
+                    <h2 class="text-3xl uppercase font-normal">Similar Villas</h2>
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        @foreach($related as $r)
+                        <a href="{{ route('villas.show', $r->slug) }}" class="group block space-y-3">
+                            <div class="overflow-hidden rounded-xl aspect-video">
+                                @if($r->first_image)
+                                    <img class="size-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                         loading="lazy" src="{{ $r->first_image }}" alt="{{ $r->title }}" />
+                                @else
+                                    <div class="size-full bg-zinc-800"></div>
+                                @endif
+                            </div>
+                            <h3 class="text-white font-light group-hover:text-amber-200 transition-colors">{{ $r->title }}</h3>
+                            @if($r->price_per_night > 0)
+                                <p class="text-zinc-400 text-sm">From ${{ number_format($r->price_per_night) }}/night</p>
+                            @else
+                                <p class="text-zinc-400 text-sm">Price on request</p>
+                            @endif
+                        </a>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
     </div>

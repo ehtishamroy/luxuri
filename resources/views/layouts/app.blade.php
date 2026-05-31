@@ -5,43 +5,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Hand-Picked luxteria Villa Rentals and Private Homes</title>
+    @php
+        $siteName = $settings->site_name ?? 'Luxuri';
+        $seoTitle = app('seotools.metatags')->getTitle();
+        $seoDesc = app('seotools.metatags')->getDescription();
+        $defaultTitle = 'Hand-Picked ' . $siteName . ' Villa Rentals and Private Homes';
+        $defaultDesc = 'Discover unparalleled luxury with ' . $siteName . '’s vacation villas, elite car and yacht rentals, and bespoke concierge services across top global destinations.';
 
-    <meta name="author" content="luxteria">
-    <meta name="description"
-        content="Discover unparalleled luxury with luxteria’s vacation villas, elite car and yacht rentals, and bespoke concierge services across top global destinations.">
+        $pageTitle = $seoTitle ?: $defaultTitle;
+        $pageTitle = str_replace('Luxuri Magazine', $siteName . ' Magazine', $pageTitle);
+        $pageTitle = str_replace([' | Luxuri Magazine', ' | Luxuri', 'Hand-Picked Luxuri'], [' | ' . $siteName . ' Magazine', ' | ' . $siteName, 'Hand-Picked ' . $siteName], $pageTitle);
+
+        $pageDesc = $seoDesc ?: $defaultDesc;
+        $pageDesc = str_replace('Luxuri', $siteName, $pageDesc);
+    @endphp
+
+    <title>{{ $pageTitle }}</title>
+
+    <meta name="author" content="{{ $siteName }}">
+    <meta name="description" content="{{ $pageDesc }}">
     <meta name="robots" content="index,follow">
     <meta name="theme-color" content="#303030">
 
 
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Hand-Picked luxteria Villa Rentals and Private Homes">
-    <meta property="og:description"
-        content="Discover unparalleled luxury with luxteria’s vacation villas, elite car and yacht rentals, and bespoke concierge services across top global destinations...">
-    <meta property="og:image" content="assets/media/OpenGraph-luxteria.png">
+    <meta property="og:title" content="{{ $pageTitle }}">
+    <meta property="og:description" content="{{ $pageDesc }}">
+    <meta property="og:image" content="{{ asset('media/OpenGraph-Luxuri.png') }}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Hand-Picked luxteria Villa Rentals and Private Homes">
-    <meta property="og:url" content="index.html">
-    <meta property="og:site_name" content="luxteria">
+    <meta property="og:image:alt" content="{{ $pageTitle }}">
+    <meta property="og:url" content="{{ url('/') }}">
+    <meta property="og:site_name" content="{{ $siteName }}">
     <meta property="og:locale" content="en_US">
 
 
 
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="index.html">
-    <meta name="twitter:title" content="Hand-Picked luxteria Villa Rentals and Private Homes">
-    <meta name="twitter:description"
-        content="Discover unparalleled luxury with luxteria’s vacation villas, elite car and yacht rentals, and bespoke concierge services across top global destinations...">
-    <meta name="twitter:image" content="assets/media/OpenGraph-luxteria.png">
+    <meta name="twitter:url" content="{{ url('/') }}">
+    <meta name="twitter:title" content="{{ $pageTitle }}">
+    <meta name="twitter:description" content="{{ $pageDesc }}">
+    <meta name="twitter:image" content="{{ asset('media/OpenGraph-Luxuri.png') }}">
 
 
 
 
-    <link rel="icon" type="image/png" href="{{ asset('favicon-96x96.png') }}" />
-    <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}" />
-    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+    @if($settings && $settings->favicon)
+        <link rel="icon" type="image/png" href="{{ asset('storage/' . $settings->favicon) }}" />
+        <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="{{ asset('storage/' . $settings->favicon) }}" />
+        <link rel="shortcut icon" href="{{ asset('storage/' . $settings->favicon) }}" />
+    @else
+        <link rel="icon" type="image/png" href="{{ asset('favicon-96x96.png') }}" />
+        <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}" />
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+    @endif
     <link rel="manifest" href="{{ asset('site.webmanifest') }}" />
     <link rel="canonical" href="{{ url('/') }}">
     <meta name="theme-color" content="#fafafa">
@@ -61,13 +79,11 @@
 {
     "@@context": "https://schema.org",
     "@@type": "Organization",
-    "name": "luxteria",
-    "url": "https://luxteria.co",
+    "name": "{{ $siteName }}",
+    "url": "{{ url('/') }}",
     "logo": {
         "@@type": "ImageObject",
-        "url": "https://luxteria.co/images/logo.png",
-        "width": 600,
-        "height": 60
+        "url": "{{ $settings && $settings->logo ? asset('storage/' . $settings->logo) : asset('images/logo.png') }}"
     },
     "sameAs": []
 }
@@ -77,13 +93,13 @@
 {
     "@@context": "https://schema.org",
     "@@type": "WebSite",
-    "name": "luxteria",
-    "url": "https://luxteria.co",
+    "name": "{{ $siteName }}",
+    "url": "{{ url('/') }}",
     "potentialAction": {
         "@@type": "SearchAction",
         "target": {
             "@@type": "EntryPoint",
-            "urlTemplate": "https://luxteria.co/properties?search={search_term_string}"
+            "urlTemplate": "{{ url('/properties?search={search_term_string}') }}"
         },
         "query-input": "required name=search_term_string"
     }
@@ -221,9 +237,9 @@
             </div>
 
             <a class="-m-1.5 p-1.5" href="{{ url('/') }}">
-                <span class="sr-only">luxteria</span>
+                <span class="sr-only">{{ $siteName }}</span>
                 @if($settings && $settings->logo)
-                    <img src="{{ asset('storage/' . $settings->logo) }}" alt="luxteria" class="w-auto h-16">
+                    <img src="{{ asset('storage/' . $settings->logo) }}" alt="{{ $siteName }}" class="w-auto h-16">
                 @else
                     <svg class="w-auto h-16" width="100%" height="100%" viewBox="0 0 104 17" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -289,9 +305,9 @@
                 <div class="py-6 px-6 lg:px-8">
                     <div class="flex items-center justify-end">
                         <a class="-m-1.5 p-1.5 sm:hidden" href="{{ url('/') }}">
-                            <span class="sr-only">luxteria</span>
+                            <span class="sr-only">{{ $siteName }}</span>
                             @if($settings && $settings->logo)
-                                <img src="{{ asset('storage/' . $settings->logo) }}" alt="luxteria" class="w-auto h-16">
+                                <img src="{{ asset('storage/' . $settings->logo) }}" alt="{{ $siteName }}" class="w-auto h-16">
                             @else
                                 <svg class="w-auto h-16" width="100%" height="100%" viewBox="0 0 104 17" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -336,10 +352,7 @@
                                         x-transition:enter-start="opacity-0 translate-x-4"
                                         x-transition:enter-end="opacity-100 translate-x-0" aria-controls="faq-0"
                                         :aria-expanded="expanded">
-                                        <span class="font-accent tracking-wide text-xl font-semibold uppercase">
-                                            For Guests
-                                        </span>
-                                        <span class="ml-6 flex h-7 items-center relative">
+                                        <span class="ml-auto flex h-7 items-center relative">
                                             <svg class="size-6 transition-all duration-300 ease-in-out"
                                                 :class="{ 'opacity-0 rotate-90': expanded, 'opacity-100 rotate-0': !expanded }"
                                                 fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -391,7 +404,7 @@
             <div class="grid md:grid-cols-3 lg:grid-cols-12 gap-x-4 gap-y-8">
                 <div class="md:col-span-3 lg:col-span-6 space-y-12">
                     @if($settings && $settings->logo)
-                        <img src="{{ asset('storage/' . $settings->logo) }}" alt="luxteria" class="block w-auto h-20">
+                        <img src="{{ asset('storage/' . $settings->logo) }}" alt="{{ $siteName }}" class="block w-auto h-20">
                     @else
                         <svg class="block w-auto h-20" width="100%" height="100%" viewBox="0 0 104 17" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -569,7 +582,7 @@
                     @endif
                 </div>
                 <div class="flex justify-center text-sm text-zinc-300 py-6">
-                    {!! $settings && $settings->copyright_text ? $settings->copyright_text : '&copy; ' . date('Y') . ' LUXTERIA. All rights reserved.' !!}
+                    {!! $settings && $settings->copyright_text ? $settings->copyright_text : '&copy; ' . date('Y') . ' ' . strtoupper($siteName) . '. All rights reserved.' !!}
                 </div>
             </div>
         </div>

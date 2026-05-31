@@ -32,6 +32,23 @@ class HomepageSettingResource extends Resource
             ->components([
                 Section::make('Branding')
                     ->schema([
+                        TextInput::make('site_name')
+                            ->label('Site Name')
+                            ->placeholder('Luxuri')
+                            ->helperText('Used in page titles, WhatsApp previews, and OG tags.')
+                            ->nullable()
+                            ->columnSpanFull(),
+
+                        FileUpload::make('favicon')
+                            ->label('Favicon')
+                            ->image()
+                            ->disk('public')
+                            ->directory('settings')
+                            ->acceptedFileTypes(['image/png', 'image/x-icon', 'image/vnd.microsoft.icon'])
+                            ->maxSize(1024)
+                            ->helperText('Recommended: 96x96 PNG or .ico file.')
+                            ->columnSpanFull(),
+
                         FileUpload::make('logo')
                             ->label('Website Logo')
                             ->image()
@@ -46,6 +63,15 @@ class HomepageSettingResource extends Resource
                             ->disk('public')
                             ->directory('settings')
                             ->maxSize(4096)
+                            ->columnSpanFull(),
+
+                        FileUpload::make('concierge_hero_image')
+                            ->label('Concierge Hero Image')
+                            ->image()
+                            ->disk('public')
+                            ->directory('settings')
+                            ->maxSize(4096)
+                            ->helperText('Background image for the Concierge page hero section.')
                             ->columnSpanFull(),
                     ]),
 

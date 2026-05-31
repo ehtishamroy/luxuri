@@ -120,7 +120,7 @@ new class extends Component {
                                            @click="$wire.showDestinations = true; $wire.showDatepicker = false"
                                            x-model="$wire.search"
                                            x-ref="searchInput"
-                                           placeholder="Destination"
+                                           placeholder="Location"
                                            class="text-zinc-300 py-1 truncate text-sm max-sm:text-xs focus:outline-none border-1 border-transparent max-w-full w-full block focus-within:border-b-zinc-50">
                                 </label>
                             </div>
@@ -185,7 +185,7 @@ new class extends Component {
                                                @click="$wire.showDestinations = true; $wire.showDatepicker = false"
                                                x-model="$wire.search"
                                                x-ref="searchInput"
-                                               placeholder="Destination"
+                                               placeholder="Location"
                                                class="text-zinc-300 py-1 truncate text-base focus:outline-none border-1 border-transparent max-w-full w-full block focus-within:border-b-zinc-50">
                                     </label>
                                 </div>
@@ -247,12 +247,12 @@ new class extends Component {
                         <div class="flex gap-2 w-full" @click="showPlannerFields = true">
                             <div class="font-medium text-sm w-full">
                                 <div class="flex gap-2 items-baseline">
-                                    <div class="grow">Destination</div>
+                                    <div class="grow">Location</div>
                                     <div class="text-zinc-300 text-xs" x-text="outputDateFromValue ? new Date(outputDateFromValue).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''"></div>
                                     -
                                     <div class="text-zinc-300 text-xs" x-text="outputDateToValue ? new Date(outputDateToValue).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''"></div>
                                 </div>
-                                <div class="text-zinc-300 py-1 text-sm w-full" x-text="$wire.search || 'Destinations...'">Destinations...</div>
+                                <div class="text-zinc-300 py-1 text-sm w-full" x-text="$wire.search || 'Locations...'">Destinations...</div>
                             </div>
                             <div class="shrink-0">
                                 <button type="button"
@@ -313,7 +313,7 @@ new class extends Component {
                         @if($otherDestinations->isNotEmpty())
                         <div>
                             <div class="font-medium mb-3 text-zinc-50">
-                                {{ $searchResults->isNotEmpty() ? 'Explore other destinations' : 'Destinations' }}
+                                {{ $searchResults->isNotEmpty() ? 'Explore other locations' : 'Locations' }}
                             </div>
                             <ul class="grid grid-cols-2 md:grid-cols-3 gap-3">
                                 @foreach($otherDestinations as $dest)

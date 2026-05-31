@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class HomepageSetting extends Model
 {
     protected $fillable = [
-        'logo', 'contact_image',
+        'site_name', 'favicon', 'logo', 'contact_image', 'concierge_hero_image',
         'phone', 'mobile_phone', 'email', 'copyright_text',
         'instagram_url', 'facebook_url', 'tiktok_url', 'pinterest_url',
         'google_maps_url', 'linkedin_url', 'threads_url',

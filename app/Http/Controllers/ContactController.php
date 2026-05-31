@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\ContactMessage;
+use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
     public function index()
     {
+        SEOTools::setTitle('Contact | Luxuri');
+        SEOTools::setDescription('Get in touch with our luxury concierge team for villa rentals, yacht charters, and bespoke travel experiences.');
         return view('contact');
     }
 

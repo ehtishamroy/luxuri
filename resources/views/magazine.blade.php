@@ -5,7 +5,7 @@
         @php
             $heroImage = $posts->firstWhere('featured_image', '!=', null)?->featured_image ?? 'https://media.luxteria.co/4d4b19ef720dc8ef7859871647c30dc8/featured.jpg';
         @endphp
-        <img class="absolute inset-0 -z-10 size-full object-cover" src="{{ $heroImage }}" alt="Magazine hero">
+        <img class="absolute inset-0 -z-10 size-full object-cover" src="{{ $heroImage }}" alt="Blog hero">
 
         <div class="absolute inset-0 -z-10 size-full object-cover bg-black/20 bg-blend-multiply"></div>
         <div class="absolute inset-0 -z-10 bg-gradient-to-b from-black/10 from-0% via-black/20 via-80% to-black to-95% bg-blend-overlay"></div>
@@ -14,7 +14,7 @@
                 <div class="space-y-6">
                     <div class="space-y-4 text-shadow-lg/10">
                         <h1 class="text-3xl font-semibold tracking-wide text-center text-balance uppercase font-accent sm:text-5xl">
-                            luxteria Magazine
+                            luxteria Blog
                         </h1>
                         <p class="text-lg font-normal text-pretty text-center">
                             Discover curated insights on luxury travel, refined living, and exclusive experiences.

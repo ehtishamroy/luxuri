@@ -1,0 +1,54 @@
+<section class="section">
+  <div class="head">
+    <span class="eyebrow">Vacation, Simplified</span>
+    <h2>Managed by <span class="accent">luxteria</span> — Not a Third Party</h2>
+    <p>Every villa you see here is run by our own team. That means when something comes up, you are talking to us directly — not a call center halfway across the world.</p>
+    <div class="rule"></div>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <span class="num">01</span>
+      <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l2.5 2.5L16 9"></path></svg></div>
+      <h3>We Visit Every Home Before It Goes Live</h3>
+      <p>No exceptions. If it does not meet our standards, it does not make the cut. You will never show up to a place that looks nothing like the photos.</p>
+    </div>
+
+    <div class="card">
+      <span class="num">02</span>
+      <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 6.2L20 11l-6.2 1.8L12 19l-1.8-6.2L4 11l6.2-1.8z"></path></svg></div>
+      <h3>It Is Actually Clean When You Arrive</h3>
+      <p>Our cleaning crew treats turnover day like a mission. You walk in, drop your bags, and that is it. No wiping counters or checking sheets.</p>
+    </div>
+
+    <div class="card">
+      <span class="num">03</span>
+      <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 20c4-3 12-3 16 0"></path><path d="M5 16c2.5-5 11.5-5 14 0"></path><path d="M12 4c1.5 2 1.5 4 0 6c-1.5-2-1.5-4 0-6z"></path></svg></div>
+      <h3>Fast WiFi, Quiet Corners, Heated Pools</h3>
+      <p>Some guests need to hop on Zoom. Others just want to float until sunset. Either way, the setup is already there.</p>
+    </div>
+
+    <div class="card">
+      <span class="num">04</span>
+      <div class="icon"><svg viewBox="0 0 24 24"><path d="M10.5 3.5a1.5 1.5 0 013 0V10l8 4.5v2l-8-2.5v4l2 1.5v1.5l-3.5-1-3.5 1V19l2-1.5v-4l-8 2.5v-2l8-4.5z"></path></svg></div>
+      <h3>Views That Make You Stop Scrolling</h3>
+      <p>Oceanfront mornings. Hillside golden hours. We pick places where the location alone is worth the flight.</p>
+    </div>
+
+    <div class="card">
+      <span class="num">05</span>
+      <div class="icon"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"></path><path d="M5 9.5V20h14V9.5"></path><path d="M10 20v-5h4v5"></path></svg></div>
+      <h3>The Photos Do Not Do It Justice</h3>
+      <p>That is what guests tell us most. The light hits different in person. The textures feel richer. It is the kind of place you notice details.</p>
+    </div>
+
+    <div class="card">
+      <span class="num">06</span>
+      <div class="icon"><svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 1112 0v5l2 2H4z"></path><path d="M10 20a2 2 0 004 0"></path></svg></div>
+      <h3>Someone Answers the Phone at Midnight</h3>
+      <p>Need a chef tomorrow? A boat rental? A pharmacy run? Our concierge team is around the clock and actually knows the area.</p>
+    </div>
+
+  </div>
+</section>

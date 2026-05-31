@@ -29,7 +29,6 @@
     <div class="grid lg:grid-cols-3 gap-8">
 
         <div class="lg:col-span-2 space-y-8">
-
             <div class="space-y-4">
                 <h1 class="text-3xl font-light">{{ $yacht->title }}</h1>
                 @if($yacht->location)
@@ -79,24 +78,9 @@
                 </article>
                 @endif
             </div>
-
-            @php
-                $imageUrls = $yacht->image_urls;
-            @endphp
-            @if(!empty($imageUrls))
-            <hr class="opacity-30 my-8">
-            <div class="flex justify-between">
-                <h2 class="text-3xl uppercase font-normal">Gallery</h2>
-            </div>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                @foreach($imageUrls as $img)
-                <img src="{{ $img }}" alt="{{ $yacht->title }}" class="w-full h-64 object-cover rounded-lg">
-                @endforeach
-            </div>
-            @endif
         </div>
 
-        <div class="lg:col-span-1">
+        <div class="lg:col-span-1 lg:row-span-2">
             <div class="sticky top-8">
                 <div class="bg-zinc-50 dark:bg-zinc-900 rounded-lg p-6 space-y-4">
 
@@ -199,6 +183,23 @@
                     @endif
                 </div>
             </div>
+        </div>
+
+        <div class="lg:col-span-2 space-y-8">
+            @php
+                $imageUrls = $yacht->image_urls;
+            @endphp
+            @if(!empty($imageUrls))
+            <hr class="opacity-30 my-8">
+            <div class="flex justify-between">
+                <h2 class="text-3xl uppercase font-normal">Gallery</h2>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                @foreach($imageUrls as $img)
+                <img src="{{ $img }}" alt="{{ $yacht->title }}" class="w-full h-64 object-cover rounded-lg">
+                @endforeach
+            </div>
+            @endif
         </div>
     </div>
 </div>

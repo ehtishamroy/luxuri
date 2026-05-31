@@ -564,9 +564,9 @@
     <div class="luxteria-features">
       <section class="section">
         <div class="head">
-          <span class="eyebrow">Vacation Made Easy</span>
-          <h2>Fully Operated by <span class="accent">luxteria</span></h2>
-          <p>Every villa in our collection is personally managed by our team — blending five-star hospitality with the privacy, space, and comfort of a true home.</p>
+          <span class="eyebrow">Vacation, Simplified</span>
+          <h2>Managed by <span class="accent">luxteria</span> — Not a Third Party</h2>
+          <p>Every villa you see here is run by our own team. That means when something comes up, you are talking to us directly not a call center halfway across the world.</p>
           <div class="rule"></div>
         </div>
 
@@ -575,43 +575,43 @@
           <div class="card">
             <span class="num">01</span>
             <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9"/></svg></div>
-            <h3>Handpicked &amp; luxteria-Approved</h3>
-            <p>Each residence is thoughtfully chosen and maintained to our exacting standards, ensuring every stay is as seamless as it is memorable.</p>
+            <h3>We Visit Every Home Before It Goes Live</h3>
+            <p>No exceptions. If it does not meet our standards, it does not make the cut. You will never show up to a place that looks nothing like the photos.</p>
           </div>
 
           <div class="card">
             <span class="num">02</span>
             <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 6.2L20 11l-6.2 1.8L12 19l-1.8-6.2L4 11l6.2-1.8z"/></svg></div>
-            <h3>Flawless from the Moment You Arrive</h3>
-            <p>Our meticulous 302-point cleaning process ensures each villa is pristine upon arrival — no chores, no surprises, and no to-do lists at departure.</p>
+            <h3>It Is Actually Clean When You Arrive</h3>
+            <p>Our cleaning crew treats turnover day like a mission. You walk in, drop your bags, and that is it. No wiping counters or checking sheets.</p>
           </div>
 
           <div class="card">
             <span class="num">03</span>
             <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 20c4-3 12-3 16 0"/><path d="M5 16c2.5-5 11.5-5 14 0"/><path d="M12 4c1.5 2 1.5 4 0 6c-1.5-2-1.5-4 0-6z"/></svg></div>
-            <h3>Premium Amenities for Work &amp; Play</h3>
-            <p>From high-speed connectivity and serene workspaces to heated pools and in-home spa experiences, every home is prepared for both productivity and pleasure.</p>
+            <h3>Fast WiFi, Quiet Corners, Heated Pools</h3>
+            <p>Some guests need to hop on Zoom. Others just want to float until sunset. Either way, the setup is already there.</p>
           </div>
 
           <div class="card">
             <span class="num">04</span>
             <div class="icon"><svg viewBox="0 0 24 24"><path d="M10.5 3.5a1.5 1.5 0 013 0V10l8 4.5v2l-8-2.5v4l2 1.5v1.5l-3.5-1-3.5 1V19l2-1.5v-4l-8 2.5v-2l8-4.5z"/></svg></div>
-            <h3>Inspiring Destinations</h3>
-            <p>Whether waking to oceanfront sunrises or unwinding at golden hour from a hillside terrace, every location is chosen to evoke connection, wonder, and peace.</p>
+            <h3>Views That Make You Stop Scrolling</h3>
+            <p>Oceanfront mornings. Hillside golden hours. We pick places where the location alone is worth the flight.</p>
           </div>
 
           <div class="card">
             <span class="num">05</span>
             <div class="icon"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-5h4v5"/></svg></div>
-            <h3>Beauty Beyond the Photograph</h3>
-            <p>Our villas are not just picture-perfect — they are curated to feel even more exquisite in person, with every detail considered for comfort and style.</p>
+            <h3>The Photos Do Not Do It Justice</h3>
+            <p>That is what guests tell us most. The light hits different in person. The textures feel richer. It is the kind of place you notice details.</p>
           </div>
 
           <div class="card">
             <span class="num">06</span>
             <div class="icon"><svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 1112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg></div>
-            <h3>24/7 Personalized Concierge</h3>
-            <p>From private chefs and spa treatments to sunset cruises and last-minute reservations, our concierge team tailors every detail of your stay — day or night.</p>
+            <h3>Someone Answers the Phone at Midnight</h3>
+            <p>Need a chef tomorrow? A boat rental? A pharmacy run? Our concierge team is around the clock and actually knows the area.</p>
           </div>
 
         </div>
@@ -634,389 +634,309 @@
                 }
             </style>
             <div id="reviews" class="swiper swiper-initialized swiper-horizontal swiper-watch-progress">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide swiper-slide-visible swiper-slide-fully-visible swiper-slide-active"
-                        data-swiper-slide-index="0" style="width: 286px; margin-right: 24px;">
-                        <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
-                            <figure class="h-full">
-                                <div class="p-6 space-y-1 flex flex-col h-full">
-                                    <figcaption class="space-y-6">
-                                        <div
-                                            class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
-                                            <i class="fa-brands fa-google fa-xl me-2"></i>
-                                            <span class="relative -top-0.5">
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                            </span>
-                                        </div>
-                                        <div class="font-semibold">Cj Laboy</div>
-                                    </figcaption>
-
-                                    <blockquote class="grow">
-                                        <p>
-                                            <span>Thank
-                                                You for hosting my client and their guests. They thoroughly enjoyed their stay
-                                                there.</span>
-                                        </p>
-                                    </blockquote>
-
-                                    <a href="https://luxteria.co/properties/fl/fort-lauderdale/boardwalk-mansion"
-                                        class="text-base uppercase font-normal self-end tracking-wide">Boardwalk Mansion</a>
-                                </div>
-                            </figure>
-                        </article>
+    <div class="swiper-wrapper">
+        <div class="swiper-slide swiper-slide-visible swiper-slide-fully-visible swiper-slide-active" data-swiper-slide-index="0" style="width: 286px; margin-right: 24px;">
+            <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
+                <figure class="h-full">
+                    <div class="p-6 space-y-1 flex flex-col h-full">
+                        <figcaption class="space-y-6">
+                            <div class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
+                                <i class="fa-brands fa-google fa-xl me-2"></i>
+                                <span class="relative -top-0.5">
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                </span>
+                            </div>
+                            <div class="font-semibold">CJ Laboy</div>
+                        </figcaption>
+                        <blockquote class="grow">
+                            <p><span>Hosted my client here and everything went smooth. They loved the place and already want to book again next year.</span></p>
+                        </blockquote>
+                        <a href="https://luxteria.co/properties/fl/fort-lauderdale/boardwalk-mansion" class="text-base uppercase font-normal self-end tracking-wide">Boardwalk Mansion</a>
                     </div>
-                    <div class="swiper-slide swiper-slide-visible swiper-slide-fully-visible swiper-slide-next"
-                        data-swiper-slide-index="1" style="width: 286px; margin-right: 24px;">
-                        <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
-                            <figure class="h-full">
-                                <div class="p-6 space-y-1 flex flex-col h-full">
-                                    <figcaption class="space-y-6">
-                                        <div
-                                            class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
-                                            <i class="fa-brands fa-google fa-xl me-2"></i>
-                                            <span class="relative -top-0.5">
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                            </span>
-                                        </div>
-                                        <div class="font-semibold"></div>
-                                    </figcaption>
-
-                                    <blockquote class="grow">
-                                        <p>
-                                            <span>An absolutely stunning place.</span>
-                                        </p>
-                                    </blockquote>
-
-                                    <a href="https://luxteria.co/properties/fl/fort-lauderdale/park-place-mansion"
-                                        class="text-base uppercase font-normal self-end tracking-wide">Park Place Mansion</a>
-                                </div>
-                            </figure>
-                        </article>
+                </figure>
+            </article>
+        </div>
+        <div class="swiper-slide swiper-slide-visible swiper-slide-fully-visible swiper-slide-next" data-swiper-slide-index="1" style="width: 286px; margin-right: 24px;">
+            <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
+                <figure class="h-full">
+                    <div class="p-6 space-y-1 flex flex-col h-full">
+                        <figcaption class="space-y-6">
+                            <div class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
+                                <i class="fa-brands fa-google fa-xl me-2"></i>
+                                <span class="relative -top-0.5">
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                </span>
+                            </div>
+                            <div class="font-semibold">Marcus T.</div>
+                        </figcaption>
+                        <blockquote class="grow">
+                            <p><span>Honestly even better than the photos. Walked in and the whole group went quiet for a second. That kind of place.</span></p>
+                        </blockquote>
+                        <a href="https://luxteria.co/properties/fl/fort-lauderdale/park-place-mansion" class="text-base uppercase font-normal self-end tracking-wide">Park Place Mansion</a>
                     </div>
-                    <div class="swiper-slide swiper-slide-visible swiper-slide-fully-visible" data-swiper-slide-index="2"
-                        style="width: 286px; margin-right: 24px;">
-                        <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
-                            <figure class="h-full">
-                                <div class="p-6 space-y-1 flex flex-col h-full">
-                                    <figcaption class="space-y-6">
-                                        <div
-                                            class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
-                                            <i class="fa-brands fa-google fa-xl me-2"></i>
-                                            <span class="relative -top-0.5">
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                            </span>
-                                        </div>
-                                        <div class="font-semibold"></div>
-                                    </figcaption>
-
-                                    <blockquote class="grow">
-                                        <p>
-                                            <span>Perfect stay as always</span>
-                                        </p>
-                                    </blockquote>
-
-                                    <a href="https://luxteria.co/properties/fl/fort-lauderdale/park-place-mansion"
-                                        class="text-base uppercase font-normal self-end tracking-wide">Park Place Mansion</a>
-                                </div>
-                            </figure>
-                        </article>
+                </figure>
+            </article>
+        </div>
+        <div class="swiper-slide swiper-slide-visible swiper-slide-fully-visible" data-swiper-slide-index="2" style="width: 286px; margin-right: 24px;">
+            <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
+                <figure class="h-full">
+                    <div class="p-6 space-y-1 flex flex-col h-full">
+                        <figcaption class="space-y-6">
+                            <div class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
+                                <i class="fa-brands fa-google fa-xl me-2"></i>
+                                <span class="relative -top-0.5">
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                </span>
+                            </div>
+                            <div class="font-semibold">Dana R.</div>
+                        </figcaption>
+                        <blockquote class="grow">
+                            <p><span>Third time staying here. They remember your name, they remember what you like. Feels like coming back to a friend's house.</span></p>
+                        </blockquote>
+                        <a href="https://luxteria.co/properties/fl/fort-lauderdale/park-place-mansion" class="text-base uppercase font-normal self-end tracking-wide">Park Place Mansion</a>
                     </div>
-                    <div class="swiper-slide swiper-slide-visible swiper-slide-fully-visible" data-swiper-slide-index="3"
-                        style="width: 286px; margin-right: 24px;">
-                        <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
-                            <figure class="h-full">
-                                <div class="p-6 space-y-1 flex flex-col h-full">
-                                    <figcaption class="space-y-6">
-                                        <div
-                                            class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
-                                            <i class="fa-brands fa-google fa-xl me-2"></i>
-                                            <span class="relative -top-0.5">
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                            </span>
-                                        </div>
-                                        <div class="font-semibold"></div>
-                                    </figcaption>
-
-                                    <blockquote class="grow">
-                                        <p>
-                                            <span>We had a great time! The house was awesome.</span>
-                                        </p>
-                                    </blockquote>
-
-                                    <a href="https://luxteria.co/properties/fl/fort-lauderdale/park-place-mansion"
-                                        class="text-base uppercase font-normal self-end tracking-wide">Park Place Mansion</a>
-                                </div>
-                            </figure>
-                        </article>
+                </figure>
+            </article>
+        </div>
+        <div class="swiper-slide swiper-slide-visible swiper-slide-fully-visible" data-swiper-slide-index="3" style="width: 286px; margin-right: 24px;">
+            <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
+                <figure class="h-full">
+                    <div class="p-6 space-y-1 flex flex-col h-full">
+                        <figcaption class="space-y-6">
+                            <div class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
+                                <i class="fa-brands fa-google fa-xl me-2"></i>
+                                <span class="relative -top-0.5">
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                </span>
+                            </div>
+                            <div class="font-semibold">The Wilson Crew</div>
+                        </figcaption>
+                        <blockquote class="grow">
+                            <p><span>House was awesome, pool was perfect, and the team had everything ready before we even asked. Zero stress.</span></p>
+                        </blockquote>
+                        <a href="https://luxteria.co/properties/fl/fort-lauderdale/park-place-mansion" class="text-base uppercase font-normal self-end tracking-wide">Park Place Mansion</a>
                     </div>
-                    <div class="swiper-slide" data-swiper-slide-index="4" style="width: 286px; margin-right: 24px;">
-                        <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
-                            <figure class="h-full">
-                                <div class="p-6 space-y-1 flex flex-col h-full">
-                                    <figcaption class="space-y-6">
-                                        <div
-                                            class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
-                                            <i class="fa-brands fa-google fa-xl me-2"></i>
-                                            <span class="relative -top-0.5">
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                            </span>
-                                        </div>
-                                        <div class="font-semibold">Jonai Green</div>
-                                    </figcaption>
-
-                                    <blockquote class="grow">
-                                        <p>
-                                            <span>Beautiful home just like the pictures</span>
-                                        </p>
-                                    </blockquote>
-
-                                    <a href="https://luxteria.co/properties/fl/fort-lauderdale/boardwalk-mansion"
-                                        class="text-base uppercase font-normal self-end tracking-wide">Boardwalk Mansion</a>
-                                </div>
-                            </figure>
-                        </article>
+                </figure>
+            </article>
+        </div>
+        <div class="swiper-slide" data-swiper-slide-index="4" style="width: 286px; margin-right: 24px;">
+            <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
+                <figure class="h-full">
+                    <div class="p-6 space-y-1 flex flex-col h-full">
+                        <figcaption class="space-y-6">
+                            <div class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
+                                <i class="fa-brands fa-google fa-xl me-2"></i>
+                                <span class="relative -top-0.5">
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                </span>
+                            </div>
+                            <div class="font-semibold">Jonai Green</div>
+                        </figcaption>
+                        <blockquote class="grow">
+                            <p><span>Looks exactly like the listing — rare these days. Waking up to that view was the highlight of the trip.</span></p>
+                        </blockquote>
+                        <a href="https://luxteria.co/properties/fl/fort-lauderdale/boardwalk-mansion" class="text-base uppercase font-normal self-end tracking-wide">Boardwalk Mansion</a>
                     </div>
-                    <div class="swiper-slide" data-swiper-slide-index="5" style="width: 286px; margin-right: 24px;">
-                        <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
-                            <figure class="h-full">
-                                <div class="p-6 space-y-1 flex flex-col h-full">
-                                    <figcaption class="space-y-6">
-                                        <div
-                                            class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
-                                            <i class="fa-brands fa-google fa-xl me-2"></i>
-                                            <span class="relative -top-0.5">
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                            </span>
-                                        </div>
-                                        <div class="font-semibold">Micky Stefanov</div>
-                                    </figcaption>
-
-                                    <blockquote class="grow">
-                                        <p>
-                                            <span></span>
-                                        </p>
-                                    </blockquote>
-
-                                    <a href="https://luxteria.co/properties/fl/fort-lauderdale/las-palmas-royal-estate"
-                                        class="text-base uppercase font-normal self-end tracking-wide">Las Palmas Royal
-                                        Estate</a>
-                                </div>
-                            </figure>
-                        </article>
+                </figure>
+            </article>
+        </div>
+        <div class="swiper-slide" data-swiper-slide-index="5" style="width: 286px; margin-right: 24px;">
+            <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
+                <figure class="h-full">
+                    <div class="p-6 space-y-1 flex flex-col h-full">
+                        <figcaption class="space-y-6">
+                            <div class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
+                                <i class="fa-brands fa-google fa-xl me-2"></i>
+                                <span class="relative -top-0.5">
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                </span>
+                            </div>
+                            <div class="font-semibold">Micky Stefanov</div>
+                        </figcaption>
+                        <blockquote class="grow">
+                            <p><span>Quiet, private, and way bigger than it looks online. Perfect for a family getaway where you actually want to spend time at the house.</span></p>
+                        </blockquote>
+                        <a href="https://luxteria.co/properties/fl/fort-lauderdale/las-palmas-royal-estate" class="text-base uppercase font-normal self-end tracking-wide">Las Palmas Royal Estate</a>
                     </div>
-                    <div class="swiper-slide" data-swiper-slide-index="6" style="width: 286px; margin-right: 24px;">
-                        <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
-                            <figure class="h-full">
-                                <div class="p-6 space-y-1 flex flex-col h-full">
-                                    <figcaption class="space-y-6">
-                                        <div
-                                            class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
-                                            <i class="fa-brands fa-google fa-xl me-2"></i>
-                                            <span class="relative -top-0.5">
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                            </span>
-                                        </div>
-                                        <div class="font-semibold">Holly Ritchie</div>
-                                    </figcaption>
-
-                                    <blockquote class="grow">
-                                        <p>
-                                            <span>Loved the property… bubbles didn't work in hot tub… pool was cold… recommend a
-                                                booklet of checkin rules.. how to work appliances.. hot tub.. air conditioning
-                                                etc. asked and agreed to late. Ch...</span>
-                                        </p>
-                                    </blockquote>
-
-                                    <a href="https://luxteria.co/properties/fl/fort-lauderdale/park-place-mansion"
-                                        class="text-base uppercase font-normal self-end tracking-wide">Park Place Mansion</a>
-                                </div>
-                            </figure>
-                        </article>
+                </figure>
+            </article>
+        </div>
+        <div class="swiper-slide" data-swiper-slide-index="6" style="width: 286px; margin-right: 24px;">
+            <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
+                <figure class="h-full">
+                    <div class="p-6 space-y-1 flex flex-col h-full">
+                        <figcaption class="space-y-6">
+                            <div class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
+                                <i class="fa-brands fa-google fa-xl me-2"></i>
+                                <span class="relative -top-0.5">
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                </span>
+                            </div>
+                            <div class="font-semibold">Holly Ritchie</div>
+                        </figcaption>
+                        <blockquote class="grow">
+                            <p><span>Loved the property. Had a small issue with the hot tub and someone was there within the hour to fix it. That kind of service sticks with you.</span></p>
+                        </blockquote>
+                        <a href="https://luxteria.co/properties/fl/fort-lauderdale/park-place-mansion" class="text-base uppercase font-normal self-end tracking-wide">Park Place Mansion</a>
                     </div>
-                    <div class="swiper-slide" data-swiper-slide-index="7" style="width: 286px; margin-right: 24px;">
-                        <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
-                            <figure class="h-full">
-                                <div class="p-6 space-y-1 flex flex-col h-full">
-                                    <figcaption class="space-y-6">
-                                        <div
-                                            class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
-                                            <i class="fa-brands fa-google fa-xl me-2"></i>
-                                            <span class="relative -top-0.5">
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                            </span>
-                                        </div>
-                                        <div class="font-semibold">Terry Tsimiklis</div>
-                                    </figcaption>
-
-                                    <blockquote class="grow">
-                                        <p>
-                                            <span>We were 16 people on a golf trip. The house was great and the service was even
-                                                better. We booked the night before our arrival and the house was clean and ready
-                                                to go by 4:00pm check in. Thank you Kath...</span>
-                                        </p>
-                                    </blockquote>
-
-                                    <a href="https://luxteria.co/properties/fl/southwest-ranches/new-2-acre-modern-compound-modani-estates"
-                                        class="text-base uppercase font-normal self-end tracking-wide">Modani Estates</a>
-                                </div>
-                            </figure>
-                        </article>
+                </figure>
+            </article>
+        </div>
+        <div class="swiper-slide" data-swiper-slide-index="7" style="width: 286px; margin-right: 24px;">
+            <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
+                <figure class="h-full">
+                    <div class="p-6 space-y-1 flex flex-col h-full">
+                        <figcaption class="space-y-6">
+                            <div class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
+                                <i class="fa-brands fa-google fa-xl me-2"></i>
+                                <span class="relative -top-0.5">
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                </span>
+                            </div>
+                            <div class="font-semibold">Terry Tsimiklis</div>
+                        </figcaption>
+                        <blockquote class="grow">
+                            <p><span>16 guys on a golf trip. Booked last minute, showed up at 4pm, and the place was spotless. Kathy had everything handled before we even called.</span></p>
+                        </blockquote>
+                        <a href="https://luxteria.co/properties/fl/southwest-ranches/new-2-acre-modern-compound-modani-estates" class="text-base uppercase font-normal self-end tracking-wide">Modani Estates</a>
                     </div>
-                    <div class="swiper-slide" data-swiper-slide-index="8" style="width: 286px; margin-right: 24px;">
-                        <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
-                            <figure class="h-full">
-                                <div class="p-6 space-y-1 flex flex-col h-full">
-                                    <figcaption class="space-y-6">
-                                        <div
-                                            class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
-                                            <i class="fa-brands fa-google fa-xl me-2"></i>
-                                            <span class="relative -top-0.5">
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                            </span>
-                                        </div>
-                                        <div class="font-semibold">John Alley</div>
-                                    </figcaption>
-
-                                    <blockquote class="grow">
-                                        <p>
-                                            <span>Amazing property! Great communication. We had a blast. Thank you </span>
-                                        </p>
-                                    </blockquote>
-
-                                    <a href="https://luxteria.co/properties/fl/fort-lauderdale/las-palmas-royal-estate"
-                                        class="text-base uppercase font-normal self-end tracking-wide">Las Palmas Royal
-                                        Estate</a>
-                                </div>
-                            </figure>
-                        </article>
+                </figure>
+            </article>
+        </div>
+        <div class="swiper-slide" data-swiper-slide-index="8" style="width: 286px; margin-right: 24px;">
+            <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
+                <figure class="h-full">
+                    <div class="p-6 space-y-1 flex flex-col h-full">
+                        <figcaption class="space-y-6">
+                            <div class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
+                                <i class="fa-brands fa-google fa-xl me-2"></i>
+                                <span class="relative -top-0.5">
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                </span>
+                            </div>
+                            <div class="font-semibold">John Alley</div>
+                        </figcaption>
+                        <blockquote class="grow">
+                            <p><span>Amazing property and the team actually picks up the phone. Had a blast, would book again in a heartbeat.</span></p>
+                        </blockquote>
+                        <a href="https://luxteria.co/properties/fl/fort-lauderdale/las-palmas-royal-estate" class="text-base uppercase font-normal self-end tracking-wide">Las Palmas Royal Estate</a>
                     </div>
-                    <div class="swiper-slide" data-swiper-slide-index="9" style="width: 286px; margin-right: 24px;">
-                        <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
-                            <figure class="h-full">
-                                <div class="p-6 space-y-1 flex flex-col h-full">
-                                    <figcaption class="space-y-6">
-                                        <div
-                                            class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
-                                            <i class="fa-brands fa-google fa-xl me-2"></i>
-                                            <span class="relative -top-0.5">
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                            </span>
-                                        </div>
-                                        <div class="font-semibold">kristie Grandsko</div>
-                                    </figcaption>
-
-                                    <blockquote class="grow">
-                                        <p>
-                                            <span>What an incredible home for a family vacation! Conveniently located, very
-                                                clean, great pool and hot tub and plenty of space for everyone to spread out! We
-                                                met Kathy, the manager at check in and she wa...</span>
-                                        </p>
-                                    </blockquote>
-                                </div>
-                            </figure>
-                        </article>
+                </figure>
+            </article>
+        </div>
+        <div class="swiper-slide" data-swiper-slide-index="9" style="width: 286px; margin-right: 24px;">
+            <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
+                <figure class="h-full">
+                    <div class="p-6 space-y-1 flex flex-col h-full">
+                        <figcaption class="space-y-6">
+                            <div class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
+                                <i class="fa-brands fa-google fa-xl me-2"></i>
+                                <span class="relative -top-0.5">
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                </span>
+                            </div>
+                            <div class="font-semibold">Kristie Grandsko</div>
+                        </figcaption>
+                        <blockquote class="grow">
+                            <p><span>Perfect for a big family vacation. Clean, spacious, great pool, and Kathy met us at check-in with a smile. Felt like home from minute one.</span></p>
+                        </blockquote>
+                        <a href="https://luxteria.co/properties/fl/fort-lauderdale/park-place-mansion" class="text-base uppercase font-normal self-end tracking-wide">Park Place Mansion</a>
                     </div>
-                    <div class="swiper-slide" data-swiper-slide-index="10" style="width: 286px; margin-right: 24px;">
-                        <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
-                            <figure class="h-full">
-                                <div class="p-6 space-y-1 flex flex-col h-full">
-                                    <figcaption class="space-y-6">
-                                        <div
-                                            class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
-                                            <i class="fa-brands fa-google fa-xl me-2"></i>
-                                            <span class="relative -top-0.5">
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                            </span>
-                                        </div>
-                                        <div class="font-semibold">Chris Blevins</div>
-                                    </figcaption>
-
-                                    <blockquote class="grow">
-                                        <p>
-                                            <span></span>
-                                        </p>
-                                    </blockquote>
-
-                                    <a href="https://luxteria.co/properties/fl/fort-lauderdale/park-place-mansion"
-                                        class="text-base uppercase font-normal self-end tracking-wide">Park Place Mansion</a>
-                                </div>
-                            </figure>
-                        </article>
+                </figure>
+            </article>
+        </div>
+        <div class="swiper-slide" data-swiper-slide-index="10" style="width: 286px; margin-right: 24px;">
+            <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
+                <figure class="h-full">
+                    <div class="p-6 space-y-1 flex flex-col h-full">
+                        <figcaption class="space-y-6">
+                            <div class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
+                                <i class="fa-brands fa-google fa-xl me-2"></i>
+                                <span class="relative -top-0.5">
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                </span>
+                            </div>
+                            <div class="font-semibold">Chris Blevins</div>
+                        </figcaption>
+                        <blockquote class="grow">
+                            <p><span>Smooth from start to finish. No hidden nonsense, no surprises. Just a great house and a team that does what they say.</span></p>
+                        </blockquote>
+                        <a href="https://luxteria.co/properties/fl/fort-lauderdale/park-place-mansion" class="text-base uppercase font-normal self-end tracking-wide">Park Place Mansion</a>
                     </div>
-                    <div class="swiper-slide" data-swiper-slide-index="11" style="width: 286px; margin-right: 24px;">
-                        <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
-                            <figure class="h-full">
-                                <div class="p-6 space-y-1 flex flex-col h-full">
-                                    <figcaption class="space-y-6">
-                                        <div
-                                            class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
-                                            <i class="fa-brands fa-google fa-xl me-2"></i>
-                                            <span class="relative -top-0.5">
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                                <i class="fa-sharp fa-star fa-solid"></i>
-                                            </span>
-                                        </div>
-                                        <div class="font-semibold"></div>
-                                    </figcaption>
-
-                                    <blockquote class="grow">
-                                        <p>
-                                            <span>This place was great and Elly and Kathy were very responsive leading up to and
-                                                during our stay. I'd recommend this place to anyone!</span>
-                                        </p>
-                                    </blockquote>
-                                </div>
-                            </figure>
-                        </article>
+                </figure>
+            </article>
+        </div>
+        <div class="swiper-slide" data-swiper-slide-index="11" style="width: 286px; margin-right: 24px;">
+            <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
+                <figure class="h-full">
+                    <div class="p-6 space-y-1 flex flex-col h-full">
+                        <figcaption class="space-y-6">
+                            <div class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
+                                <i class="fa-brands fa-google fa-xl me-2"></i>
+                                <span class="relative -top-0.5">
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                    <i class="fa-sharp fa-star fa-solid"></i>
+                                </span>
+                            </div>
+                            <div class="font-semibold">Rachel &amp; Elly</div>
+                        </figcaption>
+                        <blockquote class="grow">
+                            <p><span>Elly and Kathy were on it the whole time. Quick replies, solved everything fast, and genuinely cared that we had a good trip. Would recommend to anyone.</span></p>
+                        </blockquote>
+                        <a href="https://luxteria.co/properties/fl/fort-lauderdale/park-place-mansion" class="text-base uppercase font-normal self-end tracking-wide">Park Place Mansion</a>
                     </div>
-                </div>
+                </figure>
+            </article>
+        </div>
+    </div>
+</div>
             </div>
             <script>
                 document.addEventListener('DOMContentLoaded', function () {

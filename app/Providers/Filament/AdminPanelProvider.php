@@ -23,11 +23,24 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
+        $siteName = 'Luxuri';
+        $favicon = null;
+
+        try {
+            $settings = \App\Models\HomepageSetting::first();
+            $siteName = $settings?->site_name ?? 'Luxuri';
+            $favicon = $settings?->favicon ? asset('storage/' . $settings->favicon) : null;
+        } catch (\Exception $e) {
+            // Table may not exist yet during initial setup
+        }
+
         return $panel
             ->default()
             ->id('admin')
             ->path('admin')
             ->login()
+            ->brandName($siteName)
+            ->favicon($favicon)
             ->colors([
                 'primary' => Color::Amber,
             ])
