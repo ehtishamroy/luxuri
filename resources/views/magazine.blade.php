@@ -35,7 +35,7 @@
                 <div class="mb-4">
                     <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-[4/3]">
                         @if($post->featured_image)
-                        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110"
+                        <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 "
                              loading="lazy" src="{{ $post->featured_image }}" alt="{{ $post->title }}">
                         @else
                         <div class="size-full bg-zinc-800 flex items-center justify-center rounded-lg">

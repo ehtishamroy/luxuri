@@ -139,8 +139,8 @@
             z-index: 9999;
             overflow: hidden;
             pointer-events: none;
-            mix-blend-mode: overlay;
-            opacity: 0.7;
+            mix-blend-mode: soft-light;
+            opacity: 0.5;
         }
         .liquid-bg .blob {
             position: absolute;
@@ -195,6 +195,12 @@
             33% { transform: translate(60px, -50px) scale(1.2) rotate(10deg); }
             66% { transform: translate(-40px, 30px) scale(0.85) rotate(-6deg); }
             100% { transform: translate(50px, -20px) scale(1.1) rotate(4deg); }
+        }
+
+        img {
+            image-rendering: auto;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
         .liquid-bg .cursor-blob {
             position: absolute;
@@ -602,6 +608,11 @@
                 mx = e.clientX;
                 my = e.clientY;
                 lastMove = Date.now();
+                const cursorBlob = document.querySelector('.cursor-blob');
+                if (cursorBlob) {
+                    const isOverImage = e.target.tagName === 'IMG' || e.target.closest('img');
+                    cursorBlob.style.opacity = isOverImage ? '0' : '0.9';
+                }
             });
             function update() {
                 const now = Date.now();

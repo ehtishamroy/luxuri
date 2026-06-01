@@ -105,7 +105,7 @@ new class extends Component {
                         <article class="relative text-sm group rounded-xl">
                             <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-10/7">
                                 @if($yacht->first_image)
-                                    <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110"
+                                    <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 "
                                          loading="lazy" src="{{ $yacht->first_image }}" alt="{{ $yacht->title }}" />
                                 @else
                                     <div class="size-full bg-zinc-800 rounded-lg"></div>

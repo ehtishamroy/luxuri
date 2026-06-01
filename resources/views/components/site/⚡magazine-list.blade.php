@@ -62,7 +62,7 @@ new class extends Component {
                         <article class="relative group text-sm">
                             @if($post->featured_image)
                                 <div class="relative overflow-hidden rounded-lg w-full mb-3 aspect-video">
-                                    <img class="pointer-events-none size-full object-cover transition-all duration-300 group-hover:scale-110"
+                                    <img class="pointer-events-none size-full object-cover transition-all duration-300 "
                                          loading="lazy"
                                          src="{{ $post->featured_image }}"
                                          alt="{{ $post->title }}" />

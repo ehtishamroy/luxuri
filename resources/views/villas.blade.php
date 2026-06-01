@@ -161,7 +161,7 @@
         <li class="wow fadeInUp" data-wow-delay="{{ ($index % 4) * 50 }}ms">
             <article class="relative text-sm group flex flex-col h-full">
                 <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-10/7">
-                    <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110" loading="lazy" src="{{ $villa->hero_image ?? asset('assets/images/placeholder.jpg') }}" alt="{{ $villa->title }}">
+                    <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 " loading="lazy" src="{{ $villa->hero_image ?? asset('assets/images/placeholder.jpg') }}" alt="{{ $villa->title }}">
                 </div>
                 <div class="flex gap-2">
                     <h3 class="text-lg font-normal uppercase transition-colors duration-300 group-hover:text-amber-200 grow">

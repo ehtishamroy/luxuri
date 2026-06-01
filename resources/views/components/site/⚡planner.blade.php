@@ -289,7 +289,7 @@ new class extends Component {
                                     <article class="relative text-sm group rounded-xl">
                                         @if($dest->hero_image)
                                         <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-7/5 max-md:hidden" wire:ignore>
-                                            <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110"
+                                            <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 "
                                                  loading="eager"
                                                  sizes="(max-width: 768px) 50vw, 300px"
                                                  src="{{ $dest->hero_image }}"
@@ -321,7 +321,7 @@ new class extends Component {
                                     <article class="relative text-sm group rounded-xl">
                                         @if($dest->hero_image)
                                         <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-7/5 max-md:hidden" wire:ignore>
-                                            <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110"
+                                            <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 "
                                                  loading="eager"
                                                  sizes="(max-width: 768px) 50vw, 300px"
                                                  src="{{ $dest->hero_image }}"

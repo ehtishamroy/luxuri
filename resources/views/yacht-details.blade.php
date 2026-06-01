@@ -195,12 +195,106 @@
                 <h2 class="text-3xl uppercase font-normal">Gallery</h2>
             </div>
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                @foreach($imageUrls as $img)
-                <img src="{{ $img }}" alt="{{ $yacht->title }}" class="w-full h-64 object-cover rounded-lg">
+                @foreach($imageUrls as $index => $img)
+                <button type="button"
+                    class="bg-zinc-900 rounded-lg shadow-lg relative overflow-hidden group cursor-pointer w-full h-64"
+                    @click="$dispatch('open-yacht-gallery', { mediaId: {{ $index }} })">
+                    <img src="{{ $img }}" alt="{{ $yacht->title }} {{ $index + 1 }}" class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 ">
+                </button>
                 @endforeach
             </div>
             @endif
         </div>
     </div>
 </div>
+
+{{-- Gallery Modal --}}
+@if(!empty($imageUrls))
+<div x-data="yachtGalleryModal()" @open-yacht-gallery.window="open($event.detail.mediaId)" class="contents">
+    <div x-show="isOpen"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         x-trap.inert.noscroll="isOpen"
+         @keydown.escape.window="close()" @click.self="close()"
+         class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md"
+         role="dialog" aria-modal="true" x-cloak>
+
+        <div x-show="isOpen"
+             x-transition:enter="transition ease-[cubic-bezier(0.34,1.56,0.64,1)] duration-500"
+             x-transition:enter-start="opacity-0 scale-90 translate-y-8"
+             x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+             x-transition:leave-end="opacity-0 scale-95 translate-y-4"
+             class="relative md:w-[90%] max-w-7xl h-[90vh] flex flex-col bg-zinc-900 rounded-xl overflow-hidden border border-zinc-800">
+
+            <div class="flex items-center justify-between px-6 py-4 border-b border-zinc-800 shrink-0">
+                <h3 class="text-xl font-semibold text-zinc-100">{{ $yacht->title }} Gallery</h3>
+                <button @click="close()" class="p-2 hover:bg-zinc-800 rounded-full transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5 text-zinc-400">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="flex-1 relative flex items-center justify-center bg-black overflow-hidden">
+                <button @click="prev()" class="absolute left-4 z-10 p-2 bg-black/50 hover:bg-black/70 rounded-full text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+
+                <img :src="images[selectedIndex]" :alt="'{{ $yacht->title }} ' + (selectedIndex + 1)"
+                     class="max-h-full max-w-full object-contain">
+
+                <button @click="next()" class="absolute right-4 z-10 p-2 bg-black/50 hover:bg-black/70 rounded-full text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="shrink-0 h-20 px-4 py-2 bg-zinc-900 border-t border-zinc-800 overflow-x-auto no-scrollbar"
+                 x-effect="$nextTick(() => { const container = $el; const active = container.children[0]?.children[selectedIndex]; if(active) active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); })">
+                <div class="flex gap-2 h-full items-center">
+                    <template x-for="(image, index) in images" :key="index">
+                        <button @click="selectedIndex = index"
+                                class="h-14 w-20 flex-shrink-0 rounded-md overflow-hidden transition-all border-2"
+                                :class="selectedIndex === index ? 'border-amber-500 opacity-100 scale-105' : 'border-transparent opacity-50 hover:opacity-90'">
+                            <img :src="image" :alt="'{{ $yacht->title }} ' + (index + 1)" class="w-full h-full object-cover">
+                        </button>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function yachtGalleryModal() {
+        return {
+            isOpen: false,
+            selectedIndex: 0,
+            images: {!! json_encode($imageUrls) !!},
+            open(mediaId) {
+                if (mediaId !== undefined && mediaId !== null) {
+                    const idx = parseInt(mediaId);
+                    if (!isNaN(idx) && idx >= 0 && idx < this.images.length) {
+                        this.selectedIndex = idx;
+                    }
+                }
+                this.isOpen = true;
+            },
+            close() { this.isOpen = false; },
+            next() { this.selectedIndex = (this.selectedIndex + 1) % this.images.length; },
+            prev() { this.selectedIndex = (this.selectedIndex - 1 + this.images.length) % this.images.length; }
+        }
+    }
+</script>
+@endif
+
 @endsection

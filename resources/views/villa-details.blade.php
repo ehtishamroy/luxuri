@@ -43,7 +43,7 @@
                             class="bg-zinc-900 rounded-2xl shadow-lg relative overflow-hidden group cursor-pointer
                                 {{ $index === 0 ? 'col-span-4 lg:col-span-2 lg:row-span-2 h-full' : 'max-md:hidden' }}"
                             @click="$dispatch('open-gallery-modal', { tab: 'gallery', mediaId: {{ $index }} })">
-                            <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 group-hover:scale-110"
+                            <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 "
                                 src="{{ $img }}" alt="{{ $villa->title }} {{ $index + 1 }}">
                         </button>
                     @endforeach
@@ -308,7 +308,7 @@
                         <a href="{{ route('villas.show', $r->slug) }}" class="group block space-y-3">
                             <div class="overflow-hidden rounded-xl aspect-video">
                                 @if($r->first_image)
-                                    <img class="size-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    <img class="size-full object-cover  transition-transform duration-500"
                                          loading="lazy" src="{{ $r->first_image }}" alt="{{ $r->title }}" />
                                 @else
                                     <div class="size-full bg-zinc-800"></div>
