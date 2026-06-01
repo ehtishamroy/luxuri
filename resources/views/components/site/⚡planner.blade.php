@@ -108,39 +108,39 @@ new class extends Component {
              :class="!$wire.plannerVisible ? (hasBeenFixed ? 'translate-y-0' : 'translate-y-full') : ''">
 
             <div :class="hasBeenFixed ? '' : 'max-md:min-h-64'">
-                <div class="w-full max-w-2xl p-5 bg-black/70 border border-zinc-50/90 backdrop-blur-[2px] rounded-xl"
+                <div class="w-full max-w-2xl p-5 bg-black/80 border border-white/20 backdrop-blur-[3px] rounded-2xl shadow-[0_24px_60px_rgba(0,0,0,0.65)]"
                      x-on:click.outside="showPlannerFields = false">
 
                     {{-- Desktop layout --}}
-                    <div class="hidden md:flex gap-4 items-end">
-                        <div class="divide-x divide-zinc-200/80 grid grid-cols-15 max-md:grid-cols-5 gap-y-2">
+                    <div class="hidden md:flex gap-5 items-end">
+                        <div class="divide-x divide-white/10 grid grid-cols-15 max-md:grid-cols-5 gap-y-2">
                             <div class="col-span-4 pe-2 md:px-4 text-left max-md:col-span-2">
-                                <label class="font-medium text-sm max-sm:text-xs">Check in
+                                <label class="font-medium text-[11px] tracking-[0.16em] uppercase text-zinc-300">Check in
                                     <input type="text"
                                            @click="openDatePicker('from')"
                                            x-model="outputDateFromValue"
-                                           :class="{'border-b-zinc-50': selectingDate == 'from'}"
+                                           :class="{'border-b-white': selectingDate == 'from'}"
                                            placeholder="Select date"
-                                           class="text-zinc-300 py-1 truncate text-sm max-sm:text-xs focus:outline-none border-1 border-transparent block max-w-full w-full focus-within:border-b-zinc-50 border-b-zinc-50">
+                                           class="mt-1 text-zinc-50 placeholder-zinc-500 py-1.5 truncate text-sm max-sm:text-xs focus:outline-none border border-transparent border-b-white/30 bg-transparent block max-w-full w-full focus-within:border-b-white">
                                 </label>
                             </div>
                             <div class="col-span-4 px-2 md:px-4 text-left max-md:col-span-2">
-                                <label class="font-medium text-sm max-sm:text-xs">Check out
+                                <label class="font-medium text-[11px] tracking-[0.16em] uppercase text-zinc-300">Check out
                                     <input type="text"
                                            @click="openDatePicker('to')"
                                            x-model="outputDateToValue"
-                                           :class="{'border-b-zinc-50': selectingDate == 'to'}"
+                                           :class="{'border-b-white': selectingDate == 'to'}"
                                            placeholder="Select date"
-                                           class="text-zinc-300 py-1 truncate text-sm max-sm:text-xs focus:outline-none border-1 border-transparent block max-w-full w-full focus-within:border-b-zinc-50">
+                                           class="mt-1 text-zinc-50 placeholder-zinc-500 py-1.5 truncate text-sm max-sm:text-xs focus:outline-none border border-transparent border-b-white/30 bg-transparent block max-w-full w-full focus-within:border-b-white">
                                 </label>
                             </div>
                             <div class="col-span-3 ps-2 md:px-4 text-left max-md:col-span-1">
-                                <label class="font-medium text-sm max-sm:text-xs">Guests
+                                <label class="font-medium text-[11px] tracking-[0.16em] uppercase text-zinc-300">Guests
                                     <input type="number"
                                            @click="$wire.showDatepicker = false; $wire.showDestinations = false"
                                            x-model="guests"
-                                           placeholder="2"
-                                           class="text-zinc-300 py-1 truncate text-sm max-sm:text-xs focus:outline-none border-1 border-transparent block max-w-full w-full focus-within:border-b-zinc-50">
+                                            placeholder="2"
+                                           class="mt-1 text-zinc-50 placeholder-zinc-500 py-1.5 truncate text-sm max-sm:text-xs focus:outline-none border border-transparent border-b-white/30 bg-transparent block max-w-full w-full focus-within:border-b-white">
                                 </label>
                             </div>
                         </div>
@@ -151,7 +151,7 @@ new class extends Component {
                                     @click="showPlannerFields = false">Close</button>
                             @endif
                             <button type="button"
-                                    class="rounded-md bg-zinc-50 px-2.5 py-1.5 text-sm font-semibold text-black shadow-xs transition-all hover:bg-amber-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300 md:size-12 max-md:w-full max-sm:text-xs max-sm:py-2"
+                                    class="inline-flex items-center justify-center rounded-full border border-white/40 bg-white/5 px-4 py-2 text-sm font-semibold text-white shadow-sm backdrop-blur-sm transition-all hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:size-12 md:px-0 max-md:w-full max-sm:text-xs max-sm:py-2"
                                     wire:click="handleSearch">
                                 <i class="fa-sharp fa-solid fa-magnifying-glass max-md:me-1"></i>
                                 <span class="md:hidden">Search</span>
@@ -168,46 +168,46 @@ new class extends Component {
                              'opacity-0': !showPlannerFields
                          }">
                         <div class="flex flex-col gap-4">
-                            <div class="divide-x divide-zinc-200/80 grid grid-cols-5 gap-y-2">
+                            <div class="divide-x divide-white/10 grid grid-cols-5 gap-y-2">
                                 
                                 <div class="col-span-2 pe-2">
-                                    <label class="font-medium text-sm max-sm:text-xs">Check in
+                                    <label class="font-medium text-[11px] tracking-[0.16em] uppercase max-sm:text-xs text-zinc-300">Check in
                                         <input type="text"
                                                @click="openDatePicker('from')"
                                                x-model="outputDateFromValue"
-                                               :class="{'border-b-zinc-50': selectingDate == 'from'}"
+                                               :class="{'border-b-white': selectingDate == 'from'}"
                                                placeholder="Select date"
                                                readonly
-                                               class="text-zinc-300 py-1 truncate text-base focus:outline-none border-1 border-transparent block max-w-full w-full focus-within:border-b-zinc-50 border-b-zinc-50">
+                                               class="mt-1 text-zinc-50 placeholder-zinc-500 py-1.5 truncate text-base focus:outline-none border border-transparent block max-w-full w-full border-b-white/30 bg-transparent focus-within:border-b-white">
                                     </label>
                                 </div>
                                 <div class="col-span-2 px-2">
-                                    <label class="font-medium text-sm max-sm:text-xs">Check out
+                                    <label class="font-medium text-[11px] tracking-[0.16em] uppercase max-sm:text-xs text-zinc-300">Check out
                                         <input type="text"
                                                @click="openDatePicker('to')"
                                                x-model="outputDateToValue"
-                                               :class="{'border-b-zinc-50': selectingDate == 'to'}"
+                                               :class="{'border-b-white': selectingDate == 'to'}"
                                                placeholder="Select date"
                                                readonly
-                                               class="text-zinc-300 py-1 truncate text-base focus:outline-none border-1 border-transparent block max-w-full w-full focus-within:border-b-zinc-50">
+                                               class="mt-1 text-zinc-50 placeholder-zinc-500 py-1.5 truncate text-base focus:outline-none border border-transparent block max-w-full w-full border-b-white/30 bg-transparent focus-within:border-b-white">
                                     </label>
                                 </div>
                                 <div class="col-span-1 ps-2">
-                                    <label class="font-medium text-sm max-sm:text-xs">Guests
+                                    <label class="font-medium text-[11px] tracking-[0.16em] uppercase max-sm:text-xs text-zinc-300">Guests
                                         <input type="number"
                                                @click="$wire.showDatepicker = false; $wire.showDestinations = false"
                                                x-model="guests"
                                                placeholder="2"
-                                               class="text-zinc-300 py-1 truncate text-base focus:outline-none border-1 border-transparent block max-w-full w-full focus-within:border-b-zinc-50">
+                                               class="mt-1 text-zinc-50 placeholder-zinc-500 py-1.5 truncate text-base focus:outline-none border border-transparent block max-w-full w-full border-b-white/30 bg-transparent focus-within:border-b-white">
                                     </label>
                                 </div>
                             </div>
                             <div class="flex gap-2">
                                 <button type="button"
-                                        class="rounded-md border cursor-pointer border-zinc-50/30 text-zinc-50 px-2.5 py-1.5 text-sm font-normal shadow-xs transition-all hover:bg-zinc-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300 max-sm:py-2"
+                                        class="rounded-full border cursor-pointer border-white/30 text-zinc-100 px-3.5 py-1.5 text-sm font-normal shadow-xs transition-all hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white max-sm:py-2"
                                         @click="showPlannerFields = false">Close</button>
                                 <button type="button"
-                                        class="rounded-md bg-zinc-50 px-2.5 py-1.5 text-sm font-semibold text-black shadow-xs transition-all hover:bg-amber-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300 w-full max-sm:py-2"
+                                        class="rounded-full border border-white/40 bg-white/10 px-3.5 py-1.5 text-sm font-semibold text-white shadow-xs transition-all hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white w-full max-sm:py-2"
                                         wire:click="handleSearch">
                                     <i class="fa-sharp fa-solid fa-magnifying-glass me-1"></i>
                                     <span>Search</span>
@@ -228,18 +228,18 @@ new class extends Component {
                         <div class="flex gap-2 w-full" @click="showPlannerFields = true">
                             <div class="font-medium text-sm w-full">
                                 <div class="flex gap-2 items-baseline">
-                                    <div class="grow">Dates</div>
-                                    <div class="text-zinc-300 text-xs" x-text="outputDateFromValue ? new Date(outputDateFromValue).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''"></div>
+                                    <div class="grow tracking-[0.16em] uppercase text-[11px] text-zinc-400">Dates</div>
+                                    <div class="text-zinc-200 text-xs" x-text="outputDateFromValue ? new Date(outputDateFromValue).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''"></div>
                                     -
-                                    <div class="text-zinc-300 text-xs" x-text="outputDateToValue ? new Date(outputDateToValue).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''"></div>
+                                    <div class="text-zinc-200 text-xs" x-text="outputDateToValue ? new Date(outputDateToValue).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''"></div>
                                 </div>
-                                <div class="text-zinc-300 py-1 text-sm w-full">
+                                <div class="text-zinc-400 py-1 text-sm w-full">
                                     <span x-text="(outputDateFromValue && outputDateToValue) ? (new Date(outputDateFromValue).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ' - ' + new Date(outputDateToValue).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })) : 'Select dates'"></span>
                                 </div>
                             </div>
                             <div class="shrink-0">
                                 <button type="button"
-                                        class="rounded-md bg-zinc-50 px-2.5 py-1.5 text-sm font-semibold text-black shadow-xs transition-all hover:bg-amber-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300 size-12"
+                                        class="rounded-full border border-white/40 bg-white/10 px-2.5 py-1.5 text-sm font-semibold text-white shadow-xs transition-all hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white size-12"
                                         wire:click="handleSearch">
                                     <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
                                 </button>
@@ -263,23 +263,23 @@ new class extends Component {
                  x-transition:leave-start="opacity-100 translate-y-0"
                  x-transition:leave-end="opacity-0 translate-y-1"
                  style="display: none;">
-                <div class="w-screen max-w-2xl flex-auto bg-black/90 border border-zinc-50/90 backdrop-blur-[2px] rounded-xl shadow-lg ring-1 ring-gray-900/5">
+                <div class="w-screen max-w-2xl flex-auto bg-black/90 border border-white/20 backdrop-blur-[4px] rounded-2xl shadow-[0_24px_70px_rgba(0,0,0,0.8)] ring-1 ring-black/80">
                     <input type="hidden" name="date_from" wire:model="dateFromYmd" x-model="dateFromYmd">
                     <input type="hidden" name="date_to" wire:model="dateToYmd" x-model="dateToYmd">
                     <div class="p-6">
                         <div class="flex justify-between items-center mb-4">
                             <div class="flex items-center gap-3">
-                                <label class="font-medium text-zinc-50">Select Date Range</label>
-                                <span x-show="selectingDate" class="px-3 py-1 bg-amber-500/20 text-amber-300 rounded-full text-sm">
+                                <label class="font-medium text-xs tracking-[0.18em] uppercase text-zinc-200">Select Date Range</label>
+                                <span x-show="selectingDate" class="px-3 py-1 bg-white/10 text-zinc-100 rounded-full text-xs tracking-wide">
                                     <span x-text="selectingDate === 'from' ? 'Selecting Check-in' : 'Selecting Check-out'"></span>
                                 </span>
                             </div>
-                            <button type="button" @click="clearDates()" class="text-zinc-300 hover:text-white transition-colors text-sm">Clear dates</button>
+                            <button type="button" @click="clearDates()" class="text-xs font-medium tracking-[0.16em] uppercase text-zinc-400 hover:text-zinc-100 transition-colors">Clear dates</button>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {{-- First Month --}}
                             <div class="flex flex-col items-center">
-                                <div class="w-full flex justify-between items-center mb-2 border-b border-zinc-200/30 py-1">
+                                <div class="w-full flex justify-between items-center mb-2 border-b border-white/10 py-1">
                                     <button type="button" class="size-8 transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-zinc-700 p-1 rounded-md" @click="previousMonth()">
                                         <svg class="size-6 text-zinc-50 inline-flex" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                                     </button>
@@ -293,7 +293,7 @@ new class extends Component {
                                 </div>
                                 <div class="w-full flex flex-wrap mb-3 -mx-1">
                                     <template x-for="(day, index) in DAYS" :key="index">
-                                        <div class="w-1/7 px-1"><div x-text="day" class="text-zinc-200 font-normal text-center text-xs"></div></div>
+                                        <div class="w-1/7 px-1"><div x-text="day" class="text-zinc-300 font-normal text-center text-[11px]"></div></div>
                                     </template>
                                 </div>
                                 <div class="flex flex-wrap -mx-1">
@@ -306,13 +306,13 @@ new class extends Component {
                                                  @mouseover="getDateValue(date, true, 'first')"
                                                  @mouseleave="hoveredDate = null; tempDateFrom = null; tempDateTo = null"
                                                  x-text="date"
-                                                 class="p-1.5 cursor-pointer text-center text-sm transition ease-in-out duration-100"
+                                                 class="p-1.5 cursor-pointer text-center text-[13px] transition ease-in-out duration-100"
                                                  :class="{
-                                                     'font-bold': isToday(date, 'first'),
+                                                     'font-semibold text-white': isToday(date, 'first'),
                                                      'bg-white text-black rounded-l-md': isDateFrom(date, 'first'),
                                                      'bg-white text-black rounded-r-md': isDateTo(date, 'first'),
-                                                     'bg-amber-100 text-black': isInRange(date, 'first'),
-                                                     'ring-2 ring-amber-400': isHoveredDate(date, 'first')
+                                                     'bg-zinc-200 text-black': isInRange(date, 'first'),
+                                                     'ring-2 ring-white/80': isHoveredDate(date, 'first')
                                                  }"></div>
                                         </div>
                                     </template>
@@ -346,13 +346,13 @@ new class extends Component {
                                                  @mouseover="getDateValue(date, true, 'second')"
                                                  @mouseleave="hoveredDate = null; tempDateFrom = null; tempDateTo = null"
                                                  x-text="date"
-                                                 class="p-1.5 cursor-pointer text-center text-sm transition ease-in-out duration-100"
+                                                 class="p-1.5 cursor-pointer text-center text-[13px] transition ease-in-out duration-100"
                                                  :class="{
-                                                     'font-bold': isToday(date, 'second'),
+                                                     'font-semibold text-white': isToday(date, 'second'),
                                                      'bg-white text-black rounded-l-md': isDateFrom(date, 'second'),
                                                      'bg-white text-black rounded-r-md': isDateTo(date, 'second'),
-                                                     'bg-amber-100 text-black': isInRange(date, 'second'),
-                                                     'ring-2 ring-amber-400': isHoveredDate(date, 'second')
+                                                     'bg-zinc-200 text-black': isInRange(date, 'second'),
+                                                     'ring-2 ring-white/80': isHoveredDate(date, 'second')
                                                  }"></div>
                                         </div>
                                     </template>
