@@ -62,7 +62,7 @@
             }" x-effect="updateResponsiveImages()">
 
                 <article class="relative group puffIn text-sm">
-                    <div class="mb-4">
+                    <div class="mb-4 cursor-pointer" @click="modalIsOpen = true">
                         <div class="relative overflow-hidden rounded-lg w-full aspect-[4/3]" wire:ignore>
                             @if($service->image)
                                 <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-500 group-hover:scale-110" loading="lazy" src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->title }}">
@@ -72,22 +72,20 @@
                         </div>
                     </div>
 
-                    <div class="relative z-10 flex flex-col gap-2">
-                        <h3 class="text-lg font-normal uppercase transition-colors duration-300 group-hover:text-amber-200">
+                    <div class="flex flex-col gap-2">
+                        <h3 class="text-lg font-normal uppercase transition-colors duration-300 group-hover:text-amber-200 cursor-pointer" @click="modalIsOpen = true">
                             {{ $service->title }}
                         </h3>
-                        <p class="text-zinc-400 text-sm leading-relaxed line-clamp-2">
+                        <p class="text-zinc-400 text-sm leading-relaxed line-clamp-2 cursor-pointer" @click="modalIsOpen = true">
                             {{ Str::limit(strip_tags($service->description), 100) }}
                         </p>
                         <div class="pt-1">
-                            <a href="{{ route('contact') }}"
+                            <a href="{{ route('contact') }}" @click.stop
                                class="inline-block rounded-md border cursor-pointer border-zinc-50/30 text-zinc-50 px-3 py-1.5 text-sm font-normal shadow-xs transition-all hover:bg-amber-50 hover:text-black hover:border-amber-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-300">
                                 Inquire
                             </a>
                         </div>
                     </div>
-
-                    <button x-on:click="modalIsOpen = true" type="button" class="absolute inset-0 z-0 cursor-pointer" aria-label="View {{ $service->title }} details"></button>
                 </article>
 
                 <div x-cloak x-show="modalIsOpen" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalIsOpen"
