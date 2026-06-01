@@ -31,6 +31,17 @@ class Yacht extends Model
         'length_ft' => 'decimal:2',
     ];
 
+    protected static function booted()
+    {
+        static::saving(function ($yacht) {
+            if (is_array($yacht->images) && count($yacht->images) > 0) {
+                $yacht->featured_image = $yacht->images[0];
+            } else {
+                $yacht->featured_image = null;
+            }
+        });
+    }
+
     public function getRouteKeyName(): string
     {
         return 'slug';
@@ -38,19 +49,15 @@ class Yacht extends Model
 
     public function getFirstImageAttribute(): ?string
     {
+        $path = $this->featured_image;
+        if ($path) {
+            return Storage::disk('public')->url($path);
+        }
+
         if (!is_array($this->images) || count($this->images) === 0) {
             return null;
         }
         return Storage::disk('public')->url($this->images[0]);
-    }
-
-    public function getHeroImageAttribute(): ?string
-    {
-        $path = $this->getAttributes()['featured_image'] ?? null;
-        if ($path) {
-            return Storage::disk('public')->url($path);
-        }
-        return $this->first_image;
     }
 
     public function getImageUrlsAttribute(): array

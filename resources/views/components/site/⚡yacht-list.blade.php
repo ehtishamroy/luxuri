@@ -104,9 +104,9 @@ new class extends Component {
                     <div wire:key="yacht-{{ $yacht->id }}">
                         <article class="relative text-sm group rounded-xl">
                             <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-10/7">
-                                @if($yacht->hero_image)
+                                @if($yacht->first_image)
                                     <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 "
-                                         loading="lazy" src="{{ $yacht->hero_image }}" alt="{{ $yacht->title }}" />
+                                         loading="lazy" src="{{ $yacht->first_image }}" alt="{{ $yacht->title }}" />
                                 @else
                                     <div class="size-full bg-zinc-800 rounded-lg"></div>
                                 @endif
