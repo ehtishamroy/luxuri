@@ -194,9 +194,9 @@
                     <li class="wow fadeInUp" data-wow-delay="{{ $loop_i * 50 }}ms">
                         <article class="relative text-sm group">
                             <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-10/7" wire:ignore>
-                                @if ($villa->first_image)
+                                @if ($villa->hero_image)
                                     <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 "
-                                        loading="lazy" src="{{ $villa->first_image }}" alt="{{ $villa->title }}">
+                                        loading="lazy" src="{{ $villa->hero_image }}" alt="{{ $villa->title }}">
                                 @else
                                     <div class="size-full bg-zinc-800 rounded-lg"></div>
                                 @endif
