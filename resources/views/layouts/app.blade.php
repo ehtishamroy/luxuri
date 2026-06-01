@@ -9,8 +9,8 @@
         $siteName = $settings->site_name ?? 'Luxteria';
         $seoTitle = app('seotools.metatags')->getTitle();
         $seoDesc = app('seotools.metatags')->getDescription();
-        $defaultTitle = 'Hand-Picked ' . $siteName . ' Villa Rentals and Private Homes';
-        $defaultDesc = 'Discover unparalleled luxury with ' . $siteName . '’s vacation villas, elite car and yacht rentals, and bespoke concierge services across top global destinations.';
+        $defaultTitle = 'Luxury Concierge & Villa Experiences in Miami';
+        $defaultDesc = 'From private villas and yachts to VIP lifestyle services LUXTERIA handles every detail with discretion, speed, and luxury.';
 
         $pageTitle = $seoTitle ?: $defaultTitle;
         $pageTitle = str_replace('Luxuri Magazine', $siteName . ' Magazine', $pageTitle);
