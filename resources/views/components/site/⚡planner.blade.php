@@ -112,18 +112,8 @@ new class extends Component {
                      x-on:click.outside="showPlannerFields = false">
 
                     {{-- Desktop layout --}}
-                    <div class="hidden md:flex gap-4">
+                    <div class="hidden md:flex gap-4 items-end">
                         <div class="divide-x divide-zinc-200/80 grid grid-cols-15 max-md:grid-cols-5 gap-y-2">
-                            <div class="col-span-4 md:pe-4 text-left max-md:col-span-5 max-md:border-e-0 max-md:border-b">
-                                <label class="font-medium text-sm max-sm:text-xs">Where
-                                    <input wire:model.live="search" type="text"
-                                           @click="$wire.showDestinations = true; $wire.showDatepicker = false"
-                                           x-model="$wire.search"
-                                           x-ref="searchInput"
-                                           placeholder="Location"
-                                           class="text-zinc-300 py-1 truncate text-sm max-sm:text-xs focus:outline-none border-1 border-transparent max-w-full w-full block focus-within:border-b-zinc-50">
-                                </label>
-                            </div>
                             <div class="col-span-4 pe-2 md:px-4 text-left max-md:col-span-2">
                                 <label class="font-medium text-sm max-sm:text-xs">Check in
                                     <input type="text"
@@ -169,7 +159,7 @@ new class extends Component {
                         </div>
                     </div>
 
-                    {{-- Mobile expanded fields --}}
+                    {{-- Mobile expanded fields (Location removed) --}}
                     <div class="md:hidden transition-all duration-300 ease-in-out overflow-hidden max-h-0 opacity-0"
                          :class="{
                              'max-h-96': showPlannerFields,
@@ -179,16 +169,7 @@ new class extends Component {
                          }">
                         <div class="flex flex-col gap-4">
                             <div class="divide-x divide-zinc-200/80 grid grid-cols-5 gap-y-2">
-                                <div class="col-span-5 border-b border-e-0">
-                                    <label class="font-medium text-sm max-sm:text-xs">Where
-                                        <input wire:model.live="search" type="text"
-                                               @click="$wire.showDestinations = true; $wire.showDatepicker = false"
-                                               x-model="$wire.search"
-                                               x-ref="searchInput"
-                                               placeholder="Location"
-                                               class="text-zinc-300 py-1 truncate text-base focus:outline-none border-1 border-transparent max-w-full w-full block focus-within:border-b-zinc-50">
-                                    </label>
-                                </div>
+                                
                                 <div class="col-span-2 pe-2">
                                     <label class="font-medium text-sm max-sm:text-xs">Check in
                                         <input type="text"
@@ -235,7 +216,7 @@ new class extends Component {
                         </div>
                     </div>
 
-                    {{-- Mobile compact view --}}
+                    {{-- Mobile compact view (shows only dates) --}}
                     <div class="md:hidden w-full overflow-hidden"
                          x-show="!showPlannerFields"
                          x-transition:enter="transition-all ease-out duration-300"
@@ -247,12 +228,14 @@ new class extends Component {
                         <div class="flex gap-2 w-full" @click="showPlannerFields = true">
                             <div class="font-medium text-sm w-full">
                                 <div class="flex gap-2 items-baseline">
-                                    <div class="grow">Location</div>
+                                    <div class="grow">Dates</div>
                                     <div class="text-zinc-300 text-xs" x-text="outputDateFromValue ? new Date(outputDateFromValue).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''"></div>
                                     -
                                     <div class="text-zinc-300 text-xs" x-text="outputDateToValue ? new Date(outputDateToValue).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''"></div>
                                 </div>
-                                <div class="text-zinc-300 py-1 text-sm w-full" x-text="$wire.search || 'Locations...'">Destinations...</div>
+                                <div class="text-zinc-300 py-1 text-sm w-full">
+                                    <span x-text="(outputDateFromValue && outputDateToValue) ? (new Date(outputDateFromValue).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ' - ' + new Date(outputDateToValue).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })) : 'Select dates'"></span>
+                                </div>
                             </div>
                             <div class="shrink-0">
                                 <button type="button"
@@ -267,84 +250,7 @@ new class extends Component {
                 </div>
             </div>
 
-            {{-- Destinations dropdown --}}
-            <div class="absolute left-1/2 z-10 mt-2 flex w-screen max-w-max -translate-x-1/2 px-4 max-md:bottom-full"
-                 x-show="$wire.showDestinations"
-                 x-transition:enter="transition ease-out duration-350"
-                 :class="$wire.plannerVisible ? '' : 'bottom-full'"
-                 x-transition:enter-start="opacity-0 translate-y-1"
-                 x-transition:enter-end="opacity-100 translate-y-0"
-                 x-transition:leave="transition ease-in duration-150"
-                 x-transition:leave-start="opacity-100 translate-y-0"
-                 x-transition:leave-end="opacity-0 translate-y-1"
-                 style="display: none;">
-                <div class="w-screen max-w-2xl flex-auto bg-black/90 border border-zinc-50/90 backdrop-blur-[2px] rounded-xl shadow-lg ring-1 ring-gray-900/5">
-                    <div class="px-6 pt-6 pb-6 max-md:text-xs">
-                        @if($searchResults->isNotEmpty())
-                        <div class="mb-6">
-                            <div class="font-medium mb-3 text-zinc-50">Search Results</div>
-                            <ul class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                                @foreach($searchResults as $dest)
-                                <li>
-                                    <article class="relative text-sm group rounded-xl">
-                                        @if($dest->hero_image)
-                                        <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-7/5 max-md:hidden" wire:ignore>
-                                            <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 "
-                                                 loading="eager"
-                                                 sizes="(max-width: 768px) 50vw, 300px"
-                                                 src="{{ $dest->hero_image }}"
-                                                 alt="{{ $dest->name }}">
-                                        </div>
-                                        @endif
-                                        <div class="flex gap-2 mb-2">
-                                            <h3 class="text-base font-normal uppercase transition-colors duration-300 group-hover:text-amber-200 grow">
-                                                <button type="button" class="text-center w-full max-md:text-sm" wire:click="setDestination('{{ $dest->slug }}')">
-                                                    {{ $dest->name }}
-                                                    <div class="absolute inset-0"></div>
-                                                </button>
-                                            </h3>
-                                        </div>
-                                    </article>
-                                </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        @endif
-                        @if($otherDestinations->isNotEmpty())
-                        <div>
-                            <div class="font-medium mb-3 text-zinc-50">
-                                {{ $searchResults->isNotEmpty() ? 'Explore other locations' : 'Locations' }}
-                            </div>
-                            <ul class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                                @foreach($otherDestinations as $dest)
-                                <li>
-                                    <article class="relative text-sm group rounded-xl">
-                                        @if($dest->hero_image)
-                                        <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-7/5 max-md:hidden" wire:ignore>
-                                            <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 "
-                                                 loading="eager"
-                                                 sizes="(max-width: 768px) 50vw, 300px"
-                                                 src="{{ $dest->hero_image }}"
-                                                 alt="{{ $dest->name }}">
-                                        </div>
-                                        @endif
-                                        <div class="flex gap-2 mb-2">
-                                            <h3 class="text-base font-normal uppercase transition-colors duration-300 group-hover:text-amber-200 grow">
-                                                <button type="button" class="text-center w-full max-md:text-sm" wire:click="setDestination('{{ $dest->slug }}')">
-                                                    {{ $dest->name }}
-                                                    <div class="absolute inset-0"></div>
-                                                </button>
-                                            </h3>
-                                        </div>
-                                    </article>
-                                </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        @endif
-                    </div>
-                </div>
-            </div>
+            {{-- Destinations dropdown removed --}}
 
             {{-- Datepicker dropdown --}}
             <div class="absolute left-1/2 z-10 mt-2 flex w-screen max-w-max -translate-x-1/2 px-4 max-md:bottom-full"
