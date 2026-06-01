@@ -31,9 +31,9 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="{{ $pageTitle }}">
     <meta property="og:description" content="{{ $pageDesc }}">
-    <meta property="og:image" content="{{ asset('media/OpenGraph-Luxuri.png') }}">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
+    <meta property="og:image" content="{{ asset('apple-touch-icon.png') }}">
+    <meta property="og:image:width" content="180">
+    <meta property="og:image:height" content="180">
     <meta property="og:image:alt" content="{{ $pageTitle }}">
     <meta property="og:url" content="{{ url('/') }}">
     <meta property="og:site_name" content="{{ $siteName }}">
@@ -46,7 +46,7 @@
     <meta name="twitter:url" content="{{ url('/') }}">
     <meta name="twitter:title" content="{{ $pageTitle }}">
     <meta name="twitter:description" content="{{ $pageDesc }}">
-    <meta name="twitter:image" content="{{ asset('media/OpenGraph-Luxuri.png') }}">
+    <meta name="twitter:image" content="{{ asset('apple-touch-icon.png') }}">
 
 
 
