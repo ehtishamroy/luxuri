@@ -11,7 +11,7 @@ class Yacht extends Model
         'title', 'slug', 'description', 'includes', 'make', 'style', 'length_ft',
         'cabins', 'max_guests', 'price_per_day', 'price_per_hour',
         'charter_4h_price', 'charter_6h_price', 'charter_8h_price',
-        'images', 'featured_image', 'tags', 'location', 'featured', 'active',
+        'images', 'tags', 'location', 'featured', 'active',
         'crew_included', 'catering_available',
         'meta_title', 'meta_description', 'external_id',
     ];
@@ -31,18 +31,6 @@ class Yacht extends Model
         'length_ft' => 'decimal:2',
     ];
 
-    protected static function booted()
-    {
-        static::saving(function ($yacht) {
-            if (is_array($yacht->images) && count($yacht->images) > 0) {
-                $images = array_values($yacht->images);
-                $yacht->featured_image = $images[0];
-            } else {
-                $yacht->featured_image = null;
-            }
-        });
-    }
-
     public function getRouteKeyName(): string
     {
         return 'slug';
@@ -50,14 +38,10 @@ class Yacht extends Model
 
     public function getFirstImageAttribute(): ?string
     {
-        $path = $this->featured_image;
-        if ($path) {
-            return Storage::disk('public')->url($path);
-        }
-
         if (!is_array($this->images) || count($this->images) === 0) {
             return null;
         }
+        // Use array_values to reset keys and ensure we get the first image in order
         $images = array_values($this->images);
         return Storage::disk('public')->url($images[0]);
     }

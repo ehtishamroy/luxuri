@@ -11,14 +11,14 @@ class CheckYachtImages extends Command
      *
      * @var string
      */
-    protected $signature = 'yachts:sync-featured-images';
+    protected $signature = 'app:check-yacht-images';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Sync featured_image to the first gallery image for all yachts';
+    protected $description = 'Command description';
 
     /**
      * Execute the console command.
@@ -28,15 +28,9 @@ class CheckYachtImages extends Command
         $yachts = \App\Models\Yacht::all();
         $this->info('Total yachts: ' . $yachts->count());
         foreach ($yachts as $y) {
-            if (is_array($y->images) && count($y->images) > 0) {
-                $images = array_values($y->images);
-                $old = $y->featured_image;
-                $y->featured_image = $images[0];
-                $y->save();
-                $this->line('Updated ' . $y->title . ': ' . ($old ?: 'NULL') . ' -> ' . $images[0]);
-            } else {
-                $this->warn('Skipped ' . $y->title . ' (no images)');
-            }
+            $this->line('--- ' . $y->title . ' ---');
+            $this->line('images array keys: ' . json_encode(array_keys($y->images ?? [])));
+            $this->line('first_image attr: ' . ($y->first_image ?: 'NULL'));
         }
         $this->info('Done!');
     }
