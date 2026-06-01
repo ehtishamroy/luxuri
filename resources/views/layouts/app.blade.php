@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     @php
-        $siteName = $settings->site_name ?? 'Luxuri';
+        $siteName = $settings->site_name ?? 'Luxteria';
         $seoTitle = app('seotools.metatags')->getTitle();
         $seoDesc = app('seotools.metatags')->getDescription();
         $defaultTitle = 'Hand-Picked ' . $siteName . ' Villa Rentals and Private Homes';
@@ -18,6 +18,15 @@
 
         $pageDesc = $seoDesc ?: $defaultDesc;
         $pageDesc = str_replace('Luxuri', $siteName, $pageDesc);
+
+        // Determine best image for social sharing (WhatsApp/Facebook/Twitter)
+        if ($settings && $settings->logo) {
+            $ogImage = asset('storage/' . $settings->logo);
+        } elseif ($settings && $settings->favicon) {
+            $ogImage = asset('storage/' . $settings->favicon);
+        } else {
+            $ogImage = asset('apple-touch-icon.png');
+        }
     @endphp
 
     <title>{{ $pageTitle }}</title>
@@ -31,9 +40,7 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="{{ $pageTitle }}">
     <meta property="og:description" content="{{ $pageDesc }}">
-    <meta property="og:image" content="{{ asset('apple-touch-icon.png') }}">
-    <meta property="og:image:width" content="180">
-    <meta property="og:image:height" content="180">
+    <meta property="og:image" content="{{ $ogImage }}">
     <meta property="og:image:alt" content="{{ $pageTitle }}">
     <meta property="og:url" content="{{ url('/') }}">
     <meta property="og:site_name" content="{{ $siteName }}">
@@ -46,7 +53,7 @@
     <meta name="twitter:url" content="{{ url('/') }}">
     <meta name="twitter:title" content="{{ $pageTitle }}">
     <meta name="twitter:description" content="{{ $pageDesc }}">
-    <meta name="twitter:image" content="{{ asset('apple-touch-icon.png') }}">
+    <meta name="twitter:image" content="{{ $ogImage }}">
 
 
 
