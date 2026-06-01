@@ -203,6 +203,13 @@ class HomepageSettingResource extends Resource
                             ->url()
                             ->placeholder('https://www.threads.net/@luxuri')
                             ->nullable(),
+
+                        TextInput::make('facebook_app_id')
+                            ->label('Facebook App ID')
+                            ->placeholder('1234567890123456')
+                            ->helperText('Used for Open Graph (fb:app_id) meta tag. Find it in your Facebook App Dashboard.')
+                            ->nullable()
+                            ->columnSpanFull(),
                     ])
                     ->columns(2),
             ]);

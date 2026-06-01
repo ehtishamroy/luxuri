@@ -161,7 +161,7 @@
                 </div>
                 <div class="absolute inset-0 -z-10 size-full object-cover bg-black/20 bg-blend-multiply"></div>
                 <div
-                    class="absolute inset-0 -z-10 bg-gradient-to-b from-black/10 from-0% via-black/20 via-80% to-black to-95% bg-blend-overlay">
+                    class="absolute inset-0 -z-10 bg-gradient-to-b from-black/5 from-0% via-black/10 via-80% to-black/70 to-95% bg-blend-overlay">
                 </div>
                 <div class="mx-auto max-w-7xl px-4 lg:px-8 bg-radial from-black/20 from-30% to-70% to-black/0">
                     <div class="mx-auto py-18 max-w-5xl my-12">
@@ -403,7 +403,7 @@
                     class="absolute top-0 left-0 pointer-events-none w-full h-26 -z-10 bg-gradient-to-b from-black from-0% via-black/15 via-70% to-black/0 to-95% bg-blend-overlay">
                 </div>
                 <div
-                    class="absolute inset-0 -z-10 bg-gradient-to-b from-black/10 from-0% via-black/20 via-80% to-black to-95% bg-blend-overlay">
+                    class="absolute inset-0 -z-10 bg-gradient-to-b from-black/5 from-0% via-black/10 via-80% to-black/70 to-95% bg-blend-overlay">
                 </div>
                 <div class="mx-auto max-w-7xl px-6 lg:px-8 bg-radial from-black/20 from-30% to-70% to-black/0"></div>
             </div>

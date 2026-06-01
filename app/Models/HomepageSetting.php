@@ -13,5 +13,6 @@ class HomepageSetting extends Model
         'google_maps_url', 'linkedin_url', 'threads_url',
         'global_policies_text', 'global_contact_phone', 'global_contact_email', 'global_processing_fee_text',
         'global_yacht_policies_text', 'global_yacht_contact_phone', 'global_yacht_contact_email',
+        'facebook_app_id',
     ];
 }

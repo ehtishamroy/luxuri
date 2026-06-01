@@ -20,10 +20,10 @@
         $pageDesc = str_replace('Luxuri', $siteName, $pageDesc);
 
         // Determine best image for social sharing (WhatsApp/Facebook/Twitter)
-        if ($settings && $settings->logo) {
-            $ogImage = asset('storage/' . $settings->logo);
-        } elseif ($settings && $settings->favicon) {
+        if ($settings && $settings->favicon) {
             $ogImage = asset('storage/' . $settings->favicon);
+        } elseif ($settings && $settings->logo) {
+            $ogImage = asset('storage/' . $settings->logo);
         } else {
             $ogImage = asset('apple-touch-icon.png');
         }
@@ -45,6 +45,9 @@
     <meta property="og:url" content="{{ url('/') }}">
     <meta property="og:site_name" content="{{ $siteName }}">
     <meta property="og:locale" content="en_US">
+    @if($settings->facebook_app_id)
+    <meta property="fb:app_id" content="{{ $settings->facebook_app_id }}">
+    @endif
 
 
 
