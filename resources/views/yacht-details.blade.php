@@ -7,8 +7,8 @@
 @endphp
 <div class="bg-black text-white relative z-10">
     <div class="relative isolate pt-14 min-h-[40vh] flex items-center">
-        @if($yacht->first_image)
-        <img class="absolute inset-0 -z-10 size-full object-cover" src="{{ $yacht->first_image }}" alt="{{ $yacht->title }}">
+        @if($yacht->hero_image)
+        <img class="absolute inset-0 -z-10 size-full object-cover" src="{{ $yacht->hero_image }}" alt="{{ $yacht->title }}">
         @endif
         <div class="absolute inset-0 -z-10 size-full object-cover bg-black/20 bg-blend-multiply"></div>
         <div class="absolute inset-0 -z-10 bg-gradient-to-b from-black/10 from-0% via-black/20 via-80% to-black to-95% bg-blend-overlay"></div>
@@ -188,18 +188,19 @@
         <div class="lg:col-span-2 space-y-8">
             @php
                 $imageUrls = $yacht->image_urls;
+                $galleryUrls = array_slice($imageUrls, 1);
             @endphp
-            @if(!empty($imageUrls))
+            @if(!empty($galleryUrls))
             <hr class="opacity-30 my-8">
             <div class="flex justify-between">
                 <h2 class="text-3xl uppercase font-normal">Gallery</h2>
             </div>
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                @foreach($imageUrls as $index => $img)
+                @foreach($galleryUrls as $index => $img)
                 <button type="button"
                     class="bg-zinc-900 rounded-lg shadow-lg relative overflow-hidden group cursor-pointer w-full h-64"
-                    @click="$dispatch('open-yacht-gallery', { mediaId: {{ $index }} })">
-                    <img src="{{ $img }}" alt="{{ $yacht->title }} {{ $index + 1 }}" class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 ">
+                    @click="$dispatch('open-yacht-gallery', { mediaId: {{ $index + 1 }} })">
+                    <img src="{{ $img }}" alt="{{ $yacht->title }} {{ $index + 2 }}" class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 ">
                 </button>
                 @endforeach
             </div>

@@ -205,6 +205,13 @@ class YachtForm
 
                 Section::make('Media')
                     ->schema([
+                        FileUpload::make('featured_image')
+                            ->label('Featured Image (Hero Background)')
+                            ->image()
+                            ->disk('public')
+                            ->directory('yacht-images')
+                            ->nullable(),
+
                         FileUpload::make('images')
                             ->label('Gallery Images')
                             ->multiple()
@@ -214,7 +221,8 @@ class YachtForm
                             ->directory('yacht-images')
                             ->nullable()
                             ->columnSpanFull(),
-                    ]),
+                    ])
+                    ->columns(2),
 
                 Section::make('Tags')
                     ->schema([

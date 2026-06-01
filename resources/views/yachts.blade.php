@@ -71,8 +71,8 @@
         <div>
             <article class="relative text-sm group rounded-xl">
                 <div class="relative overflow-hidden rounded-lg w-full mb-2 aspect-10/7">
-                    @if($yacht->first_image)
-                    <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 " loading="lazy" src="{{ $yacht->first_image }}" alt="{{ $yacht->title }}">
+                    @if($yacht->hero_image)
+                    <img class="pointer-events-none size-full object-cover rounded-lg transition-all duration-300 " loading="lazy" src="{{ $yacht->hero_image }}" alt="{{ $yacht->title }}">
                     @else
                     <div class="size-full bg-zinc-800 flex items-center justify-center rounded-lg">
                         <span class="text-zinc-500 text-xs">No image</span>

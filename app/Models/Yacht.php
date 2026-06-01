@@ -11,7 +11,7 @@ class Yacht extends Model
         'title', 'slug', 'description', 'includes', 'make', 'style', 'length_ft',
         'cabins', 'max_guests', 'price_per_day', 'price_per_hour',
         'charter_4h_price', 'charter_6h_price', 'charter_8h_price',
-        'images', 'tags', 'location', 'featured', 'active',
+        'images', 'featured_image', 'tags', 'location', 'featured', 'active',
         'crew_included', 'catering_available',
         'meta_title', 'meta_description', 'external_id',
     ];
@@ -42,6 +42,15 @@ class Yacht extends Model
             return null;
         }
         return Storage::disk('public')->url($this->images[0]);
+    }
+
+    public function getHeroImageAttribute(): ?string
+    {
+        $path = $this->getAttributes()['featured_image'] ?? null;
+        if ($path) {
+            return Storage::disk('public')->url($path);
+        }
+        return $this->first_image;
     }
 
     public function getImageUrlsAttribute(): array
