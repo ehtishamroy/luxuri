@@ -168,9 +168,9 @@
                         <a href="{{ route('villas.show', $villa->slug) }}">{{ $villa->title }}<div class="absolute inset-0"></div></a>
                     </h3>
                 </div>
-                <div class="text-zinc-200 flex justify-between gap-2 grow">
-                    <div class="italic mb-2">{{ $villa->location ?? ($villa->destination ? $villa->destination->name : '') }}</div>
-                    <div class="flex flex-wrap gap-1.5 mb-2">
+                <div class="text-zinc-200 flex justify-between gap-2">
+                    <div class="italic">{{ $villa->location ?? ($villa->destination ? $villa->destination->name : '') }}</div>
+                    <div class="flex flex-wrap gap-1.5">
                         @if($villa->bedrooms)<div><i class="fa-sharp fa-light fa-bed fa-sm me-1"></i> {{ $villa->bedrooms }}</div>@endif
                         @if($villa->max_guests)· <div><i class="fa-sharp fa-light fa-person fa-sm me-1"></i> {{ $villa->max_guests }}</div>@endif
                         @if($villa->bathrooms)· <div><i class="fa-sharp fa-light fa-sink fa-sm me-1"></i>{{ $villa->bathrooms }}</div>@endif
