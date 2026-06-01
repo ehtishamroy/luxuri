@@ -13,11 +13,11 @@
         $defaultDesc = 'From private villas and yachts to VIP lifestyle services LUXTERIA handles every detail with discretion, speed, and luxury.';
 
         $pageTitle = $seoTitle ?: $defaultTitle;
-        $pageTitle = str_replace('Luxuri Magazine', $siteName . ' Magazine', $pageTitle);
-        $pageTitle = str_replace([' | Luxuri Magazine', ' | Luxuri', 'Hand-Picked Luxuri'], [' | ' . $siteName . ' Magazine', ' | ' . $siteName, 'Hand-Picked ' . $siteName], $pageTitle);
+        $pageTitle = str_replace('Luxteria Magazine', $siteName . ' Magazine', $pageTitle);
+        $pageTitle = str_replace([' | Luxteria Magazine', ' | Luxteria', 'Hand-Picked Luxteria'], [' | ' . $siteName . ' Magazine', ' | ' . $siteName, 'Hand-Picked ' . $siteName], $pageTitle);
 
         $pageDesc = $seoDesc ?: $defaultDesc;
-        $pageDesc = str_replace('Luxuri', $siteName, $pageDesc);
+        $pageDesc = str_replace('Luxteria', $siteName, $pageDesc);
 
         // Determine best image for social sharing (WhatsApp/Facebook/Twitter)
         if ($settings && $settings->favicon) {

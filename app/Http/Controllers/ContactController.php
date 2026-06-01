@@ -10,7 +10,7 @@ class ContactController extends Controller
 {
     public function index()
     {
-        SEOTools::setTitle('Contact | Luxuri');
+        SEOTools::setTitle('Contact | Luxteria');
         SEOTools::setDescription('Get in touch with our luxury concierge team for villa rentals, yacht charters, and bespoke travel experiences.');
         return view('contact');
     }

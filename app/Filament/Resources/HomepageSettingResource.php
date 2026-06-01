@@ -34,7 +34,7 @@ class HomepageSettingResource extends Resource
                     ->schema([
                         TextInput::make('site_name')
                             ->label('Site Name')
-                            ->placeholder('Luxuri')
+                            ->placeholder('Luxteria')
                             ->helperText('Used in page titles, WhatsApp previews, and OG tags.')
                             ->nullable()
                             ->columnSpanFull(),
@@ -87,7 +87,7 @@ class HomepageSettingResource extends Resource
                         TextInput::make('global_contact_email')
                             ->label('Global Contact Email')
                             ->email()
-                            ->placeholder('concierge@luxuri.com')
+                            ->placeholder('concierge@luxteria.co')
                             ->nullable(),
 
                         Textarea::make('global_policies_text')
@@ -100,7 +100,7 @@ class HomepageSettingResource extends Resource
                         Textarea::make('global_processing_fee_text')
                             ->label('Processing Fee Notice')
                             ->rows(2)
-                            ->placeholder('For those using credit cards, you will be subject to a 3% processing fee once Luxuri confirms your booking.')
+                            ->placeholder('For those using credit cards, you will be subject to a 3% processing fee once Luxteria confirms your booking.')
                             ->nullable()
                             ->columnSpanFull(),
                     ])
@@ -118,7 +118,7 @@ class HomepageSettingResource extends Resource
                         TextInput::make('global_yacht_contact_email')
                             ->label('Global Yacht Contact Email')
                             ->email()
-                            ->placeholder('yachts@luxuri.com')
+                            ->placeholder('yachts@luxteria.co')
                             ->nullable(),
 
                         Textarea::make('global_yacht_policies_text')
@@ -165,25 +165,25 @@ class HomepageSettingResource extends Resource
                         TextInput::make('instagram_url')
                             ->label('Instagram URL')
                             ->url()
-                            ->placeholder('https://www.instagram.com/luxuri/')
+                            ->placeholder('https://www.instagram.com/luxteria/')
                             ->nullable(),
 
                         TextInput::make('facebook_url')
                             ->label('Facebook URL')
                             ->url()
-                            ->placeholder('https://www.facebook.com/luxurirentals')
+                            ->placeholder('https://www.facebook.com/luxteriarentals')
                             ->nullable(),
 
                         TextInput::make('tiktok_url')
                             ->label('TikTok URL')
                             ->url()
-                            ->placeholder('https://www.tiktok.com/@luxuri.rent')
+                            ->placeholder('https://www.tiktok.com/@luxteria.rent')
                             ->nullable(),
 
                         TextInput::make('pinterest_url')
                             ->label('Pinterest URL')
                             ->url()
-                            ->placeholder('https://www.pinterest.com/luxuri1/')
+                            ->placeholder('https://www.pinterest.com/luxteria1/')
                             ->nullable(),
 
                         TextInput::make('google_maps_url')
@@ -195,13 +195,13 @@ class HomepageSettingResource extends Resource
                         TextInput::make('linkedin_url')
                             ->label('LinkedIn URL')
                             ->url()
-                            ->placeholder('https://www.linkedin.com/company/luxuri/')
+                            ->placeholder('https://www.linkedin.com/company/luxteria/')
                             ->nullable(),
 
                         TextInput::make('threads_url')
                             ->label('Threads URL')
                             ->url()
-                            ->placeholder('https://www.threads.net/@luxuri')
+                            ->placeholder('https://www.threads.net/@luxteria')
                             ->nullable(),
 
                         TextInput::make('facebook_app_id')

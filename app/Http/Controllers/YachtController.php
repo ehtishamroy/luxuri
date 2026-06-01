@@ -10,7 +10,7 @@ class YachtController extends Controller
 {
     public function index()
     {
-        SEOTools::setTitle('Luxury Yacht Charters - Handpicked Superyachts | Luxuri');
+        SEOTools::setTitle('Luxury Yacht Charters - Handpicked Superyachts | Luxteria');
         SEOTools::setDescription('Browse our collection of handpicked luxury yacht charters across the world\'s most desirable destinations.');
         SEOTools::opengraph()->setUrl(url('/yachts'));
 
@@ -64,7 +64,7 @@ class YachtController extends Controller
     {
         abort_unless($yacht->active, 404);
 
-        SEOTools::setTitle($yacht->meta_title ?: $yacht->title . ' - Luxury Yacht Charter | Luxuri');
+        SEOTools::setTitle($yacht->meta_title ?: $yacht->title . ' - Luxury Yacht Charter | Luxteria');
         SEOTools::setDescription($yacht->meta_description ?: $yacht->description ?? '');
         SEOTools::opengraph()->setUrl(url("/yachts/{$yacht->slug}"));
         if ($yacht->first_image) {

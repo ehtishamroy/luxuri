@@ -23,12 +23,12 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-        $siteName = 'Luxuri';
+        $siteName = 'Luxteria';
         $favicon = null;
 
         try {
             $settings = \App\Models\HomepageSetting::first();
-            $siteName = $settings?->site_name ?? 'Luxuri';
+            $siteName = $settings?->site_name ?? 'Luxteria';
             $favicon = $settings?->favicon ? asset('storage/' . $settings->favicon) : null;
         } catch (\Exception $e) {
             // Table may not exist yet during initial setup

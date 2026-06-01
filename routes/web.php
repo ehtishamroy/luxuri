@@ -22,7 +22,7 @@ Route::get('/villas/aspen-mountain-chalet', function () {
     return view('villas.aspen-mountain-chalet');
 });
 Route::get('/inquiry', function () {
-    SEOTools::setTitle('Inquiry | Luxuri');
+    SEOTools::setTitle('Inquiry | Luxteria');
     SEOTools::setDescription('Submit your luxury villa or yacht inquiry and let our concierge team curate your perfect getaway.');
     return view('inquiry');
 })->name('inquiry');

@@ -28,3 +28,11 @@ Homestead.json
 .env.production
 .phpactor.json
 auth.json
+compiled.php
+null
+output.html
+output.txt
+test_compile2.php
+test_output2.html
+test_output.html
+test_query.php

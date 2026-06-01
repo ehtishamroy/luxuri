@@ -12,10 +12,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-        SEOTools::setTitle('Hand-Picked Luxuri Villa Rentals and Private Homes');
-        SEOTools::setDescription('Discover unparalleled luxury with Luxuri\'s vacation villas, elite car and yacht rentals, and bespoke concierge services across top global destinations.');
+        SEOTools::setTitle('Luxury Concierge & Villa Experiences in Miami');
+        SEOTools::setDescription('From private villas and yachts to VIP lifestyle services LUXTERIA handles every detail with discretion, speed, and luxury.');
         SEOTools::opengraph()->setUrl(url('/'));
-        SEOTools::opengraph()->addImage(asset('media/OpenGraph-Luxuri.png'));
 
         $destinations = cache()->remember('destinations.active', 3600, fn () =>
             Destination::where('active', true)

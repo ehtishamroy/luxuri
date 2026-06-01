@@ -10,11 +10,11 @@
         "image": "{{ $magazinePost->featured_image }}",
         "author": {
             "@type": "Organization",
-            "name": "{{ $magazinePost->author ?: 'Luxuri' }}"
+            "name": "{{ $magazinePost->author ?: 'Luxteria' }}"
         },
         "publisher": {
             "@type": "Organization",
-            "name": "Luxuri",
+            "name": "Luxteria",
             "logo": {
                 "@type": "ImageObject",
                 "url": "{{ asset('images/logo.png') }}"

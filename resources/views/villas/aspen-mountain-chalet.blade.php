@@ -754,7 +754,7 @@
                     events.</p>
                 <p class="mb-2">For guests paying by wire transfer, your booking will only be confirmed once the payment
                     is received.</p>
-                <p>For those using credit cards, you will be subject to a 3% processing fee once Luxuri confirms your
+                <p>For those using credit cards, you will be subject to a 3% processing fee once Luxteria confirms your
                     booking.</p>
             </div>
         </div>

@@ -9,7 +9,7 @@ class DestinationController extends Controller
 {
     public function index()
     {
-        SEOTools::setTitle('Popular Destinations - Luxury Villa Rentals | Luxuri');
+        SEOTools::setTitle('Popular Destinations - Luxury Villa Rentals | Luxteria');
         SEOTools::setDescription('Explore our most popular destinations for luxury villa rentals — from Aspen to Bali, Miami to Cape Town.');
         SEOTools::opengraph()->setUrl(url('/destinations'));
 
@@ -24,7 +24,7 @@ class DestinationController extends Controller
     {
         abort_unless($destination->active, 404);
 
-        SEOTools::setTitle($destination->meta_title ?: "Luxury {$destination->name} Villa Rentals | Luxuri");
+        SEOTools::setTitle($destination->meta_title ?: "Luxury {$destination->name} Villa Rentals | Luxteria");
         SEOTools::setDescription($destination->meta_description ?: $destination->description ?? '');
         SEOTools::opengraph()->setUrl(url("/destinations/{$destination->slug}"));
         if ($destination->hero_image) {

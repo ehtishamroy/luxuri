@@ -10,7 +10,7 @@ class VillaController extends Controller
 {
     public function index()
     {
-        SEOTools::setTitle('Luxury Villa Rentals - Handpicked Private Homes | Luxuri');
+        SEOTools::setTitle('Luxury Villa Rentals - Handpicked Private Homes | Luxteria');
         SEOTools::setDescription('Browse our collection of handpicked luxury villas across the world\'s most desirable destinations.');
         SEOTools::opengraph()->setUrl(url('/villas'));
 
@@ -44,7 +44,7 @@ class VillaController extends Controller
 
         $villa->load('amenitiesList');
 
-        SEOTools::setTitle($villa->meta_title ?: $villa->title . ' - Luxury Villa | Luxuri');
+        SEOTools::setTitle($villa->meta_title ?: $villa->title . ' - Luxury Villa | Luxteria');
         SEOTools::setDescription($villa->meta_description ?: $villa->excerpt ?? '');
         SEOTools::opengraph()->setUrl(url("/villas/{$villa->slug}"));
         if ($villa->first_image) {

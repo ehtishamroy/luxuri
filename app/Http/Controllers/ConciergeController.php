@@ -10,7 +10,7 @@ class ConciergeController extends Controller
 {
     public function index()
     {
-        SEOTools::setTitle('Concierge | Luxuri');
+        SEOTools::setTitle('Concierge | Luxteria');
         SEOTools::setDescription('Experience bespoke luxury concierge services — from private chefs and yacht charters to exclusive event planning worldwide.');
 
         $services = ConciergeService::where('is_active', true)

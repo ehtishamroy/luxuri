@@ -221,7 +221,7 @@ class VillaForm
 
                                     try {
                                         $response = \Illuminate\Support\Facades\Http::withHeaders([
-                                            'User-Agent' => 'LuxuriVillaApp/1.0 (admin@luxuri.com)',
+                                            'User-Agent' => 'LuxteriaVillaApp/1.0 (admin@luxteria.co)',
                                         ])->get('https://nominatim.openstreetmap.org/search', [
                                             'q' => $address,
                                             'format' => 'json',
@@ -315,7 +315,7 @@ class VillaForm
 
                         TextInput::make('contact_email')
                             ->email()
-                            ->placeholder('concierge@luxuri.com')
+                            ->placeholder('concierge@luxteria.co')
                             ->nullable(),
                     ])
                     ->columns(2),

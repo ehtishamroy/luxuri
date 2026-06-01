@@ -9,7 +9,7 @@ class MagazineController extends Controller
 {
     public function index()
     {
-        SEOTools::setTitle('Luxuri Magazine - Luxury Travel & Living');
+        SEOTools::setTitle('Luxteria Magazine - Luxury Travel & Living');
         SEOTools::setDescription('Discover curated insights on luxury travel, refined living, and exclusive experiences.');
         SEOTools::opengraph()->setUrl(url('/magazine'));
 
@@ -24,7 +24,7 @@ class MagazineController extends Controller
     {
         abort_unless($magazinePost->active, 404);
 
-        SEOTools::setTitle($magazinePost->meta_title ?: $magazinePost->title . ' | Luxuri Magazine');
+        SEOTools::setTitle($magazinePost->meta_title ?: $magazinePost->title . ' | Luxteria Magazine');
         SEOTools::setDescription($magazinePost->meta_description ?: $magazinePost->excerpt ?? '');
         SEOTools::opengraph()->setUrl(url("/magazine/{$magazinePost->slug}"));
         if ($magazinePost->featured_image) {
