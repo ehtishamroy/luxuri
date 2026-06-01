@@ -35,7 +35,8 @@ class Yacht extends Model
     {
         static::saving(function ($yacht) {
             if (is_array($yacht->images) && count($yacht->images) > 0) {
-                $yacht->featured_image = $yacht->images[0];
+                $images = array_values($yacht->images);
+                $yacht->featured_image = $images[0];
             } else {
                 $yacht->featured_image = null;
             }
@@ -57,7 +58,8 @@ class Yacht extends Model
         if (!is_array($this->images) || count($this->images) === 0) {
             return null;
         }
-        return Storage::disk('public')->url($this->images[0]);
+        $images = array_values($this->images);
+        return Storage::disk('public')->url($images[0]);
     }
 
     public function getImageUrlsAttribute(): array
@@ -67,7 +69,7 @@ class Yacht extends Model
         }
         return array_map(
             fn ($path) => Storage::disk('public')->url($path),
-            $this->images
+            array_values($this->images)
         );
     }
 }
