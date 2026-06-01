@@ -21,8 +21,7 @@
         </div>
         <div class="lg:col-span-3 space-y-4">
             <div class="content-format">
-                <p>Every moment of your stay should feel effortless. Our dedicated concierge team is here to curate personalized experiences tailored to your tastes, from private chefs and bespoke yacht charters to exclusive wellness treatments and hard-to-find reservations.</p>
-                <p>“Personalized luxury services designed to make every stay seamless, private, and unforgettable.”</p>
+                <p>Personalized luxury services designed to make every stay seamless, private, and unforgettable.</p>
             </div>
             <div class="flex gap-2">
                 @php
