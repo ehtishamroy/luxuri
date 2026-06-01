@@ -176,7 +176,7 @@
                         @if($villa->bathrooms)· <div><i class="fa-sharp fa-light fa-sink fa-sm me-1"></i>{{ $villa->bathrooms }}</div>@endif
                     </div>
                 </div>
-                <div class="flex gap-2 justify-between items-center mt-2">
+                <div class="flex gap-2 justify-between items-center">
                     <div class="relative text-sm">
                         @if($villa->price_per_night > 0)
                             <span class="font-semibold">${{ number_format($villa->price_per_night, 0) }}</span><span class="text-zinc-400">/night</span>
