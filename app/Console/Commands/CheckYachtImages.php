@@ -25,13 +25,25 @@ class CheckYachtImages extends Command
      */
     public function handle()
     {
+        // Check Yachts
         $yachts = \App\Models\Yacht::all();
-        $this->info('Total yachts: ' . $yachts->count());
+        $this->info('=== YACHTS: ' . $yachts->count() . ' ===');
         foreach ($yachts as $y) {
             $this->line('--- ' . $y->title . ' ---');
             $this->line('images array keys: ' . json_encode(array_keys($y->images ?? [])));
             $this->line('first_image attr: ' . ($y->first_image ?: 'NULL'));
         }
+        
+        // Check Villas
+        $villas = \App\Models\Villa::all();
+        $this->info('=== VILLAS: ' . $villas->count() . ' ===');
+        foreach ($villas as $v) {
+            $this->line('--- ' . $v->title . ' ---');
+            $this->line('images array keys: ' . json_encode(array_keys($v->images ?? [])));
+            $this->line('first_image attr: ' . ($v->first_image ?: 'NULL'));
+            $this->line('hero_image attr: ' . ($v->hero_image ?: 'NULL'));
+        }
+        
         $this->info('Done!');
     }
 }

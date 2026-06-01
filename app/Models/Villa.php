@@ -60,7 +60,9 @@ class Villa extends Model
         if (!is_array($this->images) || count($this->images) === 0) {
             return null;
         }
-        return Storage::disk('public')->url($this->images[0]);
+        // Use array_values to reset keys and ensure we get the first image in order
+        $images = array_values($this->images);
+        return Storage::disk('public')->url($images[0]);
     }
 
     public function getImageUrlsAttribute(): array
@@ -70,7 +72,7 @@ class Villa extends Model
         }
         return array_map(
             fn ($path) => Storage::disk('public')->url($path),
-            $this->images
+            array_values($this->images)
         );
     }
 }
