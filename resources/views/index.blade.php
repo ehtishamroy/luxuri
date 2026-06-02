@@ -169,7 +169,7 @@
                             <div class="space-y-4 text-shadow-lg/10">
                                 <h1
                                     class="text-3xl font-semibold tracking-wide text-center text-balance uppercase font-accent sm:text-5xl">
-                                    {{ $homepageSettings->hero_title ?? 'Luxury Concierge & Villa Experiences in Miami' }}
+                                    {!! $homepageSettings->hero_title ?? 'Luxury<br>Concierge & Villa<br>Experiences in Miami' !!}
                                 </h1>
                                 <p class="text-lg font-normal text-pretty text-center">
                                     {{ $homepageSettings->hero_subtitle ?? 'From private villas and yachts to VIP lifestyle services LUXTERIA handles every detail with discretion, speed, and luxury.' }}
@@ -656,7 +656,7 @@
                                     <i class="fa-sharp fa-star fa-solid"></i>
                                 </span>
                             </div>
-                            <div class="font-semibold">CJ Laboy</div>
+                            <div class="font-semibold">Daniel Rosen</div>
                         </figcaption>
                         <blockquote class="grow">
                             <p><span>Hosted my client here and everything went smooth. They loved the place and already want to book again next year.</span></p>
@@ -681,7 +681,7 @@
                                     <i class="fa-sharp fa-star fa-solid"></i>
                                 </span>
                             </div>
-                            <div class="font-semibold">Marcus T.</div>
+                            <div class="font-semibold">Michael Stein</div>
                         </figcaption>
                         <blockquote class="grow">
                             <p><span>Honestly even better than the photos. Walked in and the whole group went quiet for a second. That kind of place.</span></p>
@@ -706,7 +706,7 @@
                                     <i class="fa-sharp fa-star fa-solid"></i>
                                 </span>
                             </div>
-                            <div class="font-semibold">Dana R.</div>
+                            <div class="font-semibold">Sarah Gold</div>
                         </figcaption>
                         <blockquote class="grow">
                             <p><span>Third time staying here. They remember your name, they remember what you like. Feels like coming back to a friend's house.</span></p>
@@ -731,7 +731,7 @@
                                     <i class="fa-sharp fa-star fa-solid"></i>
                                 </span>
                             </div>
-                            <div class="font-semibold">The Wilson Crew</div>
+                            <div class="font-semibold">Jonathan Miller</div>
                         </figcaption>
                         <blockquote class="grow">
                             <p><span>House was awesome, pool was perfect, and the team had everything ready before we even asked. Zero stress.</span></p>
@@ -756,7 +756,7 @@
                                     <i class="fa-sharp fa-star fa-solid"></i>
                                 </span>
                             </div>
-                            <div class="font-semibold">Jonai Green</div>
+                            <div class="font-semibold">Rachel Levine</div>
                         </figcaption>
                         <blockquote class="grow">
                             <p><span>Looks exactly like the listing — rare these days. Waking up to that view was the highlight of the trip.</span></p>
@@ -781,7 +781,7 @@
                                     <i class="fa-sharp fa-star fa-solid"></i>
                                 </span>
                             </div>
-                            <div class="font-semibold">Micky Stefanov</div>
+                            <div class="font-semibold">Ethan Brooks</div>
                         </figcaption>
                         <blockquote class="grow">
                             <p><span>Quiet, private, and way bigger than it looks online. Perfect for a family getaway where you actually want to spend time at the house.</span></p>
@@ -806,7 +806,7 @@
                                     <i class="fa-sharp fa-star fa-solid"></i>
                                 </span>
                             </div>
-                            <div class="font-semibold">Holly Ritchie</div>
+                            <div class="font-semibold">David Carter</div>
                         </figcaption>
                         <blockquote class="grow">
                             <p><span>Loved the property. Had a small issue with the hot tub and someone was there within the hour to fix it. That kind of service sticks with you.</span></p>
@@ -831,7 +831,7 @@
                                     <i class="fa-sharp fa-star fa-solid"></i>
                                 </span>
                             </div>
-                            <div class="font-semibold">Terry Tsimiklis</div>
+                            <div class="font-semibold">Benjamin Klein</div>
                         </figcaption>
                         <blockquote class="grow">
                             <p><span>16 guys on a golf trip. Booked last minute, showed up at 4pm, and the place was spotless. Kathy had everything handled before we even called.</span></p>
@@ -856,7 +856,7 @@
                                     <i class="fa-sharp fa-star fa-solid"></i>
                                 </span>
                             </div>
-                            <div class="font-semibold">John Alley</div>
+                            <div class="font-semibold">Sophia Bennett</div>
                         </figcaption>
                         <blockquote class="grow">
                             <p><span>Amazing property and the team actually picks up the phone. Had a blast, would book again in a heartbeat.</span></p>
@@ -881,7 +881,7 @@
                                     <i class="fa-sharp fa-star fa-solid"></i>
                                 </span>
                             </div>
-                            <div class="font-semibold">Kristie Grandsko</div>
+                            <div class="font-semibold">Jacob Sterling</div>
                         </figcaption>
                         <blockquote class="grow">
                             <p><span>Perfect for a big family vacation. Clean, spacious, great pool, and Kathy met us at check-in with a smile. Felt like home from minute one.</span></p>
@@ -906,7 +906,7 @@
                                     <i class="fa-sharp fa-star fa-solid"></i>
                                 </span>
                             </div>
-                            <div class="font-semibold">Chris Blevins</div>
+                            <div class="font-semibold">Daniel Rosen</div>
                         </figcaption>
                         <blockquote class="grow">
                             <p><span>Smooth from start to finish. No hidden nonsense, no surprises. Just a great house and a team that does what they say.</span></p>
@@ -931,7 +931,7 @@
                                     <i class="fa-sharp fa-star fa-solid"></i>
                                 </span>
                             </div>
-                            <div class="font-semibold">Rachel &amp; Elly</div>
+                            <div class="font-semibold">Michael Stein</div>
                         </figcaption>
                         <blockquote class="grow">
                             <p><span>Elly and Kathy were on it the whole time. Quick replies, solved everything fast, and genuinely cared that we had a good trip. Would recommend to anyone.</span></p>
