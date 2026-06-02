@@ -661,7 +661,6 @@
                         <blockquote class="grow">
                             <p><span>Hosted my client here and everything went smooth. They loved the place and already want to book again next year.</span></p>
                         </blockquote>
-                        <a href="https://luxteria.co/properties/fl/fort-lauderdale/boardwalk-mansion" class="text-base uppercase font-normal self-end tracking-wide">Boardwalk Mansion</a>
                     </div>
                 </figure>
             </article>
@@ -686,7 +685,6 @@
                         <blockquote class="grow">
                             <p><span>Honestly even better than the photos. Walked in and the whole group went quiet for a second. That kind of place.</span></p>
                         </blockquote>
-                        <a href="https://luxteria.co/properties/fl/fort-lauderdale/park-place-mansion" class="text-base uppercase font-normal self-end tracking-wide">Park Place Mansion</a>
                     </div>
                 </figure>
             </article>
@@ -711,7 +709,6 @@
                         <blockquote class="grow">
                             <p><span>Third time staying here. They remember your name, they remember what you like. Feels like coming back to a friend's house.</span></p>
                         </blockquote>
-                        <a href="https://luxteria.co/properties/fl/fort-lauderdale/park-place-mansion" class="text-base uppercase font-normal self-end tracking-wide">Park Place Mansion</a>
                     </div>
                 </figure>
             </article>
@@ -736,7 +733,6 @@
                         <blockquote class="grow">
                             <p><span>House was awesome, pool was perfect, and the team had everything ready before we even asked. Zero stress.</span></p>
                         </blockquote>
-                        <a href="https://luxteria.co/properties/fl/fort-lauderdale/park-place-mansion" class="text-base uppercase font-normal self-end tracking-wide">Park Place Mansion</a>
                     </div>
                 </figure>
             </article>
@@ -761,32 +757,6 @@
                         <blockquote class="grow">
                             <p><span>Looks exactly like the listing — rare these days. Waking up to that view was the highlight of the trip.</span></p>
                         </blockquote>
-                        <a href="https://luxteria.co/properties/fl/fort-lauderdale/boardwalk-mansion" class="text-base uppercase font-normal self-end tracking-wide">Boardwalk Mansion</a>
-                    </div>
-                </figure>
-            </article>
-        </div>
-        <div class="swiper-slide" data-swiper-slide-index="5" style="width: 286px; margin-right: 24px;">
-            <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
-                <figure class="h-full">
-                    <div class="p-6 space-y-1 flex flex-col h-full">
-                        <figcaption class="space-y-6">
-                            <div class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
-                                <i class="fa-brands fa-google fa-xl me-2"></i>
-                                <span class="relative -top-0.5">
-                                    <i class="fa-sharp fa-star fa-solid"></i>
-                                    <i class="fa-sharp fa-star fa-solid"></i>
-                                    <i class="fa-sharp fa-star fa-solid"></i>
-                                    <i class="fa-sharp fa-star fa-solid"></i>
-                                    <i class="fa-sharp fa-star fa-solid"></i>
-                                </span>
-                            </div>
-                            <div class="font-semibold">Ethan Brooks</div>
-                        </figcaption>
-                        <blockquote class="grow">
-                            <p><span>Quiet, private, and way bigger than it looks online. Perfect for a family getaway where you actually want to spend time at the house.</span></p>
-                        </blockquote>
-                        <a href="https://luxteria.co/properties/fl/fort-lauderdale/las-palmas-royal-estate" class="text-base uppercase font-normal self-end tracking-wide">Las Palmas Royal Estate</a>
                     </div>
                 </figure>
             </article>
@@ -811,7 +781,6 @@
                         <blockquote class="grow">
                             <p><span>Loved the property. Had a small issue with the hot tub and someone was there within the hour to fix it. That kind of service sticks with you.</span></p>
                         </blockquote>
-                        <a href="https://luxteria.co/properties/fl/fort-lauderdale/park-place-mansion" class="text-base uppercase font-normal self-end tracking-wide">Park Place Mansion</a>
                     </div>
                 </figure>
             </article>
@@ -836,32 +805,6 @@
                         <blockquote class="grow">
                             <p><span>16 guys on a golf trip. Booked last minute, showed up at 4pm, and the place was spotless. Kathy had everything handled before we even called.</span></p>
                         </blockquote>
-                        <a href="https://luxteria.co/properties/fl/southwest-ranches/new-2-acre-modern-compound-modani-estates" class="text-base uppercase font-normal self-end tracking-wide">Modani Estates</a>
-                    </div>
-                </figure>
-            </article>
-        </div>
-        <div class="swiper-slide" data-swiper-slide-index="8" style="width: 286px; margin-right: 24px;">
-            <article class="relative text-sm group rounded-xl bg-zinc-800 h-full">
-                <figure class="h-full">
-                    <div class="p-6 space-y-1 flex flex-col h-full">
-                        <figcaption class="space-y-6">
-                            <div class="[:where(&amp;)]:text-sm [:where(&amp;)]:text-zinc-800 [:where(&amp;)]:dark:text-white">
-                                <i class="fa-brands fa-google fa-xl me-2"></i>
-                                <span class="relative -top-0.5">
-                                    <i class="fa-sharp fa-star fa-solid"></i>
-                                    <i class="fa-sharp fa-star fa-solid"></i>
-                                    <i class="fa-sharp fa-star fa-solid"></i>
-                                    <i class="fa-sharp fa-star fa-solid"></i>
-                                    <i class="fa-sharp fa-star fa-solid"></i>
-                                </span>
-                            </div>
-                            <div class="font-semibold">Sophia Bennett</div>
-                        </figcaption>
-                        <blockquote class="grow">
-                            <p><span>Amazing property and the team actually picks up the phone. Had a blast, would book again in a heartbeat.</span></p>
-                        </blockquote>
-                        <a href="https://luxteria.co/properties/fl/fort-lauderdale/las-palmas-royal-estate" class="text-base uppercase font-normal self-end tracking-wide">Las Palmas Royal Estate</a>
                     </div>
                 </figure>
             </article>
@@ -886,7 +829,6 @@
                         <blockquote class="grow">
                             <p><span>Perfect for a big family vacation. Clean, spacious, great pool, and Kathy met us at check-in with a smile. Felt like home from minute one.</span></p>
                         </blockquote>
-                        <a href="https://luxteria.co/properties/fl/fort-lauderdale/park-place-mansion" class="text-base uppercase font-normal self-end tracking-wide">Park Place Mansion</a>
                     </div>
                 </figure>
             </article>
@@ -911,7 +853,6 @@
                         <blockquote class="grow">
                             <p><span>Smooth from start to finish. No hidden nonsense, no surprises. Just a great house and a team that does what they say.</span></p>
                         </blockquote>
-                        <a href="https://luxteria.co/properties/fl/fort-lauderdale/park-place-mansion" class="text-base uppercase font-normal self-end tracking-wide">Park Place Mansion</a>
                     </div>
                 </figure>
             </article>
@@ -936,7 +877,6 @@
                         <blockquote class="grow">
                             <p><span>Elly and Kathy were on it the whole time. Quick replies, solved everything fast, and genuinely cared that we had a good trip. Would recommend to anyone.</span></p>
                         </blockquote>
-                        <a href="https://luxteria.co/properties/fl/fort-lauderdale/park-place-mansion" class="text-base uppercase font-normal self-end tracking-wide">Park Place Mansion</a>
                     </div>
                 </figure>
             </article>
