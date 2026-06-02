@@ -132,10 +132,10 @@
                 <div class="space-y-6">
                     <div class="space-y-4 text-shadow-lg/10">
                         <h1 class="text-3xl font-semibold tracking-wide text-center text-balance uppercase font-accent sm:text-5xl">
-                            Discover Your Luxury Villa Rental
+                            {!! 'Discover<br>Your Luxury<br>Villa Rental' !!}
                         </h1>
                         <p class="text-lg font-normal text-pretty text-center">
-                            Choose from luxteria's handpicked collection of high-end villas.
+                            From private villas and yachts to VIP lifestyle services LUXTERIA handles every detail with discretion, speed, and luxury.
                         </p>
                     </div>
 
