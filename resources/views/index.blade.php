@@ -957,6 +957,10 @@
             </script>
         </div>
 
+        @php
+            $faqPhone = $settings->mobile_phone ?? $settings->phone ?? '+1 (786) 981-0924';
+            $faqEmail = $settings->email ?? 'office@luxteria.co';
+        @endphp
         <div class="w-full max-w-7xl mx-auto p-6 lg:py-8 lg:px-8 z-0 space-y-6">
             <div class="max-w-4xl mx-auto space-y-6">
                 <h2 class="uppercase font-semibold text-center">Frequently Asked Questions</h2>
@@ -966,8 +970,7 @@
                             <dt><button type="button" class="flex w-full items-start justify-between gap-6 text-left"
                                     aria-controls="faq-0" :aria-expanded="openFaq === 0"
                                     @click="openFaq = openFaq === 0 ? null : 0">
-                                    <h3 class="text-base font-semibold">What is the minimum age requirement to book a stay with
-                                        luxteria?</h3><span class="flex size-6 items-center"><i
+                                    <h3 class="text-base font-semibold">Is there a minimum age to make a reservation?</h3><span class="flex size-6 items-center"><i
                                             class="fa-sharp fa-light fa-plus fa-fw fa-lg transition-transform duration-200"
                                             :class="{ 'rotate-45': openFaq === 0 }"></i></span>
                                 </button></dt>
@@ -976,7 +979,7 @@
                                 x-transition:enter-start="opacity-0 max-h-0" x-transition:enter-end="opacity-100 max-h-96"
                                 x-transition:leave="transition ease-in duration-200"
                                 x-transition:leave-start="opacity-100 max-h-96" x-transition:leave-end="opacity-0 max-h-0">
-                                <p class="">Guests must be at least 21 years old to book a luxteria villa.</p>
+                                <p class="">All reservations must be made by someone who is at least 21 years of age.</p>
                             </dd>
                         </div>
                     </article>
@@ -985,7 +988,7 @@
                             <dt><button type="button" class="flex w-full items-start justify-between gap-6 text-left"
                                     aria-controls="faq-1" :aria-expanded="openFaq === 1"
                                     @click="openFaq = openFaq === 1 ? null : 1">
-                                    <h3 class="text-base font-semibold">How can I reserve a luxteria property?</h3><span
+                                    <h3 class="text-base font-semibold">What is the booking process?</h3><span
                                         class="flex size-6 items-center"><i
                                             class="fa-sharp fa-light fa-plus fa-fw fa-lg transition-transform duration-200"
                                             :class="{ 'rotate-45': openFaq === 1 }"></i></span>
@@ -995,9 +998,7 @@
                                 x-transition:enter-start="opacity-0 max-h-0" x-transition:enter-end="opacity-100 max-h-96"
                                 x-transition:leave="transition ease-in duration-200"
                                 x-transition:leave-start="opacity-100 max-h-96" x-transition:leave-end="opacity-0 max-h-0">
-                                <p class="">You can reserve a property by submitting an inquiry or contacting our reservations
-                                    team at 786-981-0924 or info@luxteria.co. Due to high demand, a 50% deposit is required to
-                                    secure your booking.</p>
+                                <p class="">Simply fill out our inquiry form or reach our team at {{ $faqPhone }} or {{ $faqEmail }}. A 50% deposit is required to confirm and hold your dates.</p>
                             </dd>
                         </div>
                     </article>
@@ -1006,7 +1007,7 @@
                             <dt><button type="button" class="flex w-full items-start justify-between gap-6 text-left"
                                     aria-controls="faq-2" :aria-expanded="openFaq === 2"
                                     @click="openFaq = openFaq === 2 ? null : 2">
-                                    <h3 class="text-base font-semibold">Can I host an event at a luxteria property?</h3><span
+                                    <h3 class="text-base font-semibold">Do you allow private events or gatherings?</h3><span
                                         class="flex size-6 items-center"><i
                                             class="fa-sharp fa-light fa-plus fa-fw fa-lg transition-transform duration-200"
                                             :class="{ 'rotate-45': openFaq === 2 }"></i></span>
@@ -1016,8 +1017,7 @@
                                 x-transition:enter-start="opacity-0 max-h-0" x-transition:enter-end="opacity-100 max-h-96"
                                 x-transition:leave="transition ease-in duration-200"
                                 x-transition:leave-start="opacity-100 max-h-96" x-transition:leave-end="opacity-0 max-h-0">
-                                <p class="">Event availability varies by property. Additional event fees may apply in addition
-                                    to the nightly rate. Please contact us at 786-981-0924 for personalized assistance.</p>
+                                <p class="">Certain residences accommodate events depending on size and property rules. Extra charges may apply. Call {{ $faqPhone }} and we will tailor everything to your occasion.</p>
                             </dd>
                         </div>
                     </article>
@@ -1026,7 +1026,7 @@
                             <dt><button type="button" class="flex w-full items-start justify-between gap-6 text-left"
                                     aria-controls="faq-3" :aria-expanded="openFaq === 3"
                                     @click="openFaq = openFaq === 3 ? null : 3">
-                                    <h3 class="text-base font-semibold">What is luxteria's cancellation policy?</h3><span
+                                    <h3 class="text-base font-semibold">What is your cancellation and refund policy?</h3><span
                                         class="flex size-6 items-center"><i
                                             class="fa-sharp fa-light fa-plus fa-fw fa-lg transition-transform duration-200"
                                             :class="{ 'rotate-45': openFaq === 3 }"></i></span>
@@ -1036,9 +1036,7 @@
                                 x-transition:enter-start="opacity-0 max-h-0" x-transition:enter-end="opacity-100 max-h-96"
                                 x-transition:leave="transition ease-in duration-200"
                                 x-transition:leave-start="opacity-100 max-h-96" x-transition:leave-end="opacity-0 max-h-0">
-                                <p class="">Cancellations must be made at least 30 days prior to check-in for a partial refund,
-                                    minus a 25% cancellation fee. Cancellations made 13 days or fewer before check-in are
-                                    non-refundable, though the security deposit will be returned.</p>
+                                <p class="">To receive a partial refund, cancellations must be requested no later than 30 days before arrival and are subject to a 25% processing fee. Cancellations inside 13 days of check-in are not eligible for a refund; however, your security deposit will still be reimbursed.</p>
                             </dd>
                         </div>
                     </article>
@@ -1047,7 +1045,7 @@
                             <dt><button type="button" class="flex w-full items-start justify-between gap-6 text-left"
                                     aria-controls="faq-4" :aria-expanded="openFaq === 4"
                                     @click="openFaq = openFaq === 4 ? null : 4">
-                                    <h3 class="text-base font-semibold">Are pets allowed at luxteria properties?</h3><span
+                                    <h3 class="text-base font-semibold">Are furry friends welcome?</h3><span
                                         class="flex size-6 items-center"><i
                                             class="fa-sharp fa-light fa-plus fa-fw fa-lg transition-transform duration-200"
                                             :class="{ 'rotate-45': openFaq === 4 }"></i></span>
@@ -1057,8 +1055,7 @@
                                 x-transition:enter-start="opacity-0 max-h-0" x-transition:enter-end="opacity-100 max-h-96"
                                 x-transition:leave="transition ease-in duration-200"
                                 x-transition:leave-start="opacity-100 max-h-96" x-transition:leave-end="opacity-0 max-h-0">
-                                <p class="">Some luxteria homes are pet-friendly. Check the individual listing details or reach
-                                    out to our team to confirm if a property can accommodate your pet.</p>
+                                <p class="">Select homes are pet-friendly. Review the specific residence details or message our team to verify pet policies before booking.</p>
                             </dd>
                         </div>
                     </article>
@@ -1067,8 +1064,7 @@
                             <dt><button type="button" class="flex w-full items-start justify-between gap-6 text-left"
                                     aria-controls="faq-5" :aria-expanded="openFaq === 5"
                                     @click="openFaq = openFaq === 5 ? null : 5">
-                                    <h3 class="text-base font-semibold">Does luxteria offer personalized services during my
-                                        stay?</h3><span class="flex size-6 items-center"><i
+                                    <h3 class="text-base font-semibold">What bespoke services do you offer?</h3><span class="flex size-6 items-center"><i
                                             class="fa-sharp fa-light fa-plus fa-fw fa-lg transition-transform duration-200"
                                             :class="{ 'rotate-45': openFaq === 5 }"></i></span>
                                 </button></dt>
@@ -1077,8 +1073,7 @@
                                 x-transition:enter-start="opacity-0 max-h-0" x-transition:enter-end="opacity-100 max-h-96"
                                 x-transition:leave="transition ease-in duration-200"
                                 x-transition:leave-start="opacity-100 max-h-96" x-transition:leave-end="opacity-0 max-h-0">
-                                <p class="">Absolutely. We provide a range of luxury concierge services, including private
-                                    chefs, in-villa spa treatments, and custom itinerary planning to enhance your stay.</p>
+                                <p class="">From in-home private chefs and wellness treatments to fully customized itineraries, our concierge team crafts every detail around your preferences.</p>
                             </dd>
                         </div>
                     </article>
@@ -1087,8 +1082,7 @@
                             <dt><button type="button" class="flex w-full items-start justify-between gap-6 text-left"
                                     aria-controls="faq-6" :aria-expanded="openFaq === 6"
                                     @click="openFaq = openFaq === 6 ? null : 6">
-                                    <h3 class="text-base font-semibold">Can I use luxteria concierge services without booking a
-                                        villa?</h3><span class="flex size-6 items-center"><i
+                                    <h3 class="text-base font-semibold">Can I book concierge services on their own?</h3><span class="flex size-6 items-center"><i
                                             class="fa-sharp fa-light fa-plus fa-fw fa-lg transition-transform duration-200"
                                             :class="{ 'rotate-45': openFaq === 6 }"></i></span>
                                 </button></dt>
@@ -1097,8 +1091,7 @@
                                 x-transition:enter-start="opacity-0 max-h-0" x-transition:enter-end="opacity-100 max-h-96"
                                 x-transition:leave="transition ease-in duration-200"
                                 x-transition:leave-start="opacity-100 max-h-96" x-transition:leave-end="opacity-0 max-h-0">
-                                <p class="">Yes. Our concierge services are available independently of villa bookings and can be
-                                    arranged worldwide. Explore our offerings on the Concierge page.</p>
+                                <p class="">Yes. Our lifestyle services can be reserved independently in locations across the globe. Visit our Concierge page to browse options.</p>
                             </dd>
                         </div>
                     </article>
@@ -1107,8 +1100,7 @@
                             <dt><button type="button" class="flex w-full items-start justify-between gap-6 text-left"
                                     aria-controls="faq-7" :aria-expanded="openFaq === 7"
                                     @click="openFaq = openFaq === 7 ? null : 7">
-                                    <h3 class="text-base font-semibold">How does luxteria ensure guest privacy and discretion?
-                                    </h3><span class="flex size-6 items-center"><i
+                                    <h3 class="text-base font-semibold">How is my privacy protected during my stay?</h3><span class="flex size-6 items-center"><i
                                             class="fa-sharp fa-light fa-plus fa-fw fa-lg transition-transform duration-200"
                                             :class="{ 'rotate-45': openFaq === 7 }"></i></span>
                                 </button></dt>
@@ -1117,9 +1109,7 @@
                                 x-transition:enter-start="opacity-0 max-h-0" x-transition:enter-end="opacity-100 max-h-96"
                                 x-transition:leave="transition ease-in duration-200"
                                 x-transition:leave-start="opacity-100 max-h-96" x-transition:leave-end="opacity-0 max-h-0">
-                                <p class="">We prioritize complete discretion and privacy. Many of our villas offer private
-                                    entrances, gated access, and exclusive amenities to ensure your experience is both luxurious
-                                    and confidential.</p>
+                                <p class="">Your confidentiality is paramount. Each estate features gated or private entry, and our team operates under strict non-disclosure standards so your experience remains entirely discreet.</p>
                             </dd>
                         </div>
                     </article>
