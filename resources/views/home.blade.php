@@ -1169,6 +1169,12 @@ if (empty($heroVideosData)) {
 </article>
                 </li>
 </ul>
+    <div class="text-center pt-4">
+        <a href="https://luxteria.co/villas"
+           class="inline-flex items-center justify-center rounded-full border border-zinc-900 bg-zinc-900 px-8 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:bg-black hover:border-black tracking-[0.12em] uppercase">
+            View All Villas
+        </a>
+    </div>
 </div>
             <style>
     @keyframes marquee {
