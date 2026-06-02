@@ -644,12 +644,16 @@
             update();
         })();
     </script>
+    @php
+        $ctaPhone = $settings->mobile_phone ?? $settings->phone ?? '+1 (786) 981-0924';
+        $ctaPhoneDigits = preg_replace('/[^0-9+]/', '', $ctaPhone);
+    @endphp
     {{-- Floating Call CTA --}}
-    <a href="tel:+17869810924"
+    <a href="tel:{{ $ctaPhoneDigits }}"
        class="fixed bottom-4 left-1/2 -translate-x-1/2 md:left-auto md:right-6 md:bottom-6 md:translate-x-0 z-50 inline-flex items-center justify-center gap-2 rounded-full bg-white text-black border-2 border-black px-5 py-3 text-sm font-bold shadow-[0_8px_30px_rgba(0,0,0,0.5)] transition-all hover:bg-zinc-100 hover:scale-105 tracking-wide">
         <i class="fa-sharp fa-solid fa-phone"></i>
         <span class="md:hidden">Call Now</span>
-        <span class="hidden md:inline">+1 (786) 981-0924</span>
+        <span class="hidden md:inline">{{ $ctaPhone }}</span>
     </a>
 
     @livewireScripts
