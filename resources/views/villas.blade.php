@@ -139,10 +139,10 @@
                         </p>
                     </div>
 
-                    {{-- Planner Widget --}}
-                    <div class="relative z-50 w-full max-w-2xl mx-auto">
+                    {{-- Planner Widget hidden on villas page --}}
+                    {{-- <div class="relative z-50 w-full max-w-2xl mx-auto">
                         @livewire('site.planner')
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>
