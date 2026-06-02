@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactFormSubmitted;
 use App\Models\ContactMessage;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -32,6 +34,12 @@ class ContactController extends Controller
             'message' => $validated['message'],
             'marketing_consent' => $validated['marketing_consent'] ?? false,
         ]);
+
+        $recipient = 'office@luxteria.co';
+
+        if ($recipient) {
+            Mail::to($recipient)->send(new ContactFormSubmitted($validated));
+        }
 
         return redirect()->route('contact')->with('success', 'Thank you for your message. We will get back to you shortly.');
     }

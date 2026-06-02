@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\InquirySubmitted;
 use App\Models\Lead;
+use App\Models\Villa;
+use App\Models\Yacht;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class InquiryController extends Controller
 {
@@ -40,6 +44,18 @@ class InquiryController extends Controller
             'marketing_consent' => $validated['marketing_consent'] ?? false,
             'status' => 'new',
         ]);
+
+        $recipient = 'office@luxteria.co';
+
+        if ($recipient) {
+            $villa = $request->villa_id ? Villa::find($request->villa_id) : null;
+            $yacht = $request->yacht_id ? Yacht::find($request->yacht_id) : null;
+
+            Mail::to($recipient)->send(new InquirySubmitted(array_merge($validated, [
+                'villa' => $villa,
+                'yacht' => $yacht,
+            ])));
+        }
 
         return redirect()->back()->with('success', 'Thank you! Your inquiry has been submitted. Our concierge team will contact you shortly.');
     }
