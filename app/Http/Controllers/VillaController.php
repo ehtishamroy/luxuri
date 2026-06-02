@@ -54,7 +54,7 @@ class VillaController extends Controller
         $related = Villa::where('destination_id', $villa->destination_id)
             ->where('id', '!=', $villa->id)
             ->where('active', true)
-            ->limit(4)
+            ->limit(6)
             ->get();
 
         $globalSettings = HomepageSetting::first();

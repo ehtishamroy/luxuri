@@ -62,13 +62,13 @@
 
 
     @if($settings && $settings->favicon)
-        <link rel="icon" type="image/png" href="{{ asset('storage/' . $settings->favicon) }}" />
-        <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="{{ asset('storage/' . $settings->favicon) }}" />
-        <link rel="shortcut icon" href="{{ asset('storage/' . $settings->favicon) }}" />
+        <link rel="icon" type="image/png" href="{{ asset('storage/' . $settings->favicon) }}?v=2" />
+        <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="{{ asset('storage/' . $settings->favicon) }}?v=2" />
+        <link rel="shortcut icon" href="{{ asset('storage/' . $settings->favicon) }}?v=2" />
     @else
-        <link rel="icon" type="image/png" href="{{ asset('favicon-96x96.png') }}" />
-        <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}" />
-        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="icon" type="image/png" href="{{ asset('favicon-96x96.png') }}?v=2" />
+        <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}?v=2" />
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}?v=2" />
     @endif
     <link rel="manifest" href="{{ asset('site.webmanifest') }}" />
     <link rel="canonical" href="{{ url('/') }}">

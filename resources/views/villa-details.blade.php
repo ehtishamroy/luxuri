@@ -307,12 +307,8 @@
                         @foreach($related as $r)
                         <a href="{{ route('villas.show', $r->slug) }}" class="group block space-y-3">
                             <div class="overflow-hidden rounded-xl aspect-video">
-                                @if($r->first_image)
-                                    <img class="size-full object-cover  transition-transform duration-500"
-                                         loading="lazy" src="{{ $r->first_image }}" alt="{{ $r->title }}" />
-                                @else
-                                    <div class="size-full bg-zinc-800"></div>
-                                @endif
+                                <img class="size-full object-cover transition-transform duration-500"
+                                     loading="lazy" src="{{ $r->hero_image ?? asset('assets/images/placeholder.jpg') }}" alt="{{ $r->title }}" />
                             </div>
                             <h3 class="text-white font-light group-hover:text-amber-200 transition-colors">{{ $r->title }}</h3>
                             @if($r->price_per_night > 0)

@@ -169,10 +169,10 @@
                             <div class="space-y-4 text-shadow-lg/10">
                                 <h1
                                     class="text-3xl font-semibold tracking-wide text-center text-balance uppercase font-accent sm:text-5xl">
-                                    {{ $homepageSettings->hero_title ?? 'Discover Your Luxury Villa Rental' }}
+                                    {{ $homepageSettings->hero_title ?? 'Luxury Concierge & Villa Experiences in Miami' }}
                                 </h1>
-                                <p class="text-lg font-normal text-pretty text-center ">
-                                    {{ $homepageSettings->hero_subtitle ?? "Choose from luxteria's handpicked collection of high-end villas." }}
+                                <p class="text-lg font-normal text-pretty text-center">
+                                    {{ $homepageSettings->hero_subtitle ?? 'From private villas and yachts to VIP lifestyle services LUXTERIA handles every detail with discretion, speed, and luxury.' }}
                                 </p>
                             </div>
 
